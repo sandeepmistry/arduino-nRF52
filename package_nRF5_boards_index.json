@@ -45,24 +45,24 @@
           "systems": [
             {
               "host": "i386-apple-darwin11",
-              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2015-q4-major/+download/gcc-arm-none-eabi-5_2-2015q4-20151219-mac.tar.bz2",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gcc-arm-none-eabi-5_2-2015q4-20151219-mac.tar.bz2",
               "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-mac.tar.bz2",
               "size": "96372129",
               "checksum": "MD5:603bcce8e59683ac27054b3197a53254"
             },
             {
               "host": "i686-linux-gnu",
-              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2015-q4-major/+download/gcc-arm-none-eabi-5_2-2015q4-20151219-linux.tar.bz2",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gcc-arm-none-eabi-5_2-2015q4-20151219-linux.tar.bz2",
               "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-linux.tar.bz2",
               "size": "92811866",
               "checksum": "MD5:f88caac80b4444a17344f57ccb760b90"
             },
             {
               "host": "i686-mingw32",
-              "url": "https://launchpad.net/gcc-arm-embedded/5.0/5-2015-q4-major/+download/gcc-arm-none-eabi-5_2-2015q4-20151219-win32.zip",
-              "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-win32.zip",
-              "size": "122823224",
-              "checksum": "MD5:5b513d3453ecd5e2034eeb951a79607f"
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gcc-arm-none-eabi-5_2-2015q4-20151219-win32.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-win32.tar.bz2",
+              "size": "102981732",
+              "checksum": "MD5:32d950225b6c7c886f6225c1fc578934"
             }
           ]
         },
@@ -72,21 +72,21 @@
           "systems": [
             {
               "host": "i386-apple-darwin11",
-              "url": "http://sandeepmistry.github.io/arduino-nRF5/tools/gnuarmeclipse-openocd-osx-0.10.0-201601101000-dev.tgz",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gnuarmeclipse-openocd-osx-0.10.0-201601101000-dev.tgz",
               "archiveFileName": "gnuarmeclipse-openocd-osx-0.10.0-201601101000-dev.tar.gz",
               "size": "2413310",
               "checksum": "MD5:f49db2a1cc4ab543ae756a84655ce34c"
             },
             {
               "host": "i686-linux-gnu",
-              "url": "http://sandeepmistry.github.io/arduino-nRF5/tools/gnuarmeclipse-openocd-debian32-0.10.0-201601101000-dev.tgz",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gnuarmeclipse-openocd-debian32-0.10.0-201601101000-dev.tgz",
               "archiveFileName": "gnuarmeclipse-openocd-debian32-0.10.0-201601101000-dev.tar.gz",
               "size": "2517597",
               "checksum": "MD5:4ca0dd6d9c9ad24af2aa4eddec7717e1"
             },
             {
               "host": "i686-mingw32",
-              "url": "http://sandeepmistry.github.io/arduino-nRF5/tools/gnuarmeclipse-openocd-win32-0.10.0-201601101000-dev.tgz",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gnuarmeclipse-openocd-win32-0.10.0-201601101000-dev.tgz",
               "archiveFileName": "gnuarmeclipse-openocd-win32-0.10.0-201601101000-dev.tar.gz",
               "size": "2552427",
               "checksum": "MD5:8153c29c50429441f87a1425de05f53e"
