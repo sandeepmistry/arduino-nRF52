@@ -151,7 +151,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
 
   while(!_p_twim->EVENTS_RXSTARTED && !_p_twim->EVENTS_ERROR);
   _p_twim->EVENTS_RXSTARTED = 0x0UL;
-
+  
   while(!_p_twim->EVENTS_LASTRX && !_p_twim->EVENTS_ERROR);
   _p_twim->EVENTS_LASTRX = 0x0UL;
 
@@ -213,8 +213,10 @@ uint8_t TwoWire::endTransmission(bool stopBit)
 
   while(!_p_twim->EVENTS_TXSTARTED && !_p_twim->EVENTS_ERROR);
   _p_twim->EVENTS_TXSTARTED = 0x0UL;
-
-  while(!_p_twim->EVENTS_LASTTX && !_p_twim->EVENTS_ERROR);
+  
+  uint32_t t = micros(); while((micros()-t)<40);	//bojh
+  //bojh 
+  //while(!_p_twim->EVENTS_LASTTX && !_p_twim->EVENTS_ERROR);
   _p_twim->EVENTS_LASTTX = 0x0UL;
 
   if (stopBit || _p_twim->EVENTS_ERROR)
@@ -240,15 +242,18 @@ uint8_t TwoWire::endTransmission(bool stopBit)
 
     if (error == TWIM_ERRORSRC_ANACK_Msk)
     {
+	  Serial.println("r=2");
       return 2;
     }
     else if (error == TWIM_ERRORSRC_DNACK_Msk)
     {
       return 3;
+	  Serial.println("r=3");
     }
     else
     {
       return 4;
+	  Serial.println("r=4");
     }
   }
 
