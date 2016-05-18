@@ -63,7 +63,12 @@ extern void analogReference( eAnalogReference ulMode ) ;
  * \param ulValue
  */
 extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
-
+#define NEW_PWM
+#ifdef NEW_PWM
+extern void initPwm   (uint8_t pwmId, uint32_t ulFreq);
+extern void deinitPwm (uint8_t pwmId);
+extern void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId);
+#endif
 /*
  * \brief Reads the value from the specified analog pin.
  *
