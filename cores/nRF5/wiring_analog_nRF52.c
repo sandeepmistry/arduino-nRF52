@@ -370,7 +370,7 @@ void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId)
 		initPwm(pwmId, 500); 		// also standard frequency
 	}
 
-	uint32_t aPin = ulPin;
+	//uint32_t aPin = ulPin;
 	ulPin = g_ADigitalPinMap[ulPin];
 	
 	for (uint8_t ci = 0; ci < NRF_PWM_CHANNEL_COUNT; ci++) {
