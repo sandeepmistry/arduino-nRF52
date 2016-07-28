@@ -59,6 +59,13 @@
               "checksum": "MD5:f88caac80b4444a17344f57ccb760b90"
             },
             {
+              "host": "x86_64-pc-linux-gnu",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gcc-arm-none-eabi-5_2-2015q4-20151219-linux.tar.bz2",
+              "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-linux.tar.bz2",
+              "size": "92811866",
+              "checksum": "MD5:f88caac80b4444a17344f57ccb760b90"
+            },
+            {
               "host": "i686-mingw32",
               "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/gcc-arm-none-eabi-5_2-2015q4-20151219-win32.tar.bz2",
               "archiveFileName": "gcc-arm-none-eabi-5_2-2015q4-20151219-win32.tar.bz2",
@@ -80,6 +87,13 @@
             },
             {
               "host": "i686-linux-gnu",
+              "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/openocd-linux32-0.10.0-dev-nrf5.tar.gz",
+              "archiveFileName": "openocd-linux32-0.10.0-dev-nrf5.tar.gz",
+              "size": "3585042",
+              "checksum": "MD5:02b3f4a3004cae86631bf13837c84504"
+            },
+            {
+              "host": "x86_64-pc-linux-gnu",
               "url": "https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/openocd-linux32-0.10.0-dev-nrf5.tar.gz",
               "archiveFileName": "openocd-linux32-0.10.0-dev-nrf5.tar.gz",
               "size": "3585042",
