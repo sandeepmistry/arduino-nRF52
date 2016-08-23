@@ -59,11 +59,11 @@ nRF52DK.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
 nRF52DK.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 nRF52DK.menu.lfclk.lfxo=Crystal Oscillator
-nRF52DK.menu.lfclk.lfxo.build.custom_flags=-DUSE_LFXO
+nRF52DK.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
 nRF52DK.menu.lfclk.lfrc=RC Oscillator
-nRF52DK.menu.lfclk.lfrc.build.custom_flags=-DUSE_LFRC
+nRF52DK.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 nRF52DK.menu.lfclk.lfsynt=Synthesized
-nRF52DK.menu.lfclk.lfsynt.build.custom_flags=-DUSE_LFSYNT
+nRF52DK.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 BluzDK.name=Bluz DK
 
