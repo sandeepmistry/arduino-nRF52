@@ -18,6 +18,8 @@
 menu.chip=Chip
 menu.softdevice=Softdevice
 menu.version=Version
+menu.lfclk=Low Frequency Clock
+
 
 nRF52DK.name=nRF52 DK
 
@@ -56,6 +58,12 @@ nRF52DK.menu.softdevice.s132.upload.maximum_size=409600
 nRF52DK.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
 nRF52DK.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
+nRF52DK.menu.lfclk.lfxo=Crystal Oscillator
+nRF52DK.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+nRF52DK.menu.lfclk.lfrc=RC Oscillator
+nRF52DK.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+nRF52DK.menu.lfclk.lfsynt=Synthesized
+nRF52DK.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 BluzDK.name=Bluz DK
 
