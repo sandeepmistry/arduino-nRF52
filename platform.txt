@@ -51,9 +51,10 @@ compiler.define=-DARDUINO=
 # this can be overriden in boards.txt
 build.extra_flags=
 build.lfclk_flags=
+
 nrf.sdk.path={runtime.platform.path}/cores/nRF5/SDK
 
-compiler.nrf.flags=-DNRF5 "-I{nrf.sdk.path}/components/toolchain/" "-I{nrf.sdk.path}/components/toolchain/CMSIS/Include" "-I{nrf.sdk.path}/components/toolchain/gcc/" "-I{nrf.sdk.path}/components/drivers_nrf/hal/" "-I{nrf.sdk.path}/components/device/" "-I{nrf.sdk.path}/components/softdevice/{softdevice}/headers/"
+compiler.nrf.flags=-DNRF5 "-I{nrf.sdk.path}/components/toolchain/" "-I{nrf.sdk.path}/components/toolchain/CMSIS/Include" "-I{nrf.sdk.path}/components/toolchain/gcc/" "-I{nrf.sdk.path}/components/device/" "-I{nrf.sdk.path}/components/drivers_nrf/delay/" "-I{nrf.sdk.path}/components/softdevice/{softdevice}/headers/"
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags={compiler.nrf.flags}
@@ -100,6 +101,10 @@ recipe.output.save_file_hex={build.project_name}.save.hex
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=\.text\s+([0-9]+).*
+
+## Export Compiled Binary
+recipe.output.tmp_file={build.project_name}.hex
+recipe.output.save_file={build.project_name}.{build.variant}.hex
 
 #
 # OpenOCD sketch upload
