@@ -12,6 +12,10 @@ Program [Nordic Semiconductor](https://www.nordicsemi.com) nR5 based boards with
  * [BBC micro:bit](https://www.microbit.co.uk/)
  * [OSHChip](http://www.oshchip.org/)
 
+### Special Note
+
+Please be aware that this Arduino core utilizes lowercase "b" for binary integers instead of the normal uppercase "B" as in other Arduino cores. This is due to the fact that B0 and B1 are used within the Nordic SDK.
+
 ## Installing
 
 ### Board Manager
