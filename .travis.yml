@@ -28,3 +28,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:BBCmicrobit 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Generic_nRF51822:chip=xxac 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:OSHChip 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:STCT_nRF52_minidev 01.Basics Blink

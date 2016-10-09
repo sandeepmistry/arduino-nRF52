@@ -64,6 +64,43 @@ nRF52DK.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 nRF52DK.menu.lfclk.lfsynt=Synthesized
 nRF52DK.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
+
+STCT_nRF52_minidev.name=Taida Century nRF52 mini board
+
+STCT_nRF52_minidev.upload.tool=sandeepmistry:openocd
+STCT_nRF52_minidev.upload.target=nrf52
+STCT_nRF52_minidev.upload.maximum_size=524288
+
+STCT_nRF52_minidev.bootloader.tool=sandeepmistry:openocd
+
+STCT_nRF52_minidev.build.mcu=cortex-m4
+STCT_nRF52_minidev.build.f_cpu=16000000
+STCT_nRF52_minidev.build.board=STCT_NRF52_minidev
+STCT_nRF52_minidev.build.core=nRF5
+STCT_nRF52_minidev.build.variant=Taida_Century_nRF52_minidev
+STCT_nRF52_minidev.build.variant_system_lib=
+STCT_nRF52_minidev.build.extra_flags=-DNRF52
+STCT_nRF52_minidev.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+STCT_nRF52_minidev.build.ldscript=nrf52_xxaa.ld
+
+STCT_nRF52_minidev.menu.softdevice.none=None
+STCT_nRF52_minidev.menu.softdevice.none.softdevice=none
+
+STCT_nRF52_minidev.menu.softdevice.s132=S132
+STCT_nRF52_minidev.menu.softdevice.s132.softdevice=s132
+STCT_nRF52_minidev.menu.softdevice.s132.softdeviceversion=2.0.1
+STCT_nRF52_minidev.menu.softdevice.s132.upload.maximum_size=409600
+STCT_nRF52_minidev.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+STCT_nRF52_minidev.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+STCT_nRF52_minidev.menu.lfclk.lfxo=Crystal Oscillator
+STCT_nRF52_minidev.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+STCT_nRF52_minidev.menu.lfclk.lfrc=RC Oscillator
+STCT_nRF52_minidev.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+STCT_nRF52_minidev.menu.lfclk.lfsynt=Synthesized
+STCT_nRF52_minidev.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+
 BluzDK.name=Bluz DK
 
 BluzDK.upload.tool=sandeepmistry:openocd
@@ -182,7 +219,6 @@ RedBearLab_nRF51822.menu.softdevice.s130.softdeviceversion=2.0.1
 RedBearLab_nRF51822.menu.softdevice.s130.upload.maximum_size=151552
 RedBearLab_nRF51822.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 RedBearLab_nRF51822.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
-
 
 BBCmicrobit.name=BBC micro:bit
 
