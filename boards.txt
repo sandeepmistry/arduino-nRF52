@@ -261,7 +261,7 @@ BBCmicrobit.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 BBCmicrobit.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
 
-Generic_nRF51822.name=Generic nRF51822
+Generic_nRF51822.name=Generic nRF51
 
 Generic_nRF51822.upload.tool=sandeepmistry:openocd
 Generic_nRF51822.upload.target=nrf51
@@ -307,6 +307,42 @@ Generic_nRF51822.menu.lfclk.lfrc=RC Oscillator
 Generic_nRF51822.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 Generic_nRF51822.menu.lfclk.lfsynt=Synthesized
 Generic_nRF51822.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+
+Generic_nRF52832.name=Generic nRF52
+
+Generic_nRF52832.upload.tool=sandeepmistry:openocd
+Generic_nRF52832.upload.target=nrf52
+Generic_nRF52832.upload.maximum_size=524288
+
+Generic_nRF52832.bootloader.tool=sandeepmistry:openocd
+
+Generic_nRF52832.build.mcu=cortex-m4
+Generic_nRF52832.build.f_cpu=16000000
+Generic_nRF52832.build.board=GENERIC
+Generic_nRF52832.build.core=nRF5
+Generic_nRF52832.build.variant=Generic
+Generic_nRF52832.build.variant_system_lib=
+Generic_nRF52832.build.extra_flags=-DNRF52
+Generic_nRF52832.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+Generic_nRF52832.build.ldscript=nrf52_xxaa.ld
+
+Generic_nRF52832.menu.softdevice.none=None
+Generic_nRF52832.menu.softdevice.none.softdevice=none
+
+Generic_nRF52832.menu.softdevice.s132=S132
+Generic_nRF52832.menu.softdevice.s132.softdevice=s132
+Generic_nRF52832.menu.softdevice.s132.softdeviceversion=2.0.1
+Generic_nRF52832.menu.softdevice.s132.upload.maximum_size=409600
+Generic_nRF52832.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+Generic_nRF52832.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+Generic_nRF52832.menu.lfclk.lfxo=Crystal Oscillator
+Generic_nRF52832.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Generic_nRF52832.menu.lfclk.lfrc=RC Oscillator
+Generic_nRF52832.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Generic_nRF52832.menu.lfclk.lfsynt=Synthesized
+Generic_nRF52832.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 
 Waveshare_BLE400.name=Waveshare BLE400
