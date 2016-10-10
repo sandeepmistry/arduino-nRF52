@@ -30,6 +30,7 @@ class Uart : public HardwareSerial
 {
   public:
     Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX);
+    Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS );
     void begin(unsigned long baudRate);
     void begin(unsigned long baudrate, uint16_t config);
     void end();
@@ -52,6 +53,10 @@ class Uart : public HardwareSerial
 
     uint8_t uc_pinRX;
     uint8_t uc_pinTX;
+    uint8_t uc_pinCTS;
+    uint8_t uc_pinRTS;
+    uint8_t uc_do_hwflow;
+
 };
 
 #ifdef __cplusplus
