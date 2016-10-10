@@ -19,6 +19,7 @@ menu.chip=Chip
 menu.softdevice=Softdevice
 menu.version=Version
 menu.lfclk=Low Frequency Clock
+menu.board_variant=Board Variant
 
 nRF52DK.name=nRF52 DK
 
@@ -422,3 +423,57 @@ OSHChip.menu.softdevice.s130.softdeviceversion=2.0.1
 OSHChip.menu.softdevice.s130.upload.maximum_size=151552
 OSHChip.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 OSHChip.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxac.ld
+
+PCA1000X.name=nRF51X22 Development Kit(PCA1000X)
+
+PCA1000X.upload.tool=sandeepmistry:openocd
+PCA1000X.upload.target=nrf51
+PCA1000X.upload.maximum_size=262144
+
+PCA1000X.bootloader.tool=sandeepmistry:openocd
+
+PCA1000X.build.mcu=cortex-m0
+PCA1000X.build.f_cpu=16000000
+PCA1000X.build.board=PCA1000X
+PCA1000X.build.core=nRF5
+PCA1000X.build.variant=PCA1000X
+PCA1000X.build.variant_system_lib=
+PCA1000X.build.extra_flags=-DNRF51 -D{board.variant}
+PCA1000X.build.float_flags=
+PCA1000X.build.ldscript=nrf51_xxaa.ld
+
+PCA1000X.upload.tool=sandeepmistry:openocd
+PCA1000X.upload.protocol=
+PCA1000X.upload.interface=jlink
+PCA1000X.upload.target=nrf51
+PCA1000X.upload.maximum_size=262144
+PCA1000X.upload.setup_command=transport select swd; set WORKAREASIZE 0;
+
+PCA1000X.menu.board_variant.pca10000=PCA10000
+PCA1000X.menu.board_variant.pca10000.board.variant=PCA10000
+PCA1000X.menu.board_variant.nrf6310=PCA1000X (via nRF6310)
+PCA1000X.menu.board_variant.nrf6310.board.variant=NRF6310
+
+PCA1000X.menu.softdevice.none=None
+PCA1000X.menu.softdevice.none.softdevice=none
+
+PCA1000X.menu.softdevice.s110=S110
+PCA1000X.menu.softdevice.s110.softdevice=s110
+PCA1000X.menu.softdevice.s110.softdeviceversion=8.0.0
+PCA1000X.menu.softdevice.s110.upload.maximum_size=151552
+PCA1000X.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+PCA1000X.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+PCA1000X.menu.softdevice.s130=S130
+PCA1000X.menu.softdevice.s130.softdevice=s130
+PCA1000X.menu.softdevice.s130.softdeviceversion=2.0.1
+PCA1000X.menu.softdevice.s130.upload.maximum_size=151552
+PCA1000X.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+PCA1000X.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+
+PCA1000X.menu.lfclk.lfxo=Crystal Oscillator
+PCA1000X.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+PCA1000X.menu.lfclk.lfrc=RC Oscillator
+PCA1000X.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+PCA1000X.menu.lfclk.lfsynt=Synthesized
+PCA1000X.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
