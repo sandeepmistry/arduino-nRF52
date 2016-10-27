@@ -8,13 +8,22 @@ Does not require a custom bootloader on the device.
 
 ## Supported boards
 
- * [nRF52 DK](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF52-DK)
+### nRF52
+ * [Plain nRF52 MCU](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF52832)
+ * [Nordic Semiconductor nRF52 DK](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF52-DK)
    * For boards prior to ```2016.9``` (see sticker), the lastest JLink bootloader is required to upload sketches. To upgrade, press the boot/reset button while powering on the board and copy over the latest [bootloader](https://www.nordicsemi.com/eng/nordic/Products/nRF52-DK/nRF5x-OB-JLink-IF/52275).
+ * [Shenzhen Taida Century Technology nRF52 low cost development board](https://www.aliexpress.com/item/NRF52832-high-cost-development-board-gold-core-board/32725601299.html)
+
+### nRF51
+ * [Plain nRF51 MCU](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
+ * [BBC micro:bit](https://www.microbit.co.uk/)
  * [Bluz DK](http://bluz.io)
+ * Nordic Semiconductor  [nRF51822 Development Kit](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822-Development-Kit) + [nRF51422 Development Kit](https://www.nordicsemi.com/eng/Products/ANT/nRF51422-Development-Kit)
+  * PCA10000
+  * PCA10001, PCA10002, PCA10003, PCA10004 via nRF6310(nRFgo)
+ * [OSHChip](http://www.oshchip.org/)
  * [RedBearLab BLE Nano](http://redbearlab.com/blenano/)
  * [RedBearLab nRF51822](http://redbearlab.com/redbearlab-nrf51822/)
- * [BBC micro:bit](https://www.microbit.co.uk/)
- * [OSHChip](http://www.oshchip.org/)
 
 ## Installing
 
