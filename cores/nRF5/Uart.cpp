@@ -27,18 +27,18 @@ Uart::Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pi
   IRQn = _IRQn;
   uc_pinRX = g_ADigitalPinMap[_pinRX];
   uc_pinTX = g_ADigitalPinMap[_pinTX];
-  uc_do_hwflow = 0;
+  uc_hwFlow = 0;
 }
 
-Uart::Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS )
+Uart::Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS)
 {
   nrfUart = _nrfUart;
   IRQn = _IRQn;
   uc_pinRX = g_ADigitalPinMap[_pinRX];
   uc_pinTX = g_ADigitalPinMap[_pinTX];
   uc_pinCTS = g_ADigitalPinMap[_pinCTS];
-  uc_pinRTS = g_ADigitalPinMap[_pinRTS];  
-  uc_do_hwflow = 1;
+  uc_pinRTS = g_ADigitalPinMap[_pinRTS];
+  uc_hwFlow = 1;
 }
 
 void Uart::begin(unsigned long baudrate)
@@ -50,8 +50,8 @@ void Uart::begin(unsigned long baudrate, uint16_t /*config*/)
 {
   nrfUart->PSELTXD = uc_pinTX;
   nrfUart->PSELRXD = uc_pinRX;
-  
-  if (uc_do_hwflow == 1) {
+
+  if (uc_hwFlow == 1) {
     nrfUart->PSELCTS = uc_pinCTS;
     nrfUart->PSELRTS = uc_pinRTS;
     nrfUart->CONFIG = (UART_CONFIG_PARITY_Excluded << UART_CONFIG_PARITY_Pos) | UART_CONFIG_HWFC_Enabled;

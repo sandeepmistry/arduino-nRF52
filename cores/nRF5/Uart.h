@@ -55,8 +55,7 @@ class Uart : public HardwareSerial
     uint8_t uc_pinTX;
     uint8_t uc_pinCTS;
     uint8_t uc_pinRTS;
-    uint8_t uc_do_hwflow;
-
+    uint8_t uc_hwFlow;
 };
 
 #ifdef __cplusplus
