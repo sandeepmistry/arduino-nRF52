@@ -51,7 +51,7 @@ static uint16_t pwmChannelSequence[PWM_COUNT];
 
 #define NRF_PWM_CHANNEL_COUNT 4    
 #define NRF_PWM_PIN_NOT_CONNECTED 0xFFFFFFFF
-static uint32_t pwmFrequency[PWM_COUNT] = { 0, 0, 0 };
+static float    pwmFrequency[PWM_COUNT] = { 0.,0.,0.};
 static uint16_t pwmTopCount[PWM_COUNT]  = { 0, 0, 0 };
 static uint32_t pwmChannelPins[PWM_COUNT][NRF_PWM_CHANNEL_COUNT] = {
   {NRF_PWM_PIN_NOT_CONNECTED, NRF_PWM_PIN_NOT_CONNECTED, NRF_PWM_PIN_NOT_CONNECTED,NRF_PWM_PIN_NOT_CONNECTED},
@@ -281,7 +281,7 @@ extern  void a_printf(const char *fmt, ... );
 
 void analogWrite(uint32_t ulPin, uint32_t ulValue )
 {
-	if (pwmFrequency[0]==0) initPwm(0, 500);
+	if (pwmFrequency[0]==0.) initPwm(0, 500.);
 	analogWritePwm(ulPin, ulValue, 0);
 }
 
@@ -293,38 +293,39 @@ void deinitPwm(uint8_t pwmId)
 	
 	//nrf_pwm_disable(pwms[pwmId]);
 	pwms[pwmId]->ENABLE = (PWM_ENABLE_ENABLE_Disabled << PWM_ENABLE_ENABLE_Pos);
-	pwmFrequency[pwmId] = 0;
+	pwmFrequency[pwmId] = 0.;
 	pwmTopCount[pwmId]  = 0;		
 }
+
 /*
  *
  */
-void initPwm(uint8_t pwmId, uint32_t ulFreq)
+void initPwm(uint8_t pwmId, float fFreq)
 {
 	
 	if (pwmId>=PWM_COUNT) {
 		return;
 	}
 	
-	if (ulFreq!=pwmFrequency[pwmId]) {
+	if (fFreq!=pwmFrequency[pwmId]) {
 		uint32_t preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
-		uint32_t oFreq = ulFreq;
-		if (ulFreq >512) {
+		//float oFreq = fFreq;
+		if (fFreq >512.) {
 			uint32_t maxFreq = 16000000/((1<<writeResolution)-1);
-			if (ulFreq>maxFreq) ulFreq = maxFreq; //writeRes 8:62745Hz; 9:31331Hz; 10:15640Hz
+			if (fFreq>(float)maxFreq) fFreq = (float)maxFreq; //writeRes 8:62745Hz; 9:31331Hz; 10:15640Hz
 			preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
 		}
-		else if (ulFreq >256) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_2;
-		else if (ulFreq >128) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_4;
-		else if (ulFreq > 64) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_8;
-		else if (ulFreq > 32) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_16;
-		else if (ulFreq > 16) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_32;
-		else if (ulFreq >  8) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_64;
+		else if (fFreq >256.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_2;
+		else if (fFreq >128.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_4;
+		else if (fFreq > 64.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_8;
+		else if (fFreq > 32.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_16;
+		else if (fFreq > 16.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_32;
+		else if (fFreq >  8.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_64;
 		else {
-			if (ulFreq < 4) ulFreq = 4;
+			if (fFreq < 4.) fFreq = 4.;
 			preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_128;
 		}
-		uint32_t topCntValue = 16000000/(ulFreq << preScaleDiv_X);	// max. 15bit! = 32767!
+		float topCntValue = (float)(16000000/(1<<preScaleDiv_X)) / fFreq;	// <= 32767. (max. 15bit)!
 
 		//nrf_pwm_configure(pwms[pwmId], preScaleDiv_X, NRF_PWM_MODE_UP, (uint16_t)topCntValue);
 		pwms[pwmId]->PRESCALER  = preScaleDiv_X;
@@ -352,9 +353,9 @@ void initPwm(uint8_t pwmId, uint32_t ulFreq)
 		//*((volatile uint32_t *)((uint8_t *)pwm + (uint32_t)NRF_PWM_TASK_SEQSTART0)) = 0x1UL;
 		pwm->TASKS_SEQSTART[0] = 0x1UL;
 		
-		pwmFrequency[pwmId] = ulFreq;
-		pwmTopCount[pwmId]  = topCntValue;		
-		//a_printf("pwmId:%d, of:%5dHz pf:%5dHz, T:%5d\n", pwmId, oFreq, ulFreq, topCntValue);
+		pwmFrequency[pwmId] = fFreq;
+		pwmTopCount[pwmId]  = (uint16_t)topCntValue;		
+		//a_printf("pwmId:%d, of:%5.2fHz pf:%5.2fHz, T:%5d\n", pwmId, oFreq, fFreq, (uint16_t)topCntValue);
 	}
 }
 
@@ -367,7 +368,7 @@ void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId)
 		return;
 	}
 	if (pwmFrequency[pwmId]==0) {	// frequency not set yet!
-		initPwm(pwmId, 500); 		// also standard frequency
+		initPwm(pwmId, 500.); 		// also standard frequency
 	}
 
 	//uint32_t aPin = ulPin;
