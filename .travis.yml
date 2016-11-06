@@ -17,6 +17,7 @@ before_install:
   - export PATH=$PATH:$HOME/arduino-ide
   - arduino --pref "boardsmanager.additional.urls=https://sandeepmistry.github.io/arduino-nRF5/package_nRF5_boards_index.json" --install-boards sandeepmistry:nRF5 > /dev/null
   - buildExampleSketch() { arduino --verbose-build --verify --board $1 $HOME/arduino-ide/examples/$2/$3/$3.ino; }
+  - buildNRF5Sketch() { arduino --verbose-build --verify --board $1 $HOME/Arduino/hardware/sandeepmistry/nRF5/libraries/$2/examples/$3/$3.ino; }
 install:
   - mkdir -p $HOME/Arduino/hardware/sandeepmistry
   - ln -s $PWD $HOME/Arduino/hardware/sandeepmistry/nRF5
@@ -32,3 +33,5 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:STCT_nRF52_minidev 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=pca10000 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=nrf6310 01.Basics Blink
+  - buildNRF5Sketch sandeepmistry:nRF5:Generic_nRF51822:chip=xxac TrueRandom AllFunctions
+  - buildNRF5Sketch sandeepmistry:nRF5:Generic_nRF52832 TrueRandom AllFunctions
