@@ -29,7 +29,7 @@ Does not require a custom bootloader on the device.
 
 ### Board Manager
 
- 1. [Download and install the Arduino IDE](https://www.arduino.cc/en/Main/Software)(At least v1.6.12)
+ 1. [Download and install the Arduino IDE](https://www.arduino.cc/en/Main/Software) (At least v1.6.12)
  2. Start the Arduino IDE
  3. Go into Preferences
  4. Add ```https://sandeepmistry.github.io/arduino-nRF5/package_nRF5_boards_index.json``` as an "Additional Board Manager URL"
