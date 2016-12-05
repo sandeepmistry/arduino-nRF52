@@ -32,4 +32,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:STCT_nRF52_minidev 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=pca10000 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=nrf6310 01.Basics Blink
-  - buildExampleSketch sandeepmistry:nRF5:nRF51Dongle:chip=xxac 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:nRF51Dongle:version=1_1_0 01.Basics Blink
