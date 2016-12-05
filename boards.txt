@@ -137,6 +137,38 @@ BluzDK.menu.softdevice.s130.upload.maximum_size=151552
 BluzDK.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 BluzDK.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxac.ld
 
+nRF51Dongle.name= nRF51 Dongle (PCA10031)
+
+nRF51Dongle.upload.tool=sandeepmistry:openocd
+nRF51Dongle.upload.interface=cmsisdap
+nRF51Dongle.upload.target=nrf51
+nRF51Dongle.upload.maximum_size=262144
+
+nRF51Dongle.bootloader.tool=sandeepmistry:openocd
+
+nRF51Dongle.build.mcu=cortex-m0
+nRF51Dongle.build.f_cpu=16000000
+nRF51Dongle.build.board=GENERIC
+nRF51Dongle.build.core=nRF5
+nRF51Dongle.build.variant=nRF51Dongle
+nRF51Dongle.build.variant_system_lib=
+nRF51Dongle.build.extra_flags=-DNRF51
+nRF51Dongle.build.float_flags=
+nRF51Dongle.build.ldscript=nrf51_{build.chip}.ld
+nRF51Dongle.build.lfclk_flags=-DUSE_LFXO
+
+nRF51Dongle.menu.version.1_1_0=1.1.0
+nRF51Dongle.menu.version.1_1_0.build.chip=xxac
+
+nRF51Dongle.menu.softdevice.none=None
+nRF51Dongle.menu.softdevice.none.softdevice=none
+
+nRF51Dongle.menu.softdevice.s130=S130
+nRF51Dongle.menu.softdevice.s130.softdevice=s130
+nRF51Dongle.menu.softdevice.s130.softdeviceversion=2.0.1
+nRF51Dongle.menu.softdevice.s130.upload.maximum_size=151552
+nRF51Dongle.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+nRF51Dongle.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
 
 BLENano.name=RedBearLab BLE Nano
 
