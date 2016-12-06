@@ -163,6 +163,13 @@ nRF51Dongle.menu.version.1_1_0.build.chip=xxac
 nRF51Dongle.menu.softdevice.none=None
 nRF51Dongle.menu.softdevice.none.softdevice=none
 
+nRF51Dongle.menu.softdevice.s110=S110
+nRF51Dongle.menu.softdevice.s110.softdevice=s110
+nRF51Dongle.menu.softdevice.s110.softdeviceversion=8.0.0
+nRF51Dongle.menu.softdevice.s110.upload.maximum_size=151552
+nRF51Dongle.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+nRF51Dongle.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_{build.chip}.ld
+
 nRF51Dongle.menu.softdevice.s130=S130
 nRF51Dongle.menu.softdevice.s130.softdevice=s130
 nRF51Dongle.menu.softdevice.s130.softdeviceversion=2.0.1
