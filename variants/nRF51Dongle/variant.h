@@ -32,8 +32,8 @@ extern "C"
 #endif // __cplusplus
 
 // Number of pins defined in PinDescription array
-#define PINS_COUNT           (32u)
-#define NUM_DIGITAL_PINS     (32u)
+#define PINS_COUNT           (11u)
+#define NUM_DIGITAL_PINS     (11u)
 #define NUM_ANALOG_INPUTS    (6u)
 #define NUM_ANALOG_OUTPUTS   (0u)
 
@@ -68,29 +68,6 @@ static const uint8_t A5  = PIN_A5 ;
 // Serial
 #define PIN_SERIAL_RX       (11)
 #define PIN_SERIAL_TX       (9)
-
-
-/*
- * SPI Interfaces
- */
-//#define SPI_INTERFACES_COUNT 0
-
-//#define PIN_SPI_MISO         (0)
-//#define PIN_SPI_MOSI         (1)
-//#define PIN_SPI_SCK          (3)
-
-//static const uint8_t SS   = 2 ;
-//static const uint8_t MOSI = PIN_SPI_MOSI ;
-//static const uint8_t MISO = PIN_SPI_MISO ;
-//static const uint8_t SCK  = PIN_SPI_SCK ;
-
-/*
- * Wire Interfaces
- */
-//#define WIRE_INTERFACES_COUNT 0
-
-//#define PIN_WIRE_SDA         (2u)
-//#define PIN_WIRE_SCL         (3u)
 
 #ifdef __cplusplus
 }
