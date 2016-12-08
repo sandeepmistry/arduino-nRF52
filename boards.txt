@@ -516,3 +516,50 @@ PCA1000X.menu.lfclk.lfrc=RC Oscillator
 PCA1000X.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 PCA1000X.menu.lfclk.lfsynt=Synthesized
 PCA1000X.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+
+Arch_BLE.name=Arch BLE
+
+Arch_BLE.vid.0=0x0d28
+Arch_BLE.pid.0=0x0204
+
+Arch_BLE.upload.tool=sandeepmistry:openocd
+Arch_BLE.upload.interface=cmsisdap
+Arch_BLE.upload.target=nrf51
+Arch_BLE.upload.maximum_size=262144
+
+Arch_BLE.bootloader.tool=sandeepmistry:openocd
+
+Arch_BLE.build.mcu=cortex-m0
+Arch_BLE.build.f_cpu=16000000
+Arch_BLE.build.board=ARCH_BLE
+Arch_BLE.build.core=nRF5
+Arch_BLE.build.variant=Arch_BLE
+Arch_BLE.build.variant_system_lib=
+Arch_BLE.build.extra_flags=-DNRF51
+Arch_BLE.build.float_flags=
+Arch_BLE.build.ldscript=nrf51_xxaa.ld
+
+Arch_BLE.menu.softdevice.none=None
+Arch_BLE.menu.softdevice.none.softdevice=none
+
+Arch_BLE.menu.softdevice.s110=S110
+Arch_BLE.menu.softdevice.s110.softdevice=s110
+Arch_BLE.menu.softdevice.s110.softdeviceversion=8.0.0
+Arch_BLE.menu.softdevice.s110.upload.maximum_size=151552
+Arch_BLE.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+Arch_BLE.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+Arch_BLE.menu.softdevice.s130=S130
+Arch_BLE.menu.softdevice.s130.softdevice=s130
+Arch_BLE.menu.softdevice.s130.softdeviceversion=2.0.1
+Arch_BLE.menu.softdevice.s130.upload.maximum_size=151552
+Arch_BLE.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+Arch_BLE.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+
+Arch_BLE.menu.lfclk.lfxo=Crystal Oscillator
+Arch_BLE.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Arch_BLE.menu.lfclk.lfrc=RC Oscillator
+Arch_BLE.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Arch_BLE.menu.lfclk.lfsynt=Synthesized
+Arch_BLE.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
