@@ -89,12 +89,12 @@ void analogReference( eAnalogReference ulMode )
     case AR_INTERNAL:
     default:
       saadcReference = SAADC_CH_CONFIG_REFSEL_Internal;
-	  saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
+      saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
       break;
 
     case AR_VDD4:
       saadcReference = SAADC_CH_CONFIG_REFSEL_VDD1_4;
-	  saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_4;
+      saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_4;
       break;
   }
 }
