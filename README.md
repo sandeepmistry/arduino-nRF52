@@ -24,6 +24,7 @@ Does not require a custom bootloader on the device.
  * [OSHChip](http://www.oshchip.org/)
  * [RedBearLab BLE Nano](http://redbearlab.com/blenano/)
  * [RedBearLab nRF51822](http://redbearlab.com/redbearlab-nrf51822/)
+ * [Nordic NRF51 Dongle](http://www.nordicsemi.com/eng/Products/nRF51-Dongle)
 
 ## Installing
 
