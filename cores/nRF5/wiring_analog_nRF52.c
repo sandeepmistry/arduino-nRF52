@@ -247,7 +247,7 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
     if (pwmChannelPins[i] == 0xFFFFFFFF || pwmChannelPins[i] == ulPin) {
       pwmChannelPins[i] = ulPin;
       pwmChannelSequence[i] = ulValue;
-	  pwmChannelSequence[i]|= 1<<15; //JH
+      pwmChannelSequence[i]|= 1<<15; //set invert bit
 
       NRF_PWM_Type* pwm = pwms[i];
 
@@ -260,8 +260,8 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
       pwm->MODE = PWM_MODE_UPDOWN_Up;
       pwm->COUNTERTOP = (1 << writeResolution) - 1;
       pwm->LOOP = 0;
-      pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Common << PWM_DECODER_LOAD_Pos) 		//JH initPWM?
-	               | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);	//JH initPWM?
+      pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Common << PWM_DECODER_LOAD_Pos)
+                   | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
       pwm->SEQ[0].PTR = (uint32_t)&pwmChannelSequence[i];
       pwm->SEQ[0].CNT = 1;
       pwm->SEQ[0].REFRESH  = 1;
@@ -281,20 +281,19 @@ extern  void a_printf(const char *fmt, ... );
 
 void analogWrite(uint32_t ulPin, uint32_t ulValue )
 {
-	if (pwmFrequency[0]==0.) initPwm(0, 500.);
-	analogWritePwm(ulPin, ulValue, 0);
+  if (pwmFrequency[0]==0.) initPwm(0, 500.);
+  analogWritePwm(ulPin, ulValue, 0);
 }
 
 void deinitPwm(uint8_t pwmId)
 {
-	if (pwmId>=PWM_COUNT) {
-		return;
-	}
-	
-	//nrf_pwm_disable(pwms[pwmId]);
-	pwms[pwmId]->ENABLE = (PWM_ENABLE_ENABLE_Disabled << PWM_ENABLE_ENABLE_Pos);
-	pwmFrequency[pwmId] = 0.;
-	pwmTopCount[pwmId]  = 0;		
+  if (pwmId>=PWM_COUNT) {
+    return;
+  }
+  //nrf_pwm_disable(pwms[pwmId]);
+  pwms[pwmId]->ENABLE = (PWM_ENABLE_ENABLE_Disabled << PWM_ENABLE_ENABLE_Pos);
+  pwmFrequency[pwmId] = 0.;
+  pwmTopCount[pwmId]  = 0;
 }
 
 /*
@@ -302,135 +301,133 @@ void deinitPwm(uint8_t pwmId)
  */
 void initPwm(uint8_t pwmId, float fFreq)
 {
-	
-	if (pwmId>=PWM_COUNT) {
-		return;
-	}
-	
-	if (fFreq!=pwmFrequency[pwmId]) {
-		uint32_t preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
-		//float oFreq = fFreq;
-		if (fFreq >512.) {
-			uint32_t maxFreq = 16000000/((1<<writeResolution)-1);
-			if (fFreq>(float)maxFreq) fFreq = (float)maxFreq; //writeRes 8:62745Hz; 9:31331Hz; 10:15640Hz
-			preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
-		}
-		else if (fFreq >256.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_2;
-		else if (fFreq >128.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_4;
-		else if (fFreq > 64.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_8;
-		else if (fFreq > 32.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_16;
-		else if (fFreq > 16.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_32;
-		else if (fFreq >  8.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_64;
-		else {
-			if (fFreq < 4.) fFreq = 4.;
-			preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_128;
-		}
-		float topCntValue = (float)(16000000/(1<<preScaleDiv_X)) / fFreq;	// <= 32767. (max. 15bit)!
+  if (pwmId>=PWM_COUNT) {
+    return;
+  }
 
-		//nrf_pwm_configure(pwms[pwmId], preScaleDiv_X, NRF_PWM_MODE_UP, (uint16_t)topCntValue);
-		pwms[pwmId]->PRESCALER  = preScaleDiv_X;
-        pwms[pwmId]->MODE       = PWM_MODE_UPDOWN_Up;
-        pwms[pwmId]->COUNTERTOP = (uint16_t)topCntValue;
-		
-		NRF_PWM_Type* const pwm = pwms[pwmId];
-		//nrf_pwm_enable(pwm);
-		pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
+  if (fFreq!=pwmFrequency[pwmId]) {
+    uint32_t preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
+    //float oFreq = fFreq;
+    if (fFreq >512.) {
+      uint32_t maxFreq = 16000000/((1<<writeResolution)-1);
+      if (fFreq>(float)maxFreq) fFreq = (float)maxFreq; //writeRes 8:62745Hz; 9:31331Hz; 10:15640Hz
+      preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_1;
+    }
+    else if (fFreq >256.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_2;
+    else if (fFreq >128.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_4;
+    else if (fFreq > 64.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_8;
+    else if (fFreq > 32.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_16;
+    else if (fFreq > 16.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_32;
+    else if (fFreq >  8.) preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_64;
+    else {
+      if (fFreq < 4.) fFreq = 4.;
+      preScaleDiv_X = PWM_PRESCALER_PRESCALER_DIV_128;
+    }
+    float topCntValue = (float)(16000000/(1<<preScaleDiv_X)) / fFreq;	// =< 32767. (max. 15bit)!
 
-		//nrf_pwm_loop_set   (pwm, 0);
-		pwm->LOOP = 0;
-		//nrf_pwm_decoder_set(pwm, PWM_DECODER_LOAD_Individual, NRF_PWM_STEP_AUTO);	  
-		pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Individual   << PWM_DECODER_LOAD_Pos)
-                     | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
-		//nrf_pwm_seq_ptr_set(pwm, 0, pwmChannelSequence[pwmId]);
-		pwm->SEQ[0].PTR = (uint32_t)pwmChannelSequence[pwmId];
-		//nrf_pwm_seq_cnt_set(pwm, 0, NRF_PWM_CHANNEL_COUNT);
-		pwm->SEQ[0].CNT = NRF_PWM_CHANNEL_COUNT;
-		//nrf_pwm_seq_refresh_set(pwm, 0, 1);
-		pwm->SEQ[0].REFRESH  = 1;
-		//nrf_pwm_seq_end_delay_set(pwm, 0, 0);
-		pwm->SEQ[0].ENDDELAY = 0;
-		//nrf_pwm_task_trigger(pwm, NRF_PWM_TASK_SEQSTART0);
-		//*((volatile uint32_t *)((uint8_t *)pwm + (uint32_t)NRF_PWM_TASK_SEQSTART0)) = 0x1UL;
-		pwm->TASKS_SEQSTART[0] = 0x1UL;
-		
-		pwmFrequency[pwmId] = fFreq;
-		pwmTopCount[pwmId]  = (uint16_t)topCntValue;		
-		//a_printf("pwmId:%d, of:%5.2fHz pf:%5.2fHz, T:%5d\n", pwmId, oFreq, fFreq, (uint16_t)topCntValue);
-	}
+    //nrf_pwm_configure(pwms[pwmId], preScaleDiv_X, NRF_PWM_MODE_UP, (uint16_t)topCntValue);
+    pwms[pwmId]->PRESCALER  = preScaleDiv_X;
+    pwms[pwmId]->MODE       = PWM_MODE_UPDOWN_Up;
+    pwms[pwmId]->COUNTERTOP = (uint16_t)topCntValue;
+
+    NRF_PWM_Type* const pwm = pwms[pwmId];
+    //nrf_pwm_enable(pwm);
+    pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
+
+    //nrf_pwm_loop_set   (pwm, 0);
+    pwm->LOOP = 0;
+    //nrf_pwm_decoder_set(pwm, PWM_DECODER_LOAD_Individual, NRF_PWM_STEP_AUTO);	  
+    pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Individual   << PWM_DECODER_LOAD_Pos)
+                 | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
+    //nrf_pwm_seq_ptr_set(pwm, 0, pwmChannelSequence[pwmId]);
+    pwm->SEQ[0].PTR = (uint32_t)pwmChannelSequence[pwmId];
+    //nrf_pwm_seq_cnt_set(pwm, 0, NRF_PWM_CHANNEL_COUNT);
+    pwm->SEQ[0].CNT = NRF_PWM_CHANNEL_COUNT;
+    //nrf_pwm_seq_refresh_set(pwm, 0, 1);
+    pwm->SEQ[0].REFRESH  = 1;
+    //nrf_pwm_seq_end_delay_set(pwm, 0, 0);
+    pwm->SEQ[0].ENDDELAY = 0;
+    //nrf_pwm_task_trigger(pwm, NRF_PWM_TASK_SEQSTART0);
+    //*((volatile uint32_t *)((uint8_t *)pwm + (uint32_t)NRF_PWM_TASK_SEQSTART0)) = 0x1UL;
+    pwm->TASKS_SEQSTART[0] = 0x1UL;
+    
+    pwmFrequency[pwmId] = fFreq;
+    pwmTopCount[pwmId]  = (uint16_t)topCntValue;
+    //a_printf("pwmId:%d, of:%5.2fHz pf:%5.2fHz, T:%5d\n", pwmId, oFreq, fFreq, (uint16_t)topCntValue);
+  }
 }
 
 void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId)
 {
-	if (ulPin >= PINS_COUNT) {
-		return;
-	}
-	if (pwmId >= PWM_COUNT) {
-		return;
-	}
-	if (pwmFrequency[pwmId]==0) {	// frequency not set yet!
-		initPwm(pwmId, 500.); 		// also standard frequency
-	}
+  if (ulPin >= PINS_COUNT) {
+    return;
+  }
+  if (pwmId >= PWM_COUNT) {
+    return;
+  }
+  if (pwmFrequency[pwmId]==0) { // frequency not set yet!
+    initPwm(pwmId, 500.);       // also standard frequency
+  }
 
-	//uint32_t aPin = ulPin;
-	ulPin = g_ADigitalPinMap[ulPin];
-	
-	for (uint8_t ci = 0; ci < NRF_PWM_CHANNEL_COUNT; ci++) {
-		if (pwmChannelPins[pwmId][ci] == NRF_PWM_PIN_NOT_CONNECTED || 
-	        pwmChannelPins[pwmId][ci] == ulPin) {
-			
-			pwmChannelPins[pwmId][ci] = ulPin;
-			NRF_PWM_Type* const pwm = pwms[pwmId];
+  //uint32_t aPin = ulPin;
+  ulPin = g_ADigitalPinMap[ulPin];
+  
+  for (uint8_t ci = 0; ci < NRF_PWM_CHANNEL_COUNT; ci++) {
+    if (pwmChannelPins[pwmId][ci] == NRF_PWM_PIN_NOT_CONNECTED || 
+        pwmChannelPins[pwmId][ci] == ulPin) {
+    
+      pwmChannelPins[pwmId][ci] = ulPin;
+      NRF_PWM_Type* const pwm = pwms[pwmId];
 
-			//nrf_pwm_pins_set(pwm, pwmChannelPins[pwmId]);
-			for (uint8_t i = 0; i < NRF_PWM_CHANNEL_COUNT; ++i) {
-				pwm->PSEL.OUT[i] = pwmChannelPins[pwmId][i];
-			}
+      //nrf_pwm_pins_set(pwm, pwmChannelPins[pwmId]);
+      for (uint8_t i = 0; i < NRF_PWM_CHANNEL_COUNT; ++i) {
+        pwm->PSEL.OUT[i] = pwmChannelPins[pwmId][i];
+      }
 
-			//nrf_pwm_enable(pwm);
-			//pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
+      //nrf_pwm_enable(pwm);
+      //pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
 
-			uint32_t v = ((pwmTopCount[pwmId])*ulValue) / ((1<<writeResolution)-1);
-			v = min(v, pwmTopCount[pwmId]);
-			pwmChannelSequence[pwmId][ci] = (uint16_t)v;  // max 15bit!
-			pwmChannelSequence[pwmId][ci]|= 1<<15;        // Arduino ON/OFF duty cycle (set invert bit)
-	
-			//a_printf("pwmId:%d, aP:%2d, nP:%2d, ci:%d, v:%4d f:%5dHz T:%5d V:%5d\n", pwmId, aPin, ulPin, ci, ulValue, pwmFrequency[pwmId], pwmTopCount[pwmId], v);
-			pwm->SEQ[0].REFRESH  = 1;
-			pwm->SEQ[0].ENDDELAY = 0;
-			pwm->TASKS_SEQSTART[0] = 0x1UL;
-			/* 
-			//nrf_pwm_loop_set   (pwm, 0);
-			pwm->LOOP = 0;
-			//nrf_pwm_decoder_set(pwm, PWM_DECODER_LOAD_Individual, NRF_PWM_STEP_AUTO);	  
-			pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Individual   << PWM_DECODER_LOAD_Pos)
-                         | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
-			//nrf_pwm_seq_ptr_set(pwm, 0, pwmChannelSequence[pwmId]);
-			pwm->SEQ[0].PTR = (uint32_t)pwmChannelSequence[pwmId];
-			//nrf_pwm_seq_cnt_set(pwm, 0, NRF_PWM_CHANNEL_COUNT);
-			pwm->SEQ[0].CNT = NRF_PWM_CHANNEL_COUNT;
-			//nrf_pwm_seq_refresh_set(pwm, 0, 1);
-			pwm->SEQ[0].REFRESH  = 1;
-			//nrf_pwm_seq_end_delay_set(pwm, 0, 0);
-			pwm->SEQ[0].ENDDELAY = 0;
-			//nrf_pwm_task_trigger(pwm, NRF_PWM_TASK_SEQSTART0);
-			// *((volatile uint32_t *)((uint8_t *)pwm + (uint32_t)NRF_PWM_TASK_SEQSTART0)) = 0x1UL;
-			pwm->TASKS_SEQSTART[0] = 0x1UL;
-			*/
+      uint32_t v = ((pwmTopCount[pwmId])*ulValue) / ((1<<writeResolution)-1);
+      v = min(v, pwmTopCount[pwmId]);
+      pwmChannelSequence[pwmId][ci] = (uint16_t)v;  // max 15bit!
+      pwmChannelSequence[pwmId][ci]|= 1<<15;        // Arduino ON/OFF duty cycle (set invert bit)
+
+      //a_printf("pwmId:%d, aP:%2d, nP:%2d, ci:%d, v:%4d f:%5dHz T:%5d V:%5d\n", pwmId, aPin, ulPin, ci, ulValue, pwmFrequency[pwmId], pwmTopCount[pwmId], v);
+      pwm->SEQ[0].REFRESH  = 1;
+      pwm->SEQ[0].ENDDELAY = 0;
+      pwm->TASKS_SEQSTART[0] = 0x1UL;
+      /* 
+      //nrf_pwm_loop_set   (pwm, 0);
+      pwm->LOOP = 0;
+      //nrf_pwm_decoder_set(pwm, PWM_DECODER_LOAD_Individual, NRF_PWM_STEP_AUTO);	  
+      pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Individual   << PWM_DECODER_LOAD_Pos)
+                   | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
+      //nrf_pwm_seq_ptr_set(pwm, 0, pwmChannelSequence[pwmId]);
+      pwm->SEQ[0].PTR = (uint32_t)pwmChannelSequence[pwmId];
+      //nrf_pwm_seq_cnt_set(pwm, 0, NRF_PWM_CHANNEL_COUNT);
+      pwm->SEQ[0].CNT = NRF_PWM_CHANNEL_COUNT;
+      //nrf_pwm_seq_refresh_set(pwm, 0, 1);
+      pwm->SEQ[0].REFRESH  = 1;
+      //nrf_pwm_seq_end_delay_set(pwm, 0, 0);
+      pwm->SEQ[0].ENDDELAY = 0;
+      //nrf_pwm_task_trigger(pwm, NRF_PWM_TASK_SEQSTART0);
+      // *((volatile uint32_t *)((uint8_t *)pwm + (uint32_t)NRF_PWM_TASK_SEQSTART0)) = 0x1UL;
+      pwm->TASKS_SEQSTART[0] = 0x1UL;
+      */
 /* compare to origin:
       pwm->LOOP = 0;
       pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Common << PWM_DECODER_LOAD_Pos) 
-	               | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
+                   | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
       pwm->SEQ[0].PTR = (uint32_t)&pwmChannelSequence[i];
       pwm->SEQ[0].CNT = 1;
       pwm->SEQ[0].REFRESH  = 1;
       pwm->SEQ[0].ENDDELAY = 0;
       pwm->TASKS_SEQSTART[0] = 0x1UL;
-*/			
-			break;
-		}
-	}
+*/
+      break;
+    }
+  }
 }
-	
 #endif
 
 #ifdef __cplusplus
