@@ -282,7 +282,7 @@ extern  void a_printf(const char *fmt, ... );
 void analogWrite(uint32_t ulPin, uint32_t ulValue )
 {
   if (pwmFrequency[0]==0.) initPwm(0, 500.);
-  analogWritePwm(ulPin, ulValue, 0);
+  analogWritePwm(ulPin, ulValue, 0, false);
 }
 
 void deinitPwm(uint8_t pwmId)
@@ -357,7 +357,7 @@ void initPwm(uint8_t pwmId, float fFreq)
   }
 }
 
-void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId)
+void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId, bool invert)
 {
   if (ulPin >= PINS_COUNT) {
     return;
@@ -390,7 +390,9 @@ void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId)
       uint32_t v = ((pwmTopCount[pwmId])*ulValue) / ((1<<writeResolution)-1);
       v = min(v, pwmTopCount[pwmId]);
       pwmChannelSequence[pwmId][ci] = (uint16_t)v;  // max 15bit!
-      pwmChannelSequence[pwmId][ci]|= 1<<15;        // Arduino ON/OFF duty cycle (set invert bit)
+      if (!invert) { 
+        pwmChannelSequence[pwmId][ci]|= 1<<15;        // Arduino ON/OFF duty cycle (set invert bit)
+      }
 
       //a_printf("pwmId:%d, aP:%2d, nP:%2d, ci:%d, v:%4d f:%5dHz T:%5d V:%5d\n", pwmId, aPin, ulPin, ci, ulValue, pwmFrequency[pwmId], pwmTopCount[pwmId], v);
       pwm->SEQ[0].REFRESH  = 1;

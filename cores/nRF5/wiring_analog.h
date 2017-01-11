@@ -67,7 +67,7 @@ extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
 #ifdef NEW_PWM
 extern void initPwm   (uint8_t pwmId, float fFreq);
 extern void deinitPwm (uint8_t pwmId);
-extern void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId);
+extern void analogWritePwm( uint32_t ulPin, uint32_t ulValue, uint8_t pwmId, bool invert);
 #endif
 /*
  * \brief Reads the value from the specified analog pin.
