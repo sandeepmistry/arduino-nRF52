@@ -480,6 +480,12 @@ BLENano.menu.softdevice.s130.upload.maximum_size=151552
 BLENano.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 BLENano.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
 
+BLENano.menu.lfclk.lfxo=Crystal Oscillator
+BLENano.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+BLENano.menu.lfclk.lfrc=RC Oscillator
+BLENano.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+BLENano.menu.lfclk.lfsynt=Synthesized
+BLENano.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 RedBearLab_nRF51822.name=RedBearLab nRF51822
 
@@ -562,6 +568,14 @@ Waveshare_BLE400.menu.softdevice.s130.softdeviceversion=2.0.1
 Waveshare_BLE400.menu.softdevice.s130.upload.maximum_size=151552
 Waveshare_BLE400.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 Waveshare_BLE400.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+
+Waveshare_BLE400.menu.lfclk.lfxo=Crystal Oscillator
+Waveshare_BLE400.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Waveshare_BLE400.menu.lfclk.lfrc=RC Oscillator
+Waveshare_BLE400.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Waveshare_BLE400.menu.lfclk.lfsynt=Synthesized
+Waveshare_BLE400.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
 
 ng_beacon.name=ng-beacon
 
