@@ -524,3 +524,39 @@ Waveshare_BLE400.menu.softdevice.s130.softdeviceversion=2.0.1
 Waveshare_BLE400.menu.softdevice.s130.upload.maximum_size=151552
 Waveshare_BLE400.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 Waveshare_BLE400.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+
+ng_beacon.name=ng-beacon
+
+ng_beacon.upload.tool=sandeepmistry:openocd
+ng_beacon.upload.target=nrf51
+ng_beacon.upload.maximum_size=262144
+
+ng_beacon.bootloader.tool=sandeepmistry:openocd
+
+ng_beacon.build.mcu=cortex-m0
+ng_beacon.build.f_cpu=16000000
+ng_beacon.build.board=NG_BEACON
+ng_beacon.build.core=nRF5
+ng_beacon.build.variant=ng-beacon
+ng_beacon.build.variant_system_lib=
+ng_beacon.build.extra_flags=-DNRF51 
+ng_beacon.build.float_flags=
+ng_beacon.build.ldscript=nrf51_xxaa.ld
+ng_beacon.build.lfclk_flags=-DUSE_LFRC
+
+ng_beacon.menu.softdevice.none=None
+ng_beacon.menu.softdevice.none.softdevice=none
+
+ng_beacon.menu.softdevice.s110=S110
+ng_beacon.menu.softdevice.s110.softdevice=s110
+ng_beacon.menu.softdevice.s110.softdeviceversion=8.0.0
+ng_beacon.menu.softdevice.s110.upload.maximum_size=151552
+ng_beacon.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+ng_beacon.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+ng_beacon.menu.softdevice.s130=S130
+ng_beacon.menu.softdevice.s130.softdevice=s130
+ng_beacon.menu.softdevice.s130.softdeviceversion=2.0.1
+ng_beacon.menu.softdevice.s130.upload.maximum_size=151552
+ng_beacon.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+ng_beacon.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
