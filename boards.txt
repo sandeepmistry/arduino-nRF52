@@ -563,7 +563,6 @@ Waveshare_BLE400.menu.softdevice.s130.upload.maximum_size=151552
 Waveshare_BLE400.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 Waveshare_BLE400.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
 
-
 ng_beacon.name=ng-beacon
 
 ng_beacon.upload.tool=sandeepmistry:openocd
