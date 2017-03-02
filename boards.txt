@@ -445,6 +445,7 @@ TinyBLE.name= TinyBLE
 
 TinyBLE.upload.tool=sandeepmistry:openocd
 TinyBLE.upload.interface=cmsisdap
+
 TinyBLE.upload.target=nrf51
 TinyBLE.upload.maximum_size=262144
 
@@ -454,16 +455,11 @@ TinyBLE.build.mcu=cortex-m0
 TinyBLE.build.f_cpu=16000000
 TinyBLE.build.board=GENERIC
 TinyBLE.build.core=nRF5
-TinyBLE.build.variant=TinyBLE
+TinyBLE.build.variant=Generic
 TinyBLE.build.variant_system_lib=
 TinyBLE.build.extra_flags=-DNRF51
 TinyBLE.build.float_flags=
-TinyBLE.build.ldscript=nrf51_{build.chip}.ld
-
-TinyBLE.build.lfclk_flags=-DUSE_LFXO
-
-TinyBLE.menu.version.1_1_0=1.1.0
-TinyBLE.menu.version.1_1_0.build.chip=xxac
+TinyBLE.build.ldscript=nrf51_xxaa.ld
 
 TinyBLE.menu.softdevice.none=None
 TinyBLE.menu.softdevice.none.softdevice=none
@@ -473,14 +469,21 @@ TinyBLE.menu.softdevice.s110.softdevice=s110
 TinyBLE.menu.softdevice.s110.softdeviceversion=8.0.0
 TinyBLE.menu.softdevice.s110.upload.maximum_size=151552
 TinyBLE.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
-TinyBLE.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_{build.chip}.ld
+TinyBLE.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
 
 TinyBLE.menu.softdevice.s130=S130
 TinyBLE.menu.softdevice.s130.softdevice=s130
 TinyBLE.menu.softdevice.s130.softdeviceversion=2.0.1
 TinyBLE.menu.softdevice.s130.upload.maximum_size=151552
 TinyBLE.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
-TinyBLE.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+TinyBLE.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+
+TinyBLE.menu.lfclk.lfxo=Crystal Oscillator
+TinyBLE.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+TinyBLE.menu.lfclk.lfrc=RC Oscillator
+TinyBLE.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+TinyBLE.menu.lfclk.lfsynt=Synthesized
+TinyBLE.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 OSHChip.name=OSHChip
 
