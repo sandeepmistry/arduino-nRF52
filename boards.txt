@@ -453,9 +453,9 @@ TinyBLE.bootloader.tool=sandeepmistry:openocd
 
 TinyBLE.build.mcu=cortex-m0
 TinyBLE.build.f_cpu=16000000
-TinyBLE.build.board=GENERIC
+TinyBLE.build.board=TINYBLE
 TinyBLE.build.core=nRF5
-TinyBLE.build.variant=Generic
+TinyBLE.build.variant=TinyBLE
 TinyBLE.build.variant_system_lib=
 TinyBLE.build.extra_flags=-DNRF51
 TinyBLE.build.float_flags=

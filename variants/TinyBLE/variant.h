@@ -14,8 +14,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _VARIANT_NRF51_DONGLE_
-#define _VARIANT_NRF51_DONGLE_
+#ifndef _VARIANT_TINYBLE_
+#define _VARIANT_TINYBLE_
 
 /** Master clock frequency */
 #define VARIANT_MCK       (16000000ul)
@@ -32,8 +32,8 @@ extern "C"
 #endif // __cplusplus
 
 // Number of pins defined in PinDescription array
-#define PINS_COUNT           (10u)
-#define NUM_DIGITAL_PINS     (10u)
+#define PINS_COUNT           (32u)
+#define NUM_DIGITAL_PINS     (32u)
 #define NUM_ANALOG_INPUTS    (4u)
 #define NUM_ANALOG_OUTPUTS   (0u)
 
