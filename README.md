@@ -29,6 +29,7 @@ Does not require a custom bootloader on the device.
  * [RedBearLab nRF51822](http://redbearlab.com/redbearlab-nrf51822/)
  * [Waveshare BLE400](http://www.waveshare.com/wiki/BLE400)
  * [ng-beacon](https://github.com/urish/ng-beacon)
+ * [TinyBLE](https://www.seeedstudio.com/Seeed-Tiny-BLE-BLE-%2B-6DOF-Mbed-Platform-p-2268.html)
 
 ## Installing
 
