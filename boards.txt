@@ -461,6 +461,8 @@ TinyBLE.build.extra_flags=-DNRF51
 TinyBLE.build.float_flags=
 TinyBLE.build.ldscript=nrf51_xxaa.ld
 
+TinyBLE.build.lfclk_flags=-DUSE_LFXO
+
 TinyBLE.menu.softdevice.none=None
 TinyBLE.menu.softdevice.none.softdevice=none
 
@@ -478,12 +480,6 @@ TinyBLE.menu.softdevice.s130.upload.maximum_size=151552
 TinyBLE.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 TinyBLE.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
-TinyBLE.menu.lfclk.lfxo=Crystal Oscillator
-TinyBLE.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
-TinyBLE.menu.lfclk.lfrc=RC Oscillator
-TinyBLE.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
-TinyBLE.menu.lfclk.lfsynt=Synthesized
-TinyBLE.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 OSHChip.name=OSHChip
 
