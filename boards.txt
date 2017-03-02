@@ -441,7 +441,7 @@ nRF51Dongle.menu.softdevice.s130.upload.maximum_size=151552
 nRF51Dongle.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 nRF51Dongle.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
 
-TinyBLE.name= Nordic nRF51 Dongle (PCA10031)
+TinyBLE.name= TinyBLE
 
 TinyBLE.upload.tool=sandeepmistry:openocd
 TinyBLE.upload.interface=cmsisdap
