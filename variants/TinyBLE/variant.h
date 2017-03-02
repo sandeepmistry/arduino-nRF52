@@ -64,7 +64,6 @@ static const uint8_t A3  = PIN_A3 ;
 /*
  * SPI Interfaces
  */
-// also has MPU6050 on sda 18, scl 19 with interrupt on 20.. should that be an interface defined here??
 #define SPI_INTERFACES_COUNT 1
 
 #define PIN_SPI_MISO         (3)
@@ -81,8 +80,9 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (5)
-#define PIN_WIRE_SCL         (6)
+//MPU6050_INT_PIN              (20)
+#define PIN_WIRE_SDA         (12)
+#define PIN_WIRE_SCL         (13)
 
 /*
  * Serial interfaces
