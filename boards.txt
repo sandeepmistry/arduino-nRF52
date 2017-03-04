@@ -445,11 +445,11 @@ nRF51Dongle.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip
 TinyBLE.name= TinyBLE
 
 TinyBLE.upload.tool=sandeepmistry:openocd
-TinyBLE.upload.interface=cmsis-dap
 TinyBLE.upload.protocol=cmsis-dap
 
 TinyBLE.upload.target=nrf51
 TinyBLE.upload.maximum_size=262144
+TinyBLE.upload.setup_command=transport select swd;
 
 TinyBLE.bootloader.tool=sandeepmistry:openocd
 
