@@ -228,7 +228,7 @@ Generic_nRF51822.build.board=GENERIC
 Generic_nRF51822.build.core=nRF5
 Generic_nRF51822.build.variant=Generic
 Generic_nRF51822.build.variant_system_lib=
-Generic_nRF51822.build.extra_flags=-DNRF51
+Generic_nRF51822.build.extra_flags=-DNRF51 -DBOARD_PCA20006 -DNRF51822
 Generic_nRF51822.build.float_flags=
 Generic_nRF51822.build.ldscript=nrf51_{build.chip}.ld
 
@@ -261,6 +261,51 @@ Generic_nRF51822.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 Generic_nRF51822.menu.lfclk.lfsynt=Synthesized
 Generic_nRF51822.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
+Beacon_PCA20006.name=Nordic Beacon Kit (PCA20006)
+
+Beacon_PCA20006.upload.tool=sandeepmistry:openocd
+Beacon_PCA20006.upload.target=nrf51
+Beacon_PCA20006.upload.maximum_size=262144
+
+Beacon_PCA20006.bootloader.tool=sandeepmistry:openocd
+
+Beacon_PCA20006.build.mcu=cortex-m0
+Beacon_PCA20006.build.f_cpu=16000000
+Beacon_PCA20006.build.board=GENERIC
+Beacon_PCA20006.build.core=nRF5
+Beacon_PCA20006.build.variant=PCA20006
+Beacon_PCA20006.build.variant_system_lib=
+Beacon_PCA20006.build.extra_flags=-DNRF51 -DBOARD_PCA20006 -DNRF51822
+Beacon_PCA20006.build.float_flags=
+Beacon_PCA20006.build.ldscript=nrf51_{build.chip}.ld
+
+Beacon_PCA20006.menu.chip.xxaa=16 kB RAM, 256 kB flash (xxaa)
+Beacon_PCA20006.menu.chip.xxaa.build.chip=xxaa
+Beacon_PCA20006.menu.chip.xxac=32 kB RAM, 256 kB flash (xxac)
+Beacon_PCA20006.menu.chip.xxac.build.chip=xxac
+
+Beacon_PCA20006.menu.softdevice.none=None
+Beacon_PCA20006.menu.softdevice.none.softdevice=none
+Beacon_PCA20006.menu.softdevice.s110=S110
+Beacon_PCA20006.menu.softdevice.s110.softdevice=s110
+Beacon_PCA20006.menu.softdevice.s110.softdeviceversion=8.0.0
+Beacon_PCA20006.menu.softdevice.s110.upload.maximum_size=151552
+Beacon_PCA20006.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110 -DBOARD_PCA20006 -DNRF51822
+Beacon_PCA20006.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_{build.chip}.ld
+
+Beacon_PCA20006.menu.softdevice.s130=S130
+Beacon_PCA20006.menu.softdevice.s130.softdevice=s130
+Beacon_PCA20006.menu.softdevice.s130.softdeviceversion=2.0.1
+Beacon_PCA20006.menu.softdevice.s130.upload.maximum_size=151552
+Beacon_PCA20006.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130 -DBOARD_PCA20006 -DNRF51822
+Beacon_PCA20006.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+
+Beacon_PCA20006.menu.lfclk.lfxo=Crystal Oscillator
+Beacon_PCA20006.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Beacon_PCA20006.menu.lfclk.lfrc=RC Oscillator
+Beacon_PCA20006.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Beacon_PCA20006.menu.lfclk.lfsynt=Synthesized
+Beacon_PCA20006.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 BBCmicrobit.name=BBC micro:bit
 
