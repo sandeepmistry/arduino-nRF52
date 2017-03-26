@@ -17,7 +17,9 @@
 */
 
 /*
-  Empty file.
   This file is here to allow compatibility with sketches (made for AVR)
   that includes <AVR/interrupt.h>
 */
+
+#define sei() __enable_irq()
+#define cli() __disable_irq()
