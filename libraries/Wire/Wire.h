@@ -67,6 +67,7 @@ class TwoWire : public Stream
     void onRequest(void(*)(void));
 #endif
 
+    virtual bool clear();
     using Print::write;
 
     void onService(void);
