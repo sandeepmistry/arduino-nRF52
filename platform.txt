@@ -116,7 +116,7 @@ tools.openocd.cmd.windows=bin/openocd.exe
 
 tools.openocd.upload.params.verbose=-d2
 tools.openocd.upload.params.quiet=-d0
-tools.openocd.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protool}.cfg -c "{upload.setup_command}" -f target/{upload.target}.cfg -c "program {{{build.path}/{build.project_name}.hex}} verify reset; shutdown;"
+tools.openocd.upload.pattern="{path}/{cmd}" {upload.verbose} -f interface/{upload.protocol}.cfg -c "{upload.setup_command}" -f target/{upload.target}.cfg -c "program {{{build.path}/{build.project_name}.hex}} verify reset; shutdown;"
 
 tools.openocd.program.params.verbose=-d2
 tools.openocd.program.params.quiet=-d0
