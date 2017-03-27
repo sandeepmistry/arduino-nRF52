@@ -114,6 +114,10 @@ If the selected board has an external 32 kHz crystal connected, it will be used 
 
 The Generic nRF51 and nRF52 board options have an additional menu item under `Tools -> Low Frequency Clock` that allows you to select the low frequency clock source.
 
+## Example Repository
+
+Some basic Arduino sketches illustrating how to configure, set up interrupts for, and read sensors and pass their data via BLEPeripheral-defined services can be found [here](https://github.com/kriswiner/nRF52832DevBoard).
+
 ## Credits
 
 This core is based on the [Arduino SAMD Core](https://github.com/arduino/ArduinoCore-samd) and licensed under the same [GPL License](LICENSE)
