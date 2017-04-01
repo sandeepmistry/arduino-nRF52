@@ -51,6 +51,16 @@
 #define TMR_FREQ                     2000000
 #define TMR_FREQ_REG_PRESCALER       3
 
+#define TIMER_SHORTS_DISABLE_ALL     ( \
+    (TIMER_SHORTS_COMPARE0_CLEAR_Disabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos) | \
+    (TIMER_SHORTS_COMPARE1_CLEAR_Disabled << TIMER_SHORTS_COMPARE1_CLEAR_Pos) | \
+    (TIMER_SHORTS_COMPARE2_CLEAR_Disabled << TIMER_SHORTS_COMPARE2_CLEAR_Pos) | \
+    (TIMER_SHORTS_COMPARE3_CLEAR_Disabled << TIMER_SHORTS_COMPARE3_CLEAR_Pos) | \
+    (TIMER_SHORTS_COMPARE0_STOP_Disabled  << TIMER_SHORTS_COMPARE0_STOP_Pos)  | \
+    (TIMER_SHORTS_COMPARE1_STOP_Disabled  << TIMER_SHORTS_COMPARE1_STOP_Pos)  | \
+    (TIMER_SHORTS_COMPARE2_STOP_Disabled  << TIMER_SHORTS_COMPARE2_STOP_Pos)  | \
+    (TIMER_SHORTS_COMPARE3_STOP_Disabled  << TIMER_SHORTS_COMPARE3_STOP_Pos))
+
 // Each timer has 4 Capture/Compare set of registers
 #define TMR_CC_REG0                  0
 #define TMR_CC_REG1                  1
@@ -98,7 +108,6 @@
   #endif
 #endif
 
-
 // The timers here are organised in allocation sequence
 typedef enum {
 #if defined (_useTimer4)
@@ -119,4 +128,4 @@ typedef enum {
   _Nbr_16timers
 } timer16_Sequence_t;
 
-#endif   // __SERVO_TIMERS_H__
+#endif    // __SERVO_TIMERS_H__

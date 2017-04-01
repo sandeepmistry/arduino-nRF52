@@ -48,7 +48,8 @@ static volatile int8_t currentServoIndex[_Nbr_16timers];
 extern "C" {
 #endif
 
-inline void Servo_Handler(timer16_Sequence_t timer, NRF_TIMER_Type *nrfTimer, uint32_t ccReg)
+static __inline__ void Servo_Handler(timer16_Sequence_t timer, NRF_TIMER_Type *nrfTimer, uint32_t ccReg) __attribute__((always_inline));
+static __inline__ void Servo_Handler(timer16_Sequence_t timer, NRF_TIMER_Type *nrfTimer, uint32_t ccReg)
 {
   // Clear the interrupt event flag
   nrfTimer->EVENTS_COMPARE[ccReg] = 0;
@@ -125,10 +126,10 @@ static void _initISR(NRF_TIMER_Type *nrfTimer, uint32_t ccReg, IRQn_Type timerIR
   __disable_irq();
   nrfTimer->TASKS_STOP = 1;
 
-  nrfTimer->MODE = TIMER_MODE_MODE_Timer;
-  nrfTimer->BITMODE = TIMER_BITMODE_BITMODE_16Bit;
-  nrfTimer->PRESCALER = (TMR_FREQ_REG_PRESCALER << TIMER_PRESCALER_PRESCALER_Pos);
-  nrfTimer->SHORTS = 0;                 // No CC event and CLEAR task shortcuts
+  nrfTimer->MODE = TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos;
+  nrfTimer->BITMODE = TIMER_BITMODE_BITMODE_16Bit << TIMER_BITMODE_BITMODE_Pos;
+  nrfTimer->PRESCALER = TMR_FREQ_REG_PRESCALER << TIMER_PRESCALER_PRESCALER_Pos;
+  nrfTimer->SHORTS = TIMER_SHORTS_DISABLE_ALL;
   nrfTimer->TASKS_CLEAR = 1;            // Clear task 
   nrfTimer->EVENTS_COMPARE[ccReg] = 0;  // Clear interrupt event flag
   nrfTimer->CC[ccReg] = (uint32_t)usToTicks(REFRESH_INTERVAL);
@@ -142,6 +143,7 @@ static void _initISR(NRF_TIMER_Type *nrfTimer, uint32_t ccReg, IRQn_Type timerIR
   } else if (ccReg == TMR_CC_REG3) {
     nrfTimer->INTENSET = (TIMER_INTENSET_COMPARE3_Set << TIMER_INTENSET_COMPARE3_Pos);
   }
+  NVIC_ClearPendingIRQ(timerIRQn);
   NVIC_SetPriority(timerIRQn, TMR_PRIORITY);
   NVIC_EnableIRQ(timerIRQn);
 
