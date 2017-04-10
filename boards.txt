@@ -225,11 +225,7 @@ Generic_nRF51822.build.board=GENERIC
 Generic_nRF51822.build.core=nRF5
 Generic_nRF51822.build.variant=Generic
 Generic_nRF51822.build.variant_system_lib=
-<<<<<<< Updated upstream
-Generic_nRF51822.build.extra_flags=-DNRF51 -DNRF51822
-=======
 Generic_nRF51822.build.extra_flags=-DNRF51
->>>>>>> Stashed changes
 Generic_nRF51822.build.float_flags=
 Generic_nRF51822.build.ldscript=nrf51_{build.chip}.ld
 
@@ -265,6 +261,7 @@ Generic_nRF51822.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 Beacon_PCA20006.name=Nordic Beacon Kit (PCA20006)
 
 Beacon_PCA20006.upload.tool=sandeepmistry:openocd
+Beacon_PCA20006.upload.protocol=cmsis-dap
 Beacon_PCA20006.upload.target=nrf51
 Beacon_PCA20006.upload.maximum_size=262144
 
@@ -284,6 +281,7 @@ Beacon_PCA20006.build.lfclk_flags=-DUSE_LFXO
 
 Beacon_PCA20006.menu.softdevice.none=None
 Beacon_PCA20006.menu.softdevice.none.softdevice=none
+
 Beacon_PCA20006.menu.softdevice.s110=S110
 Beacon_PCA20006.menu.softdevice.s110.softdevice=s110
 Beacon_PCA20006.menu.softdevice.s110.softdeviceversion=8.0.0
