@@ -78,14 +78,18 @@ __NOTE__: To roll back to the original driver go to: Device Manager -> Right cli
   * Windows: ```~/Documents/Arduino```
  2. Create the following directories: ```tools/nRF5FlashSoftDevice/tool/```
  3. Download [nRF5FlashSoftDevice.jar](https://github.com/sandeepmistry/arduino-nRF5/releases/download/tools/nRF5FlashSoftDevice.jar) to ```<SKETCHBOOK>/tools/nRF5FlashSoftDevice/tool/```
- 4. Restart the Arduino IDE
- 5. Select your nRF board from the Tools -> Board menu
- 6. Select a SoftDevice from the Tools -> "SoftDevice: " menu
- 7. Select a Programmer (J-Link, ST-Link V2, or CMSIS-DAP) from the Tools -> "Programmer: " menu
- 8. Select Tools -> nRF5 Flash SoftDevice
- 9. Read license agreement
- 10. Click "Accept" to accept license and continue, or "Decline" to decline and abort
- 11. If accepted, SoftDevice binary will be flashed to the board
+ 4. For 64-bit Linux users,  ```libc6:i386```, ```libstdc++6:i386```, ```libncurses5:i386```` and ```libudev1:i386``` need to be installed :
+  * ```sudo dpkg --add-architecture i386```
+  * ```sudo apt-get update```
+  * ```sudo apt-get install libc6:i386 libstdc++6:i386 libncurses5:i386 libudev1:i386```    
+ 5. Restart the Arduino IDE
+ 6. Select your nRF board from the Tools -> Board menu
+ 7. Select a SoftDevice from the Tools -> "SoftDevice: " menu
+ 8. Select a Programmer (J-Link, ST-Link V2, or CMSIS-DAP) from the Tools -> "Programmer: " menu
+ 9. Select Tools -> nRF5 Flash SoftDevice
+ 10. Read license agreement
+ 11. Click "Accept" to accept license and continue, or "Decline" to decline and abort
+ 12. If accepted, SoftDevice binary will be flashed to the board
 
 ### From git (for core development)
 
