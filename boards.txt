@@ -265,8 +265,7 @@ BBCmicrobit.vid.0=0x0d28
 BBCmicrobit.pid.0=0x0204
 
 BBCmicrobit.upload.tool=sandeepmistry:openocd
-BBCmicrobit.upload.protocol=
-BBCmicrobit.upload.interface=cmsis-dap
+BBCmicrobit.upload.protocol=cmsis-dap
 BBCmicrobit.upload.target=nrf51
 BBCmicrobit.upload.maximum_size=262144
 BBCmicrobit.upload.setup_command=transport select swd;
