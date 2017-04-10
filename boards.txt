@@ -228,7 +228,11 @@ Generic_nRF51822.build.board=GENERIC
 Generic_nRF51822.build.core=nRF5
 Generic_nRF51822.build.variant=Generic
 Generic_nRF51822.build.variant_system_lib=
+<<<<<<< Updated upstream
+Generic_nRF51822.build.extra_flags=-DNRF51 -DNRF51822
+=======
 Generic_nRF51822.build.extra_flags=-DNRF51
+>>>>>>> Stashed changes
 Generic_nRF51822.build.float_flags=
 Generic_nRF51822.build.ldscript=nrf51_{build.chip}.ld
 
