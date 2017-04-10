@@ -32,3 +32,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:nRF51Dongle:version=1_1_0 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Blend2 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:BLENano2 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:TinyBLE 01.Basics Blink

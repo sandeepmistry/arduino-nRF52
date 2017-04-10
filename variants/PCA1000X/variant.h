@@ -110,6 +110,9 @@ extern "C"
   #define PIN_WIRE_SDA         (25u)
   #define PIN_WIRE_SCL         (24u)
 
+  static const uint8_t SDA = PIN_WIRE_SDA;
+  static const uint8_t SCL = PIN_WIRE_SCL;
+
 #else
   /* PCA10000
    * *********/

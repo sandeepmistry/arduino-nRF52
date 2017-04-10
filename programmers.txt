@@ -1,23 +1,20 @@
 jlink.name=J-Link
 jlink.communication=USB
-jlink.protocol=
-jlink.program.protocol=
+jlink.protocol=jlink
+jlink.program.protocol=jlink
 jlink.program.tool=openocd
-jlink.program.interface=jlink
 jlink.program.setup_command=transport select swd; set WORKAREASIZE 0;
 
 stlink.name=ST-Link V2
 stlink.communication=USB
-stlink.protocol=
-stlink.program.protocol=
+stlink.protocol=stlink-v2
+stlink.program.protocol=stlink-v2
 stlink.program.tool=openocd
-stlink.program.interface=stlink-v2
 stlink.program.setup_command=transport select hla_swd; set WORKAREASIZE 0x4000;
 
 cmsisdap.name=CMSIS-DAP
 cmsisdap.communication=USB
-cmsisdap.protocol=
-cmsisdap.program.protocol=
+cmsisdap.protocol=cmsis-dap
+cmsisdap.program.protocol=cmsis-dap
 cmsisdap.program.tool=openocd
-cmsisdap.program.interface=cmsis-dap
 cmsisdap.program.setup_command=;

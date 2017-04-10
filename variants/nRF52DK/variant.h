@@ -105,6 +105,9 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
 #define PIN_WIRE_SDA         (22u)
 #define PIN_WIRE_SCL         (23u)
 
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
+
 #ifdef __cplusplus
 }
 #endif

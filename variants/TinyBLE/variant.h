@@ -14,15 +14,11 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _VARIANT_GENERIC_
-#define _VARIANT_GENERIC_
+#ifndef _VARIANT_TINYBLE_
+#define _VARIANT_TINYBLE_
 
 /** Master clock frequency */
-#ifdef NRF52
-#define VARIANT_MCK       (64000000ul)
-#else
 #define VARIANT_MCK       (16000000ul)
-#endif
 
 /*----------------------------------------------------------------------------
  *        Headers
@@ -37,53 +33,45 @@ extern "C"
 
 // Number of pins defined in PinDescription array
 #define PINS_COUNT           (32u)
-#define NUM_DIGITAL_PINS     (32u)
-#define NUM_ANALOG_INPUTS    (6u)
+//3 LEDS, 1 Button, 4 exposed pins
+#define NUM_DIGITAL_PINS     (8u)
+#define NUM_ANALOG_INPUTS    (4u)
 #define NUM_ANALOG_OUTPUTS   (0u)
 
 // LEDs
-#define PIN_LED              (13)
-#define LED_BUILTIN          PIN_LED
+#define PIN_LED1                (21)
+#define PIN_LED2                (22)
+#define PIN_LED3                (23)
+
+#define LED_BUILTIN             PIN_LED1
+
+// Buttons
+#define PIN_BUTTON              (17)
 
 /*
  * Analog pins
  */
-#define PIN_A0               (1)
-#define PIN_A1               (2)
-#define PIN_A2               (3)
-#define PIN_A3               (4)
-#define PIN_A4               (5)
-#define PIN_A5               (6)
+#define PIN_A0               (3)
+#define PIN_A1               (4)
+#define PIN_A2               (5)
+#define PIN_A3               (6)
 
 static const uint8_t A0  = PIN_A0 ;
 static const uint8_t A1  = PIN_A1 ;
 static const uint8_t A2  = PIN_A2 ;
 static const uint8_t A3  = PIN_A3 ;
-static const uint8_t A4  = PIN_A4 ;
-static const uint8_t A5  = PIN_A5 ;
-#ifdef NRF52
-#define ADC_RESOLUTION    14
-#else
 #define ADC_RESOLUTION    10
-#endif
-
-/*
- * Serial interfaces
- */
-// Serial
-#define PIN_SERIAL_RX       (0)
-#define PIN_SERIAL_TX       (1)
 
 /*
  * SPI Interfaces
  */
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_MISO         (22)
-#define PIN_SPI_MOSI         (23)
-#define PIN_SPI_SCK          (24)
+#define PIN_SPI_MISO         (3)
+#define PIN_SPI_MOSI         (4)
+#define PIN_SPI_SCK          (5)
 
-static const uint8_t SS   = 25 ;
+static const uint8_t SS   = 6 ;
 static const uint8_t MOSI = PIN_SPI_MOSI ;
 static const uint8_t MISO = PIN_SPI_MISO ;
 static const uint8_t SCK  = PIN_SPI_SCK ;
@@ -93,11 +81,19 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (20u)
-#define PIN_WIRE_SCL         (21u)
+//MPU6050_INT_PIN              (20)
+#define PIN_WIRE_SDA         (12)
+#define PIN_WIRE_SCL         (13)
 
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
+
+/*
+ * Serial interfaces
+ */
+// Serial
+#define PIN_SERIAL_RX       (11)
+#define PIN_SERIAL_TX       (9)
 
 #ifdef __cplusplus
 }

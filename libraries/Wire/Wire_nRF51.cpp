@@ -30,10 +30,9 @@ extern "C" {
 
 #include "Wire.h"
 
-TwoWire::TwoWire(NRF_TWI_Type * p_twi, IRQn_Type IRQn, uint8_t pinSDA, uint8_t pinSCL)
+TwoWire::TwoWire(NRF_TWI_Type * p_twi, uint8_t pinSDA, uint8_t pinSCL)
 {
   this->_p_twi = p_twi;
-  this->_IRQn = IRQn;
   this->_uc_pinSDA = g_ADigitalPinMap[pinSDA];
   this->_uc_pinSCL = g_ADigitalPinMap[pinSCL];
   transmissionBegun = false;
@@ -59,10 +58,6 @@ void TwoWire::begin(void) {
   _p_twi->ENABLE = (TWI_ENABLE_ENABLE_Enabled << TWI_ENABLE_ENABLE_Pos);
   _p_twi->PSELSCL = _uc_pinSCL;
   _p_twi->PSELSDA = _uc_pinSDA;
-
-  NVIC_ClearPendingIRQ(_IRQn);
-  NVIC_SetPriority(_IRQn, 2);
-  NVIC_EnableIRQ(_IRQn);
 }
 
 void TwoWire::setClock(uint32_t baudrate) {
@@ -277,20 +272,8 @@ void TwoWire::flush(void)
   // data transfer.
 }
 
-void TwoWire::onService(void)
-{
-}
-
 #if WIRE_INTERFACES_COUNT > 0
-TwoWire Wire(NRF_TWI1, SPI1_TWI1_IRQn, PIN_WIRE_SDA, PIN_WIRE_SCL);
-
-extern "C"
-{
-  void SPI1_TWI1_IRQHandler(void)
-  {
-    Wire.onService();
-  }
-}
+TwoWire Wire(NRF_TWI1, PIN_WIRE_SDA, PIN_WIRE_SCL);
 #endif
 
 #endif
