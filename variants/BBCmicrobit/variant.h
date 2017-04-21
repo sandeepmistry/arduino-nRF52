@@ -40,7 +40,6 @@ extern "C"
 // LEDs
 #define PIN_LED                 (13)
 #define LED_BUILTIN             PIN_LED
-// #define
 
 // Buttons
 #define PIN_BUTTON_A            (5)
@@ -64,6 +63,23 @@ static const uint8_t A3  = PIN_A3 ;
 static const uint8_t A4  = PIN_A4 ;
 static const uint8_t A5  = PIN_A5 ;
 #define ADC_RESOLUTION    10
+
+// Non standard distribution of Analog Pins requires a lookup table
+#define ARDUINO_ADC_NON_STANDARD_PINS
+__inline__ uint32_t _analogChannelPin(uint32_t pin) __attribute__((always_inline));
+__inline__ uint32_t _analogChannelPin(uint32_t pin) {
+  switch (pin) {
+    case 0:  return PIN_A0;
+    case 1:  return PIN_A1;
+    case 2:  return PIN_A2;
+    case 3:  return PIN_A3;
+    case 4:  return PIN_A4;
+    case 5:  return PIN_A5;
+    case 10: return PIN_A5;
+    // Otherwise non-analog pin so return out of range pin to exit early
+    default: return PINS_COUNT;
+  }
+}
 
 /*
  * Serial interfaces
