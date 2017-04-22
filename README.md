@@ -117,7 +117,7 @@ This Arduino Core does **not** contain any Arduino style API's for BLE functiona
 
 If the selected board has an external 32 kHz crystal connected, it will be used as the source for the low frequency clock. Otherwise the internal 32 kHz RC oscillator will be used. The low frequency clock is used by the `delay(ms)` and `millis()` Arduino API's.
 
-The Generic nRF51 and nRF52 board options have an additional menu item under `Tools -> Low Frequency Clock` that allows you to select the low frequency clock source.
+The Generic nRF51 and nRF52 board options have an additional menu item under `Tools -> Low Frequency Clock` that allows you to select the low frequency clock source. However, Nordic does not recommend the Synthesized clock, which also has a significant power impact.
 
 ## Credits
 
