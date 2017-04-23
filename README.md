@@ -75,7 +75,8 @@ For 64-bit Linux users,  ```libc6:i386```, ```libstdc++6:i386```, ```libncurses5
 __NOTE__: To roll back to the original driver go to: Device Manager -> Right click on device -> Check box for "Delete the driver software for this device" and click Uninstall
 
 ### Selecting a SoftDevice
-Softdevices contain the BLE stack and housekeeping, and must be downloaded once before a sketch can be loaded.
+SoftDevices contain the BLE stack and housekeeping, and must be downloaded once before a sketch using BLE can be loaded.
+The SD consumes ~5k of Ram + some extra based on actual BLE configuration.
 * SoftDevice S110 v8.0.0 supports [Revision](http://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf51%2Fdita%2Fnrf51%2Fcompatibility_matrix%2FnRF51822_ic_revision_overview.html&cp=3_0_1) 2 and 3 of nRF51 in peripheral role. It is 96k in size.
 * SoftDevice S130 v2.0.1 supports Revision 3 of nRF51 in peripheral and central role. It is 108k in size.
 * SoftDevice S132 v2.0.1 supports nRF52 in peripheral and central role. It is 112k in size.
