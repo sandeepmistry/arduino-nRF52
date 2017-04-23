@@ -76,8 +76,9 @@ __NOTE__: To roll back to the original driver go to: Device Manager -> Right cli
 
 ### Selecting a SoftDevice
 Softdevices contain the BLE stack and housekeeping, and must be downloaded once before a sketch can be loaded.
-* Softdevice S110 only supports peripheral role, but supports [Revision](http://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf51%2Fdita%2Fnrf51%2Fcompatibility_matrix%2FnRF51822_ic_revision_overview.html&cp=3_0_1) 2 and 3 of NRF51822. It is 96k in size.
-* Softdevice S130 supports Revision 3 of NRF51822 only, and NRF52832, but in peripheral and central role. It is 108k in size.
+* SoftDevice S110 v8.0.0 supports [Revision](http://infocenter.nordicsemi.com/index.jsp?topic=%2Fcom.nordic.infocenter.nrf51%2Fdita%2Fnrf51%2Fcompatibility_matrix%2FnRF51822_ic_revision_overview.html&cp=3_0_1) 2 and 3 of nRF51 in peripheral role. It is 96k in size.
+* SoftDevice S130 v2.0.1 supports Revision 3 of nRF51 in peripheral and central role. It is 108k in size.
+* SoftDevice S132 v2.0.1 supports nRF52 in peripheral and central role. It is 112k in size.
 
 ### Flashing a SoftDevice
 
