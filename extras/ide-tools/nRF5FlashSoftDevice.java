@@ -59,7 +59,7 @@ public class nRF5FlashSoftDevice implements Tool {
     try {
       softdevices.load(new FileInputStream(softdeviceTxtPath.toString()));
     } catch (Exception e) {
-      editor.statusError("Error while flashing SoftDevice.");
+      editor.statusError("Error while flashing SoftDevice. Programmer has no SoftDevice support.");
       System.err.println(e);
       return;
     }
@@ -81,10 +81,40 @@ public class nRF5FlashSoftDevice implements Tool {
       return;
     }
 
-    String programmer = PreferencesData.get("programmer");
-    if (programmer == null || !programmer.startsWith("sandeepmistry:")) {
-      editor.statusError("Unsupported programmer!");
+    Path programmersTxtPath = Paths.get(PreferencesData.get("runtime.platform.path"), "programmers.txt");
+    Properties programmers = new Properties();
+
+    try {
+      programmers.load(new FileInputStream(programmersTxtPath.toString()));
+    } catch (Exception e) {
+      editor.statusError("Error reading programmers.txt");
+      System.err.println(e);
       return;
+    }
+
+    Path platformTxtPath = Paths.get(PreferencesData.get("runtime.platform.path"), "platform.txt");
+    Properties platform = new Properties();
+
+    try {
+      platform.load(new FileInputStream(platformTxtPath.toString()));
+    } catch (Exception e) {
+      editor.statusError("Error reading platform.txt");
+      System.err.println(e);
+      return;
+    }
+
+    String programmer = PreferencesData.get("programmer");
+    if (programmer != null) {
+      programmer = programmer.split(":")[1];
+    } else {
+      editor.statusError("No programmer selected.");
+      return;
+    }
+
+    String tool = programmers.getProperty(programmer + ".program.tool");
+    if ((tool == null) || (platform.getProperty("tools." + tool + ".bootloader.pattern") == null)) {
+        editor.statusError("Unsupported programmer! '" + programmer + "'");
+        return;
     }
 
     softDevice = softDevice.substring(softDevice.lastIndexOf("_") + 1);
