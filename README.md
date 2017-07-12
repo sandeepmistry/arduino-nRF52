@@ -15,6 +15,7 @@ Does not require a custom bootloader on the device.
  * [Shenzhen Taida Century Technology nRF52 low cost development board](https://www.aliexpress.com/item/NRF52832-high-cost-development-board-gold-core-board/32725601299.html)
  * [RedBear Blend 2](https://github.com/redbear/nRF5x#blend-2)
  * [RedBear Nano 2](https://github.com/redbear/nRF5x#ble-nano-2)
+ * [Bluey](https://github.com/electronut/ElectronutLabs-bluey)
 
 ### nRF51
  * [Plain nRF51 MCU](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)

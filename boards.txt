@@ -60,6 +60,44 @@ Generic_nRF52832.menu.lfclk.lfsynt=Synthesized
 Generic_nRF52832.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 
+
+bluey.name=Electronut labs bluey
+
+bluey.upload.tool=sandeepmistry:openocd
+bluey.upload.target=nrf52
+bluey.upload.maximum_size=524288
+
+bluey.bootloader.tool=sandeepmistry:openocd
+
+bluey.build.mcu=cortex-m4
+bluey.build.f_cpu=16000000
+bluey.build.board=ELECTRONUT_BLUEY
+bluey.build.core=nRF5
+bluey.build.variant=bluey
+bluey.build.variant_system_lib=
+bluey.build.extra_flags=-DNRF52
+bluey.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+bluey.build.ldscript=nrf52_xxaa.ld
+
+bluey.menu.softdevice.none=None
+bluey.menu.softdevice.none.softdevice=none
+
+bluey.menu.softdevice.s132=S132
+bluey.menu.softdevice.s132.softdevice=s132
+bluey.menu.softdevice.s132.softdeviceversion=2.0.1
+bluey.menu.softdevice.s132.upload.maximum_size=409600
+bluey.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+bluey.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+bluey.menu.lfclk.lfxo=Crystal Oscillator
+bluey.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+bluey.menu.lfclk.lfrc=RC Oscillator
+bluey.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+bluey.menu.lfclk.lfsynt=Synthesized
+bluey.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+
+
 Blend2.name=RedBear Blend 2
 
 Blend2.vid.0=0x0204
