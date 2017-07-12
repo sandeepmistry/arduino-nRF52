@@ -79,7 +79,7 @@ const uint32_t g_ADigitalPinMap[] = {
 
   // RX, TX, RTS, CTS
   8,
-  6
+  6,
   5,
   7,
 };
