@@ -98,7 +98,8 @@
             {"name": "RedBear Blend 2"},
             {"name": "RedBearLab BLE Nano"},
             {"name": "RedBearLab nRF51822"},
-            {"name": "Waveshare BLE400"}
+            {"name": "Waveshare BLE400"},
+            {"name": "Electronut Labs Bluey"}
           ],
           "toolsDependencies": [
             {
