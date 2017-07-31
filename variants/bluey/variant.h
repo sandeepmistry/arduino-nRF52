@@ -33,8 +33,6 @@ extern "C"
 #endif // __cplusplus
 
 // Number of pins defined in PinDescription array
-// NOTE: NUM_DIGITAL_PINS does not seem to be used anywhere,
-// and not sure how it is actually counted
 #define PINS_COUNT           (27u)
 #define NUM_DIGITAL_PINS     (27u)
 #define NUM_ANALOG_INPUTS    (7u)
@@ -68,8 +66,6 @@ static const uint8_t A4  = PIN_A4 ; // AIN5
 static const uint8_t A5  = PIN_A5 ; // AIN6
 static const uint8_t A6  = PIN_A6 ; // AIN7
 #define ADC_RESOLUTION    10
-
-// XXX check ADC resolution, doesn't seem to be in use
 
 // Other pins
 #define PIN_AREF           (16)
