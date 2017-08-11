@@ -14,12 +14,11 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _VARIANT_NRF52_DK_
-#define _VARIANT_NRF52_DK_
+#ifndef _VARIANT_ELECTRONUT_BLUEY_
+#define _VARIANT_ELECTRONUT_BLUEY_
 
 /** Master clock frequency */
-// TODO confirm
-#define VARIANT_MCK       (16000000ul)
+#define VARIANT_MCK       (64000000ul)
 
 /*----------------------------------------------------------------------------
  *        Headers
