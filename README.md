@@ -75,6 +75,13 @@ For 64-bit Linux users,  ```libc6:i386```, ```libstdc++6:i386```, ```libncurses5
 
 __NOTE__: To roll back to the original driver go to: Device Manager -> Right click on device -> Check box for "Delete the driver software for this device" and click Uninstall
 
+###### Driver Setup for Black Magic Probe
+1. Download .inf file drivers from [blacksphere github](https://github.com/blacksphere/blackmagic/tree/master/driver)
+2. Plugin Black Magic Probe
+3. Point the installer to the folder containing blackmagic.inf
+
+__NOTE__: If using Windows 10 or Linux then two UART COM ports will be visible without requiring additional drivers
+
 ### Selecting a SoftDevice
 SoftDevices contain the BLE stack and housekeeping, and must be downloaded once before a sketch using BLE can be loaded.
 The SD consumes ~5k of Ram + some extra based on actual BLE configuration.

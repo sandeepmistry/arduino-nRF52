@@ -1,36 +1,30 @@
 jlink.name=J-Link
 jlink.communication=USB
 jlink.protocol=jlink
-jlink.program.protocol=
+jlink.program.protocol=jlink
 jlink.program.tool=openocd
-#jlink.program.interface=jlink
-#jlink.program.setup_command=transport select swd; set WORKAREASIZE 0;
-jlink.program.extra_params=transport select swd; set WORKAREASIZE 0;
+jlink.program.setup_command=transport select swd; set WORKAREASIZE 0;
 
 stlink.name=ST-Link V2
 stlink.communication=USB
 stlink.protocol=stlink-v2
-stlink.program.protocol=
+stlink.program.protocol=stlink-v2
 stlink.program.tool=openocd
-#stlink.program.interface=stlink-v2
-#stlink.program.setup_command=transport select hla_swd; set WORKAREASIZE 0x4000;
-stlink.program.extra_params=transport select hla_swd; set WORKAREASIZE 0x4000;
+stlink.program.setup_command=transport select hla_swd; set WORKAREASIZE 0x4000;
 
 cmsisdap.name=CMSIS-DAP
 cmsisdap.communication=USB
 cmsisdap.protocol=cmsis-dap
-cmsisdap.program.protocol=
+cmsisdap.program.protocol=cmsis-dap
 cmsisdap.program.tool=openocd
-#cmsisdap.program.interface=cmsis-dap
-#cmsisdap.program.setup_command=;
-cmsisdap.program.extra_params=;
+cmsisdap.program.setup_command=;
 
-bmp.name=BMP (Black Magic Probe)
+bmp.name=Black Magic Probe (GDB)
 bmp.communication=USB
 bmp.protocol=
 bmp.program.protocol=
-bmp.erase.tool=bmp_upload
-bmp.upload.tool=bmp_upload
-bmp.program.tool=bmp_upload
-bmp.bootloader.tool=bmp_upload
+bmp.erase.tool=blackmagicprobe
+bmp.upload.tool=blackmagicprobe
+bmp.program.tool=blackmagicprobe
+bmp.bootloader.tool=blackmagicprobe
 bmp.program.extra_params=;
