@@ -44,6 +44,7 @@ Generic_nRF52832.build.ldscript=nrf52_xxaa.ld
 
 Generic_nRF52832.menu.softdevice.none=None
 Generic_nRF52832.menu.softdevice.none.softdevice=none
+Generic_nRF52832.menu.softdevice.none.softdeviceversion=
 
 Generic_nRF52832.menu.softdevice.s132=S132
 Generic_nRF52832.menu.softdevice.s132.softdevice=s132
@@ -81,6 +82,7 @@ bluey.build.ldscript=nrf52_xxaa.ld
 
 bluey.menu.softdevice.none=None
 bluey.menu.softdevice.none.softdevice=none
+bluey.menu.softdevice.none.softdeviceversion=
 
 bluey.menu.softdevice.s132=S132
 bluey.menu.softdevice.s132.softdevice=s132
@@ -128,6 +130,7 @@ Blend2.build.lfclk_flags=-DUSE_LFXO
 
 Blend2.menu.softdevice.none=None
 Blend2.menu.softdevice.none.softdevice=none
+Blend2.menu.softdevice.none.softdeviceversion=
 
 Blend2.menu.softdevice.s132=S132
 Blend2.menu.softdevice.s132.softdevice=s132
@@ -167,6 +170,7 @@ BLENano2.build.lfclk_flags=-DUSE_LFXO
 
 BLENano2.menu.softdevice.none=None
 BLENano2.menu.softdevice.none.softdevice=none
+BLENano2.menu.softdevice.none.softdeviceversion=
 
 BLENano2.menu.softdevice.s132=S132
 BLENano2.menu.softdevice.s132.softdevice=s132
@@ -206,6 +210,7 @@ nRF52DK.build.lfclk_flags=-DUSE_LFXO
 
 nRF52DK.menu.softdevice.none=None
 nRF52DK.menu.softdevice.none.softdevice=none
+nRF52DK.menu.softdevice.none.softdeviceversion=
 
 nRF52DK.menu.softdevice.s132=S132
 nRF52DK.menu.softdevice.s132.softdevice=s132
@@ -237,6 +242,7 @@ STCT_nRF52_minidev.build.lfclk_flags=-DUSE_LFXO
 
 STCT_nRF52_minidev.menu.softdevice.none=None
 STCT_nRF52_minidev.menu.softdevice.none.softdevice=none
+STCT_nRF52_minidev.menu.softdevice.none.softdeviceversion=
 
 STCT_nRF52_minidev.menu.softdevice.s132=S132
 STCT_nRF52_minidev.menu.softdevice.s132.softdevice=s132
@@ -274,6 +280,7 @@ Generic_nRF51822.menu.chip.xxac.build.chip=xxac
 
 Generic_nRF51822.menu.softdevice.none=None
 Generic_nRF51822.menu.softdevice.none.softdevice=none
+Generic_nRF51822.menu.softdevice.none.softdeviceversion=
 
 Generic_nRF51822.menu.softdevice.s110=S110
 Generic_nRF51822.menu.softdevice.s110.softdevice=s110
@@ -326,6 +333,7 @@ BBCmicrobit.build.lfclk_flags=-DUSE_LFRC
 
 BBCmicrobit.menu.softdevice.none=None
 BBCmicrobit.menu.softdevice.none.softdevice=none
+BBCmicrobit.menu.softdevice.none.softdeviceversion=
 
 BBCmicrobit.menu.softdevice.s110=S110
 BBCmicrobit.menu.softdevice.s110.softdevice=s110
@@ -364,6 +372,7 @@ BluzDK.build.lfclk_flags=-DUSE_LFXO
 
 BluzDK.menu.softdevice.none=None
 BluzDK.menu.softdevice.none.softdevice=none
+BluzDK.menu.softdevice.none.softdeviceversion=
 
 BluzDK.menu.softdevice.s110=S110
 BluzDK.menu.softdevice.s110.softdevice=s110
@@ -413,6 +422,7 @@ PCA1000X.menu.board_variant.nrf6310.board.variant=NRF6310
 
 PCA1000X.menu.softdevice.none=None
 PCA1000X.menu.softdevice.none.softdevice=none
+PCA1000X.menu.softdevice.none.softdeviceversion=
 
 PCA1000X.menu.softdevice.s110=S110
 PCA1000X.menu.softdevice.s110.softdevice=s110
@@ -463,6 +473,7 @@ nRF51Dongle.menu.version.1_1_0.build.chip=xxac
 
 nRF51Dongle.menu.softdevice.none=None
 nRF51Dongle.menu.softdevice.none.softdevice=none
+nRF51Dongle.menu.softdevice.none.softdeviceversion=
 
 nRF51Dongle.menu.softdevice.s110=S110
 nRF51Dongle.menu.softdevice.s110.softdevice=s110
@@ -500,6 +511,7 @@ Beacon_PCA20006.build.lfclk_flags=-DUSE_LFXO
 
 Beacon_PCA20006.menu.softdevice.none=None
 Beacon_PCA20006.menu.softdevice.none.softdevice=none
+Beacon_PCA20006.menu.softdevice.none.softdeviceversion=
 
 Beacon_PCA20006.menu.softdevice.s110=S110
 Beacon_PCA20006.menu.softdevice.s110.softdevice=s110
@@ -540,6 +552,7 @@ TinyBLE.build.lfclk_flags=-DUSE_LFXO
 
 TinyBLE.menu.softdevice.none=None
 TinyBLE.menu.softdevice.none.softdevice=none
+TinyBLE.menu.softdevice.none.softdeviceversion=
 
 TinyBLE.menu.softdevice.s110=S110
 TinyBLE.menu.softdevice.s110.softdevice=s110
@@ -578,6 +591,7 @@ OSHChip.build.lfclk_flags=-DUSE_LFRC
 
 OSHChip.menu.softdevice.none=None
 OSHChip.menu.softdevice.none.softdevice=none
+OSHChip.menu.softdevice.none.softdeviceversion=
 
 OSHChip.menu.softdevice.s110=S110
 OSHChip.menu.softdevice.s110.softdevice=s110
@@ -623,6 +637,7 @@ BLENano.menu.version.1_5.build.chip=xxac
 
 BLENano.menu.softdevice.none=None
 BLENano.menu.softdevice.none.softdevice=none
+BLENano.menu.softdevice.none.softdeviceversion=
 
 BLENano.menu.softdevice.s110=S110
 BLENano.menu.softdevice.s110.softdevice=s110
@@ -668,6 +683,7 @@ RedBearLab_nRF51822.menu.version.1_5.build.chip=xxac
 
 RedBearLab_nRF51822.menu.softdevice.none=None
 RedBearLab_nRF51822.menu.softdevice.none.softdevice=none
+RedBearLab_nRF51822.menu.softdevice.none.softdeviceversion=
 
 RedBearLab_nRF51822.menu.softdevice.s110=S110
 RedBearLab_nRF51822.menu.softdevice.s110.softdevice=s110
@@ -711,6 +727,7 @@ Waveshare_BLE400.menu.chip.xxac.build.chip=xxac
 
 Waveshare_BLE400.menu.softdevice.none=None
 Waveshare_BLE400.menu.softdevice.none.softdevice=none
+Waveshare_BLE400.menu.softdevice.none.softdeviceversion=
 
 Waveshare_BLE400.menu.softdevice.s110=S110
 Waveshare_BLE400.menu.softdevice.s110.softdevice=s110
@@ -749,6 +766,7 @@ ng_beacon.build.lfclk_flags=-DUSE_LFRC
 
 ng_beacon.menu.softdevice.none=None
 ng_beacon.menu.softdevice.none.softdevice=none
+ng_beacon.menu.softdevice.none.softdeviceversion=
 
 ng_beacon.menu.softdevice.s110=S110
 ng_beacon.menu.softdevice.s110.softdevice=s110
