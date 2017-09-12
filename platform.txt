@@ -140,7 +140,7 @@ tools.blackmagicprobe.upload.speed=230400
 
 tools.blackmagicprobe.erase.params.verbose=
 tools.blackmagicprobe.erase.params.quiet=-q --batch-silent
-tools.blackmagicprobe.erase.pattern="{path}{cmd}" -quiet -cd "{build.path}" -ex "target extended-remote \\.\{serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "monitor erase mass" -ex "echo \nErase finished!\n" -ex "detach" -ex "quit"
+tools.blackmagicprobe.erase.pattern="{path}{cmd}" -quiet -ex "target extended-remote \\.\{serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "monitor erase mass" -ex "echo \nErase finished!\n" -ex "detach" -ex "quit"
 
 tools.blackmagicprobe.upload.params.verbose=
 tools.blackmagicprobe.upload.params.quiet=-q --batch-silent
