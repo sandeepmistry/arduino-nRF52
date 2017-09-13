@@ -11,7 +11,7 @@ stlink.communication=USB
 stlink.protocol=stlink-v2
 stlink.program.protocol=stlink-v2
 stlink.program.tool=openocd
-jlink.bootloader.tool=sandeepmistry:openocd
+stlink.bootloader.tool=sandeepmistry:openocd
 stlink.program.setup_command=transport select hla_swd; set WORKAREASIZE 0x4000;
 
 cmsisdap.name=CMSIS-DAP
@@ -19,7 +19,7 @@ cmsisdap.communication=USB
 cmsisdap.protocol=cmsis-dap
 cmsisdap.program.protocol=cmsis-dap
 cmsisdap.program.tool=openocd
-jlink.bootloader.tool=sandeepmistry:openocd
+cmsisdap.bootloader.tool=sandeepmistry:openocd
 cmsisdap.program.setup_command=;
 
 bmp.name=Black Magic Probe (GDB)
