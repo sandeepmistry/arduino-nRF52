@@ -31,20 +31,19 @@ extern "C" {
 static uint32_t saadcReference = SAADC_CH_CONFIG_REFSEL_Internal;
 static uint32_t saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
 
-#define PWM_COUNT 3
-
-static NRF_PWM_Type* pwms[PWM_COUNT] = {
+NRF_PWM_Type* pwms[PWM_COUNT] = {
   NRF_PWM0,
   NRF_PWM1,
   NRF_PWM2
 };
 
-static uint32_t pwmChannelPins[PWM_COUNT] = {
-  0xFFFFFFFF,
-  0xFFFFFFFF,
-  0xFFFFFFFF
+struct PWMContext pwmContext[PWM_COUNT] = {
+  { PIN_FREE, 0 },
+  { PIN_FREE, 0 },
+  { PIN_FREE, 0 }
 };
-static uint16_t pwmChannelSequence[PWM_COUNT];
+
+struct PWMStatus pwmStatus[PWM_TIMER_COUNT] = {0, 0};
 
 static int readResolution = 10;
 static int writeResolution = 8;
@@ -220,9 +219,9 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
   ulPin = g_ADigitalPinMap[ulPin];
 
   for (int i = 0; i < PWM_COUNT; i++) {
-    if (pwmChannelPins[i] == 0xFFFFFFFF || pwmChannelPins[i] == ulPin) {
-      pwmChannelPins[i] = ulPin;
-      pwmChannelSequence[i] = ulValue | bit(15);
+    if (pwmContext[i].pin == PIN_FREE || pwmContext[i].pin == ulPin) {
+      pwmContext[i].pin = ulPin;
+      pwmContext[i].value = ulValue;
 
       NRF_PWM_Type* pwm = pwms[i];
 
@@ -236,14 +235,24 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
       pwm->COUNTERTOP = (1 << writeResolution) - 1;
       pwm->LOOP = 0;
       pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Common << PWM_DECODER_LOAD_Pos) | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
-      pwm->SEQ[0].PTR = (uint32_t)&pwmChannelSequence[i];
+      pwm->SEQ[0].PTR = (uint32_t)&(pwmContext[i].value);
       pwm->SEQ[0].CNT = 1;
       pwm->SEQ[0].REFRESH  = 1;
       pwm->SEQ[0].ENDDELAY = 0;
       pwm->TASKS_SEQSTART[0] = 0x1UL;
-
-      break;
+      pwmStatus[0].numActive++;
+      return;
     }
+  }
+
+  // fallback to digitalWrite if no available PWM channel
+  if (ulValue < 128)
+  {
+    digitalWrite(ulPin, LOW);
+  }
+  else
+  {
+    digitalWrite(ulPin, LOW);
   }
 }
 

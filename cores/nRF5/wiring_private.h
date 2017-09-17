@@ -26,9 +26,26 @@
 extern "C" {
 #endif
 
-
 #include "wiring_constants.h"
 
+#define PWM_COUNT 3
+#define PWM_TIMER_COUNT 1 // 3 channels of TIMER1 are used. TIMER2 also could be used for PWM
+#define PIN_FREE 0xffffffff
+
+struct PWMContext {
+  uint32_t pin;
+  uint32_t value;
+  #ifdef NRF51
+  uint32_t channel;
+  uint32_t mask;
+  uint32_t event;
+  #endif
+};
+
+struct PWMStatus {
+  int8_t numActive;
+  int8_t irqNumber;
+};
 
 #ifdef __cplusplus
 } // extern "C"
