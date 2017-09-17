@@ -20,6 +20,13 @@
 #include "nrf.h"
 
 #include "Arduino.h"
+#include "wiring_private.h"
+
+extern struct PWMContext pwmContext[PWM_COUNT];
+extern struct PWMStatus pwmStatus[PWM_TIMER_COUNT];
+#ifdef NRF52
+extern NRF_PWM_Type* pwms[PWM_COUNT];
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -86,18 +93,42 @@ void digitalWrite( uint32_t ulPin, uint32_t ulVal )
 
   ulPin = g_ADigitalPinMap[ulPin];
 
+  for (uint8_t i = 0; i < PWM_COUNT; i++)
+  {
+    if (pwmContext[i].pin == ulPin)
+    {
+      pwmContext[i].pin = PIN_FREE;
+      #ifdef NRF52
+      // Disable the PWM
+      NRF_PWM_Type* pwm = pwms[i];
+      pwm->ENABLE = (PWM_ENABLE_ENABLE_Disabled << PWM_ENABLE_ENABLE_Pos);
+      #endif
+      pwmStatus[0].numActive--;
+    }
+  }
+
+  #ifdef NRF51
+  // Turn off the Timer if no pwm signals are allocated
+  for (uint8_t i = 0; i < PWM_TIMER_COUNT; i++)
+  {
+   if (pwmStatus[i].numActive == 0)
+    {
+      NVIC_ClearPendingIRQ(pwmStatus[i].irqNumber);
+      NVIC_DisableIRQ(pwmStatus[i].irqNumber);
+    }
+  }
+  #endif
+
   switch ( ulVal )
   {
     case LOW:
       NRF_GPIO->OUTCLR = (1UL << ulPin);
-    break ;
+      break;
 
     default:
       NRF_GPIO->OUTSET = (1UL << ulPin);
-    break ;
+      break;
   }
-
-  return ;
 }
 
 int digitalRead( uint32_t ulPin )

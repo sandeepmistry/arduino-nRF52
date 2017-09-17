@@ -28,27 +28,16 @@
 extern "C" {
 #endif
 
-#define PWM_COUNT 3
-#define PIN_FREE 0xffffffff
+static uint32_t adcReference = ADC_CONFIG_REFSEL_SupplyOneThirdPrescaling;
+static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
 
-struct PWMContext {
-  uint32_t pin;
-  uint32_t value;
-  uint32_t channel;
-  uint32_t mask;
-  uint32_t event;
-};
-
-static struct PWMContext pwmContext[PWM_COUNT] = {
+struct PWMContext pwmContext[PWM_COUNT] = {
   { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1 },
   { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2 },
   { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3 }
 };
 
-static int timerEnabled = 0;
-
-static uint32_t adcReference = ADC_CONFIG_REFSEL_SupplyOneThirdPrescaling;
-static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
+struct PWMStatus pwmStatus[PWM_TIMER_COUNT] = {0, TIMER1_IRQn};
 
 static uint32_t readResolution = 10;
 static uint32_t writeResolution = 8;
@@ -229,7 +218,7 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
   ulPin = g_ADigitalPinMap[ulPin];
 
-  if (!timerEnabled) {
+  if (pwmStatus[0].numActive == 0) {
     NVIC_SetPriority(TIMER1_IRQn, 3);
     NVIC_ClearPendingIRQ(TIMER1_IRQn);
     NVIC_EnableIRQ(TIMER1_IRQn);
@@ -245,8 +234,6 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
     NRF_TIMER1->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
 
     NRF_TIMER1->TASKS_START = 0x1UL;
-
-    timerEnabled = true;
   }
 
   for (int i = 0; i < PWM_COUNT; i++) {
@@ -259,16 +246,24 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos);
 
-      ulValue = mapResolution(ulValue, writeResolution, 8);
-
       pwmContext[i].value = ulValue;
 
       NRF_TIMER1->CC[pwmContext[i].channel] = ulValue;
 
       NRF_TIMER1->INTENSET = pwmContext[i].mask;
-
-      break;
+      pwmStatus[0].numActive++;
+      return;
     }
+  }
+
+  // fallback to digitalWrite if no available PWM channel
+  if (ulValue < 128)
+  {
+    digitalWrite(ulPin, LOW);
+  }
+  else
+  {
+    digitalWrite(ulPin, LOW);
   }
 }
 
