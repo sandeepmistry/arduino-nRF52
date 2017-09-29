@@ -252,6 +252,37 @@ STCT_nRF52_minidev.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51
 STCT_nRF52_minidev.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 
+Arduino_Primo_Core.name=Arduino Primo Core
+
+Arduino_Primo_Core.upload.tool=sandeepmistry:openocd
+Arduino_Primo_Core.upload.target=nrf52
+Arduino_Primo_Core.upload.maximum_size=524288
+
+Arduino_Primo_Core.bootloader.tool=sandeepmistry:openocd
+
+Arduino_Primo_Core.build.mcu=cortex-m4
+Arduino_Primo_Core.build.f_cpu=16000000
+Arduino_Primo_Core.build.board=PRIMO_CORE
+Arduino_Primo_Core.build.core=nRF5
+Arduino_Primo_Core.build.variant=PrimoCore
+Arduino_Primo_Core.build.variant_system_lib=
+Arduino_Primo_Core.build.extra_flags=-DNRF52
+Arduino_Primo_Core.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+Arduino_Primo_Core.build.ldscript=nrf52_xxaa.ld
+
+Arduino_Primo_Core.menu.softdevice.none=None
+Arduino_Primo_Core.menu.softdevice.none.softdevice=none
+Arduino_Primo_Core.menu.softdevice.none.softdeviceversion=
+
+Arduino_Primo_Core.menu.softdevice.s132=S132
+Arduino_Primo_Core.menu.softdevice.s132.softdevice=s132
+Arduino_Primo_Core.menu.softdevice.s132.softdeviceversion=2.0.1
+Arduino_Primo_Core.menu.softdevice.s132.upload.maximum_size=409600
+Arduino_Primo_Core.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+Arduino_Primo_Core.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+
+
 # nRF51 variants
 ###################
 
