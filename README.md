@@ -16,6 +16,7 @@ Does not require a custom bootloader on the device.
  * [RedBear Blend 2](https://github.com/redbear/nRF5x#blend-2)
  * [RedBear Nano 2](https://github.com/redbear/nRF5x#ble-nano-2)
  * [Bluey](https://github.com/electronut/ElectronutLabs-bluey)
+ * [Arduino Primo Core](https://store.arduino.cc/arduino-primo-core)
 
 ### nRF51
  * [Plain nRF51 MCU](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
