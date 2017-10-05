@@ -22,10 +22,10 @@ cmsisdap.program.tool=openocd
 cmsisdap.bootloader.tool=openocd
 cmsisdap.program.setup_command=;
 
-bmp.name=Black Magic Probe (GDB)
-bmp.communication=USB
-bmp.protocol=
-bmp.program.protocol=
-bmp.program.tool=blackmagicprobe
-bmp.bootloader.tool=sandeepmistry:blackmagicprobe
-bmp.program.extra_params=;
+blackmagicprobe.name=Black Magic Probe (GDB)
+blackmagicprobe.communication=USB
+blackmagicprobe.protocol=
+blackmagicprobe.program.protocol=
+blackmagicprobe.program.tool=blackmagicprobe
+blackmagicprobe.bootloader.tool=sandeepmistry:blackmagicprobe
+blackmagicprobe.program.extra_params=;
