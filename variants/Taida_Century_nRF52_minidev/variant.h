@@ -76,8 +76,16 @@ static const uint8_t AREF = PIN_AREF;
  * Serial interfaces
  */
 // Serial
-#define PIN_SERIAL_RX       (18)
-#define PIN_SERIAL_TX       (19)
+#ifdef STCT_NRF52_minidev_RGZ  // J11 - J12 soldered (RGZ)
+#define PIN_SERIAL_RX       (2u)
+#define PIN_SERIAL_TX       (3u)
+#elif defined (STCT_NRF52_minidev_RSM)  // J15 - J16 soldered (RSM)
+#define PIN_SERIAL_RX       (1u)
+#define PIN_SERIAL_TX       (2u)
+#else // original configuration
+#define PIN_SERIAL_RX       (18u)
+#define PIN_SERIAL_TX       (19u)
+#endif
 
 /*
  * SPI Interfaces
@@ -98,8 +106,16 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
  */
 #define WIRE_INTERFACES_COUNT 1
 
+#ifdef STCT_NRF52_minidev_RGZ  // J13 - J14 soldered (RGZ)
+#define PIN_WIRE_SDA         (16u)
+#define PIN_WIRE_SCL         (17u)
+#elif defined (STCT_NRF52_minidev_RSM)  // J17 - J18 soldered (RSM)
+#define PIN_WIRE_SDA         (3u)
+#define PIN_WIRE_SCL         (4u)
+#else // original configuration
 #define PIN_WIRE_SDA         (2u)
 #define PIN_WIRE_SCL         (3u)
+#endif
 
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
