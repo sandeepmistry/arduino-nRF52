@@ -29,11 +29,11 @@ extern "C"{
 #define clockCyclesToMicroseconds(a) ( ((a) * 1000L) / (SystemCoreClock / 1000L) )
 #define microsecondsToClockCycles(a) ( (a) * (SystemCoreClock / 1000000L) )
 
-void yield( void ) ;
+void yield( void );
 
 /* sketch */
-void setup( void ) ;
-void loop( void ) ;
+void setup( void );
+void loop( void );
 
 #include "WVariant.h"
 
@@ -92,12 +92,12 @@ void loop( void ) ;
 
 #define bit(b) (1UL << (b))
 
-#define digitalPinToPort(P)        ( &(NRF_GPIO[P]) )
+#define digitalPinToPort(P)        ( NRF_GPIO ) // NRF_P0 = P0.00 - P0.31, NRF_P1 = P1.00 - P1.15 (e.g. nRF52840)
 #define digitalPinToBitMask(P)     ( 1 << g_ADigitalPinMap[P] )
 //#define analogInPinToBit(P)        ( )
-#define portOutputRegister(port)   ( &(port->OUTSET) )
+#define portOutputRegister(port)   ( &(port->OUT) )
 #define portInputRegister(port)    ( &(port->IN) )
-#define portModeRegister(port)     ( &(port->DIRSET) )
+#define portModeRegister(port)     ( &(port->DIR) )
 #define digitalPinHasPWM(P)        ( true )
 
 /*
