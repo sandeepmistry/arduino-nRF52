@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifdef NRF52
+#include "Wire.h"
+
+#ifdef USE_DMA_TWI
 
 extern "C" {
 #include <string.h>
@@ -26,8 +28,6 @@ extern "C" {
 
 #include <Arduino.h>
 #include <wiring_private.h>
-
-#include "Wire.h"
 
 TwoWire::TwoWire(NRF_TWIM_Type * p_twim, NRF_TWIS_Type * p_twis, IRQn_Type IRQn, uint8_t pinSDA, uint8_t pinSCL)
 {

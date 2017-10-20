@@ -31,16 +31,20 @@
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
+#if defined(NRF52) && !defined(ARDUINO_RB_BLE_NANO_2)
+#define USE_DMA_TWI 1
+#endif
+
 class TwoWire : public Stream
 {
   public:
-#ifdef NRF52
+#ifdef USE_DMA_TWI
     TwoWire(NRF_TWIM_Type * p_twim, NRF_TWIS_Type * p_twis, IRQn_Type IRQn, uint8_t pinSDA, uint8_t pinSCL);
 #else
     TwoWire(NRF_TWI_Type * p_twi, uint8_t pinSDA, uint8_t pinSCL);
 #endif
     void begin();
-#ifdef NRF52
+#ifdef USE_DMA_TWI
     void begin(uint8_t);
 #endif
     void end();
@@ -60,7 +64,7 @@ class TwoWire : public Stream
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-#ifdef NRF52
+#ifdef USE_DMA_TWI
     void onReceive(void(*)(int));
     void onRequest(void(*)(void));
     void onService(void);
@@ -69,7 +73,7 @@ class TwoWire : public Stream
     using Print::write;
 
   private:
-#ifdef NRF52
+#ifdef USE_DMA_TWI
     NRF_TWIM_Type * _p_twim;
     NRF_TWIS_Type * _p_twis;
 #else
