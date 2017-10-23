@@ -20,6 +20,7 @@ menu.softdevice=Softdevice
 menu.version=Version
 menu.lfclk=Low Frequency Clock
 menu.board_variant=Board Variant
+menu.gpio_config=GPIO Configuration
 
 # nRF52832 variants
 ###################
@@ -60,6 +61,14 @@ Generic_nRF52832.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 Generic_nRF52832.menu.lfclk.lfsynt=Synthesized
 Generic_nRF52832.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
+Generic_nRF52832.menu.gpio_config.default=No Pin Reset, NFC pins as Antenna (default)
+Generic_nRF52832.menu.gpio_config.default.build.gpio_flags=
+Generic_nRF52832.menu.gpio_config.PinResetNFCAntenna=Pin Reset, NFC pins as Antenna
+Generic_nRF52832.menu.gpio_config.PinResetNFCAntenna.build.gpio_flags=-DCONFIG_GPIO_AS_PINRESET
+Generic_nRF52832.menu.gpio_config.NoPinResetNFCGPIO=No Pin Reset, NFC pins as GPIO
+Generic_nRF52832.menu.gpio_config.NoPinResetNFCGPIO.build.gpio_flags=-DCONFIG_NFCT_PINS_AS_GPIOS
+Generic_nRF52832.menu.gpio_config.PinResetNFCGPIO=Pin Reset, NFC pins as GPIO
+Generic_nRF52832.menu.gpio_config.PinResetNFCGPIO.build.gpio_flags=-DCONFIG_GPIO_AS_PINRESET -DCONFIG_NFCT_PINS_AS_GPIOS
 
 
 bluey.name=Electronut labs bluey
