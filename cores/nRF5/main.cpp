@@ -16,10 +16,6 @@
 #define ARDUINO_MAIN
 #include "Arduino.h"
 
-#if defined(RESET_PIN)
-#include "nrf.h"
-#endif
-
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 void initVariant() __attribute__((weak));
