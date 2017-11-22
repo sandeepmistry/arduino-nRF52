@@ -23,23 +23,7 @@
 // Weak empty variant initialization function.
 // May be redefined by variant files.
 void initVariant() __attribute__((weak));
-void initVariant()
-{
-  #if defined(RESET_PIN)
-  if (((NRF_UICR->PSELRESET[0] & UICR_PSELRESET_CONNECT_Msk) != (UICR_PSELRESET_CONNECT_Connected << UICR_PSELRESET_CONNECT_Pos)) ||
-      ((NRF_UICR->PSELRESET[1] & UICR_PSELRESET_CONNECT_Msk) != (UICR_PSELRESET_CONNECT_Connected << UICR_PSELRESET_CONNECT_Pos))){
-      NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Wen << NVMC_CONFIG_WEN_Pos;
-      while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
-      NRF_UICR->PSELRESET[0] = RESET_PIN;
-      while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
-      NRF_UICR->PSELRESET[1] = RESET_PIN;
-      while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
-      NRF_NVMC->CONFIG = NVMC_CONFIG_WEN_Ren << NVMC_CONFIG_WEN_Pos;
-      while (NRF_NVMC->READY == NVMC_READY_READY_Busy){}
-      NVIC_SystemReset();
-  }
-  #endif
-}
+void initVariant() { }
 
 /*
  * \brief Main entry point of Arduino application
