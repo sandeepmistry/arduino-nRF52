@@ -44,6 +44,15 @@ SPIClass::SPIClass(NRF_SPI_Type *p_spi, uint8_t uc_pinMISO, uint8_t uc_pinSCK, u
   _bitOrder = SPI_CONFIG_ORDER_MsbFirst;
 }
 
+#ifdef ARDUINO_GENERIC
+void SPIClass::setPins(uint8_t uc_pinMISO, uint8_t uc_pinSCK, uint8_t uc_pinMOSI)
+{
+  _uc_pinMiso = g_ADigitalPinMap[uc_pinMISO];
+  _uc_pinSCK = g_ADigitalPinMap[uc_pinSCK];
+  _uc_pinMosi = g_ADigitalPinMap[uc_pinMOSI];
+}
+#endif // ARDUINO_GENERIC
+
 void SPIClass::begin()
 {
   init();

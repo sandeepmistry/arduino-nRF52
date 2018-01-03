@@ -100,6 +100,9 @@ class SPIClass {
   void attachInterrupt();
   void detachInterrupt();
 
+#ifdef ARDUINO_GENERIC
+  void setPins(uint8_t uc_pinMISO, uint8_t uc_pinSCK, uint8_t uc_pinMOSI);
+#endif // ARDUINO_GENERIC
   void begin();
   void end();
 
