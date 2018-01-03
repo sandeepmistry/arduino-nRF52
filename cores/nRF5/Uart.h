@@ -31,6 +31,10 @@ class Uart : public HardwareSerial
   public:
     Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX);
     Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS );
+#ifdef ARDUINO_GENERIC
+    void setPins(uint8_t _pinRX, uint8_t _pinTX);
+    void setPins(uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS);
+#endif // ARDUINO_GENERIC
     void begin(unsigned long baudRate);
     void begin(unsigned long baudrate, uint16_t config);
     void end();

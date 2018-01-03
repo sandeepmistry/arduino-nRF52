@@ -41,6 +41,22 @@ Uart::Uart(NRF_UART_Type *_nrfUart, IRQn_Type _IRQn, uint8_t _pinRX, uint8_t _pi
   uc_hwFlow = 1;
 }
 
+#ifdef ARDUINO_GENERIC
+void Uart::setPins(uint8_t _pinRX, uint8_t _pinTX)
+{
+  uc_pinRX = g_ADigitalPinMap[_pinRX];
+  uc_pinTX = g_ADigitalPinMap[_pinTX];
+}
+
+void Uart::setPins(uint8_t _pinRX, uint8_t _pinTX, uint8_t _pinCTS, uint8_t _pinRTS)
+{
+  uc_pinRX = g_ADigitalPinMap[_pinRX];
+  uc_pinTX = g_ADigitalPinMap[_pinTX];
+  uc_pinCTS = g_ADigitalPinMap[_pinCTS];
+  uc_pinRTS = g_ADigitalPinMap[_pinRTS];
+}
+#endif // ARDUINO_GENERIC
+
 void Uart::begin(unsigned long baudrate)
 {
   begin(baudrate, (uint8_t)SERIAL_8N1);
