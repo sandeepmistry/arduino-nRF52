@@ -39,6 +39,9 @@ class TwoWire : public Stream
 #else
     TwoWire(NRF_TWI_Type * p_twi, uint8_t pinSDA, uint8_t pinSCL);
 #endif
+#ifdef ARDUINO_GENERIC
+    void setPins(uint8_t pinSDA, uint8_t pinSCL);
+#endif // ARDUINO_GENERIC
     void begin();
 #ifdef NRF52
     void begin(uint8_t);
