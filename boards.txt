@@ -818,3 +818,50 @@ ng_beacon.menu.softdevice.s130.softdeviceversion=2.0.1
 ng_beacon.menu.softdevice.s130.upload.maximum_size=151552
 ng_beacon.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 ng_beacon.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+
+
+Sinobit.name=Sino:bit
+
+Sinobit.vid.0=0x0d28
+Sinobit.pid.0=0x0204
+
+Sinobit.upload.tool=sandeepmistry:openocd
+Sinobit.upload.protocol=cmsis-dap
+Sinobit.upload.target=nrf51
+Sinobit.upload.maximum_size=262144
+Sinobit.upload.setup_command=transport select swd;
+Sinobit.upload.use_1200bps_touch=false
+Sinobit.upload.wait_for_upload_port=false
+Sinobit.upload.native_usb=false
+
+Sinobit.bootloader.tool=sandeepmistry:openocd
+
+Sinobit.build.mcu=cortex-m0
+Sinobit.build.f_cpu=16000000
+Sinobit.build.board=BBC_MICROBIT
+Sinobit.build.core=nRF5
+Sinobit.build.variant=Sinobit
+Sinobit.build.variant_system_lib=
+Sinobit.build.extra_flags=-DNRF51
+Sinobit.build.float_flags=
+Sinobit.build.ldscript=nrf51_xxaa.ld
+
+Sinobit.build.lfclk_flags=-DUSE_LFRC
+
+Sinobit.menu.softdevice.none=None
+Sinobit.menu.softdevice.none.softdevice=none
+Sinobit.menu.softdevice.none.softdeviceversion=
+
+Sinobit.menu.softdevice.s110=S110
+Sinobit.menu.softdevice.s110.softdevice=s110
+Sinobit.menu.softdevice.s110.softdeviceversion=8.0.0
+Sinobit.menu.softdevice.s110.upload.maximum_size=151552
+Sinobit.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+Sinobit.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+Sinobit.menu.softdevice.s130=S130
+Sinobit.menu.softdevice.s130.softdevice=s130
+Sinobit.menu.softdevice.s130.softdeviceversion=2.0.1
+Sinobit.menu.softdevice.s130.upload.maximum_size=151552
+Sinobit.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+Sinobit.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld

@@ -157,6 +157,52 @@
               "version": "0.10.0-dev.nrf5"
             }
           ]
+        },
+        {
+          "name": "Nordic Semiconductor nRF5 Boards",
+          "architecture": "nRF5",
+          "version": "0.5.0",
+          "category": "Contributed",
+          "help": {
+            "online": "https://github.com/sandeepmistry/arduino-nRF5/issues"
+          },
+          "url": "https://github.com/sandeepmistry/arduino-nRF5/archive/0.4.0.tar.gz",
+          "archiveFileName": "arduino-nRF52-0.4.0.tar.gz",
+          "checksum": "MD5:E82DA39642AB48492A9FEDE8159871F5",
+          "size": "573440",
+          "boards": [
+            {"name": "BBC micro:bit"},
+            {"name": "Bluz DK"},
+            {"name": "Electronut labs bluey"},
+            {"name": "Generic nRF51822"},
+            {"name": "Generic nRF52823"},
+            {"name": "OSHChip"},
+            {"name": "ng-beacon"},
+            {"name": "nRF51 Dongle"},
+            {"name": "nRF51822 Development Kit"},
+            {"name": "nRF52 DK"},
+            {"name": "Nordic Beacon Kit"},
+            {"name": "RedBear BLE Nano 2"},
+            {"name": "RedBear Blend 2"},
+            {"name": "RedBearLab BLE Nano"},
+            {"name": "RedBearLab nRF51822"},
+            {"name": "Taida Century nRF52 mini board"},
+            {"name": "TinyBLE"},
+            {"name": "Waveshare BLE400"},
+            {"name": "Sino:bit"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "sandeepmistry",
+              "name": "gcc-arm-none-eabi",
+              "version": "5_2-2015q4"
+            },
+            {
+              "packager": "sandeepmistry",
+              "name": "openocd",
+              "version": "0.10.0-dev.nrf5"
+            }
+          ]
         }
       ],
       "tools":[
