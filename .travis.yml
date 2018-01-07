@@ -35,3 +35,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:TinyBLE 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:bluey 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:hackaBLE 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:Sinobit 01.Basics BareMinimum

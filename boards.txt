@@ -838,7 +838,7 @@ Sinobit.bootloader.tool=sandeepmistry:openocd
 
 Sinobit.build.mcu=cortex-m0
 Sinobit.build.f_cpu=16000000
-Sinobit.build.board=BBC_MICROBIT
+Sinobit.build.board=SINOBIT
 Sinobit.build.core=nRF5
 Sinobit.build.variant=Sinobit
 Sinobit.build.variant_system_lib=
