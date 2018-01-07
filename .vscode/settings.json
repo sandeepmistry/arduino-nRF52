@@ -1,0 +1,5 @@
+{
+    "terminal.integrated.env.osx": {
+        "PATH": "/Users/Tomas/.platformio/penv/bin:/Users/Tomas/.npm-packages/bin:/Users/Tomas/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/Tomas/Library/Python/2.7/bin"
+    }
+}

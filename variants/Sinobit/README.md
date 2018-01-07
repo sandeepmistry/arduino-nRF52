@@ -1,3 +1,6 @@
 # Sino:Bit support files for Arduino
-sinobit.cpp, sinobit.h courtesy of Dave Astels (Twitter @DAstels)
-Adafruit files from Adafruit GFX and Adafruit HT1632 Arduino Libraries.
+Contributed by Tomas Lubkowitz @sceptic_int for Sino:Bit 
+
+For LED Matrix functionality please look at https://learn.adafruit.com/sino-bit-with-arduino/dastels-overview
+
+
