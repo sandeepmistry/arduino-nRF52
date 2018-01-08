@@ -1,21 +1,22 @@
 /*
-  SoftwareSerial.h - library for Arduino Primo
+  SoftwareSerial.h - library for Nordic nRF5 devices
+  
   Copyright (c) 2016 Arduino. All rights reserved.
-
+  Copyright (c) 2017 Mark Cooke All right reserved.
+  
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
   License as published by the Free Software Foundation; either
   version 2.1 of the License, or (at your option) any later version.
-
+  
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   Lesser General Public License for more details.
-
+  
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
  */
 
 #ifndef SoftwareSerial_h
@@ -277,7 +278,7 @@ size_t SoftwareSerial::write(uint8_t b)
    if (inv) b = ~b;
 
 // turn off interrupts for a clean txmit
-#ifndef _SS_TX_ONLY
+#if (_SS_TX_ONLY == 0)
    NRF_GPIOTE->INTENCLR = _intMask;
 #endif
 
@@ -308,7 +309,7 @@ size_t SoftwareSerial::write(uint8_t b)
       *reg |= reg_mask;
 
 // turn interrupts back on
-#ifndef _SS_TX_ONLY
+#if (_SS_TX_ONLY == 0)
    NRF_GPIOTE->INTENSET = _intMask;
 #endif
 
@@ -319,7 +320,7 @@ size_t SoftwareSerial::write(uint8_t b)
 
 void SoftwareSerial::flush()
 {
-#ifndef _SS_TX_ONLY
+#if (_SS_TX_ONLY == 0)
    if (isListening() == 0) return;
 
    NRF_GPIOTE->INTENCLR = _intMask;
@@ -332,7 +333,7 @@ void SoftwareSerial::flush()
 
 int SoftwareSerial::peek()
 {
-#ifdef _SS_TX_ONLY
+#if (_SS_TX_ONLY == 1)
    return -1;
 #else
    if (isListening() == 0) return -1;
