@@ -3,7 +3,7 @@
 
   If your application is transmit only then setting
   #define _SS_TX_ONLY 1
-  Will stop the library allocating a GPIO interrupt and save 1364 bytes of memory
+  Will stop the library allocating a GPIO interrupt and save 1432 bytes of memory
  */
 #define _SS_TX_ONLY 1 // Transmit only (Rx pin is unused/unassigned, but still needs a number)
 #define _SS_MAX_RX_BUFF 128 // Increase the Rx buffer to 128 bytes (default is 64 bytes)
