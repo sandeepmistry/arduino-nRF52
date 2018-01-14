@@ -40,7 +40,6 @@ extern "C"
 // LEDs
 #define PIN_LED                 (13)
 #define LED_BUILTIN             PIN_LED
-// #define
 
 // Buttons
 #define PIN_BUTTON_A            (5)
