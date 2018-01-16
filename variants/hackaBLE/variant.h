@@ -99,6 +99,11 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
 #define PIN_WIRE_SDA         (7)
 #define PIN_WIRE_SCL         (8)
 
+/*
+ * Reset Button at P0.21
+ */
+#define RESET_PIN            21
+
 #ifdef __cplusplus
 }
 #endif
