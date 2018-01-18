@@ -214,7 +214,9 @@ uint8_t TwoWire::endTransmission(bool stopBit)
   while(!_p_twim->EVENTS_TXSTARTED && !_p_twim->EVENTS_ERROR);
   _p_twim->EVENTS_TXSTARTED = 0x0UL;
 
-  while(!_p_twim->EVENTS_LASTTX && !_p_twim->EVENTS_ERROR);
+  if (txBuffer.available()) {
+    while(!_p_twim->EVENTS_LASTTX && !_p_twim->EVENTS_ERROR);
+  }
   _p_twim->EVENTS_LASTTX = 0x0UL;
 
   if (stopBit || _p_twim->EVENTS_ERROR)
