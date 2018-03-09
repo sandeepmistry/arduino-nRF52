@@ -386,6 +386,50 @@ BBCmicrobit.menu.softdevice.s130.upload.maximum_size=151552
 BBCmicrobit.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 BBCmicrobit.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
+Calliope.name=Calliope mini
+
+Calliope.vid.0=0x0d28
+Calliope.pid.0=0x0204
+
+Calliope.upload.tool=sandeepmistry:openocd
+Calliope.upload.protocol=cmsis-dap
+Calliope.upload.target=nrf51
+Calliope.upload.maximum_size=262144
+Calliope.upload.setup_command=transport select swd;
+Calliope.upload.use_1200bps_touch=false
+Calliope.upload.wait_for_upload_port=false
+Calliope.upload.native_usb=false
+
+Calliope.bootloader.tool=sandeepmistry:openocd
+
+Calliope.build.mcu=cortex-m0
+Calliope.build.f_cpu=16000000
+Calliope.build.board=CALLIOPE
+Calliope.build.core=nRF5
+Calliope.build.variant=Calliope
+Calliope.build.variant_system_lib=
+Calliope.build.extra_flags=-DNRF51
+Calliope.build.float_flags=
+Calliope.build.ldscript=nrf51_xxaa.ld
+
+Calliope.build.lfclk_flags=-DUSE_LFRC
+
+Calliope.menu.softdevice.none=None
+Calliope.menu.softdevice.none.softdevice=none
+
+Calliope.menu.softdevice.s110=S110
+Calliope.menu.softdevice.s110.softdevice=s110
+Calliope.menu.softdevice.s110.softdeviceversion=8.0.0
+Calliope.menu.softdevice.s110.upload.maximum_size=151552
+Calliope.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+Calliope.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+Calliope.menu.softdevice.s130=S130
+Calliope.menu.softdevice.s130.softdevice=s130
+Calliope.menu.softdevice.s130.softdeviceversion=2.0.1
+Calliope.menu.softdevice.s130.upload.maximum_size=151552
+Calliope.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+Calliope.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
 BluzDK.name=Bluz DK
 
@@ -556,14 +600,14 @@ Beacon_PCA20006.menu.softdevice.s110=S110
 Beacon_PCA20006.menu.softdevice.s110.softdevice=s110
 Beacon_PCA20006.menu.softdevice.s110.softdeviceversion=8.0.0
 Beacon_PCA20006.menu.softdevice.s110.upload.maximum_size=151552
-Beacon_PCA20006.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110 
+Beacon_PCA20006.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
 Beacon_PCA20006.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
 
 Beacon_PCA20006.menu.softdevice.s130=S130
 Beacon_PCA20006.menu.softdevice.s130.softdevice=s130
 Beacon_PCA20006.menu.softdevice.s130.softdeviceversion=2.0.1
 Beacon_PCA20006.menu.softdevice.s130.upload.maximum_size=151552
-Beacon_PCA20006.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130 
+Beacon_PCA20006.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 Beacon_PCA20006.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
 TinyBLE.name= TinyBLE
