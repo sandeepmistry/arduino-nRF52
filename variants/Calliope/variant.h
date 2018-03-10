@@ -57,12 +57,12 @@ extern "C"
 #define PIN_A4               (5) // connector pin 5
 #define PIN_A5               (6) // connector pin 6
 
-static const uint8_t A0  = PIN_A0 ;
-static const uint8_t A1  = PIN_A1 ;
-static const uint8_t A2  = PIN_A2 ;
-static const uint8_t A3  = PIN_A3 ;
-static const uint8_t A4  = PIN_A4 ;
-static const uint8_t A5  = PIN_A5 ;
+static const uint8_t A0  = PIN_A0;
+static const uint8_t A1  = PIN_A1;
+static const uint8_t A2  = PIN_A2;
+static const uint8_t A3  = PIN_A3;
+static const uint8_t A4  = PIN_A4;
+static const uint8_t A5  = PIN_A5;
 #define ADC_RESOLUTION 10
 
 // Serial interface
@@ -74,21 +74,20 @@ static const uint8_t A5  = PIN_A5 ;
 
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_SCK          (13)
-#define PIN_SPI_MISO         (14)
-#define PIN_SPI_MOSI         (15)
+#define PIN_SPI_MISO         (16)
+#define PIN_SPI_MOSI         (17)
+#define PIN_SPI_SCK          (22)
 
-static const uint8_t SS   = 16 ;
-static const uint8_t MOSI = PIN_SPI_MOSI ;
-static const uint8_t MISO = PIN_SPI_MISO ;
-static const uint8_t SCK  = PIN_SPI_SCK ;
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK;
 
 // Wire Interfaces
 
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (18u)
-#define PIN_WIRE_SCL         (19u)
+#define PIN_WIRE_SDA         (18)
+#define PIN_WIRE_SCL         (19)
 
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;

@@ -24,29 +24,29 @@ const uint32_t g_ADigitalPinMap[] = {
   0, // A0 - left pad
   1, // A1 - bottom left pad; analog input
   2, // A2 - bottom right pad; analog input
-  22, // A3 - right pad
-  4, // LED row 1
-  5, // LED row 2
-  6, // LED row 3
+  22, // A3 - right pad; SPI SCLK
+  4, // LED row 1; analog input
+  5, // LED row 2; analog input
+  6, // LED row 3; analog input
   7, // LED row 4
   8, // LED row 5
   9, // LED row 6
   10, // LED row 7
   11, // LED row 8
   12, // LED row 9
-  13, // LED column 1; SCLK
-  14, // LED column 2; MISO
-  15, // LED column 3; MOSI
-  26, // serial RX; analog input
-  27, // serial TX; analog input
+  13, // LED column 1
+  14, // LED column 2
+  15, // LED column 3
+  26, // serial RX; SPI MISO
+  27, // serial TX; SPI MOSI
   20, // SDA
   19, // SCL
 
   // 20-25 (internal; not available on external connector)
   17, // button A
-  3, // microphone (listed as c21 on Calliope pinout)
+  3, // microphone (shown as c21 on Calliope pinout)
   16, // button B
-  28, // motor driver sleep
+  28, // motor driver enable
   29, // motor driver in1
   30,  // motor driver in2
 

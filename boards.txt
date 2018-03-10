@@ -416,6 +416,7 @@ Calliope.build.lfclk_flags=-DUSE_LFRC
 
 Calliope.menu.softdevice.none=None
 Calliope.menu.softdevice.none.softdevice=none
+Calliope.menu.softdevice.none.softdeviceversion=
 
 Calliope.menu.softdevice.s110=S110
 Calliope.menu.softdevice.s110.softdevice=s110
