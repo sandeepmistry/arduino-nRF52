@@ -93,6 +93,7 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 ### nRF51
  * [Plain nRF51 MCU](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
  * [BBC micro:bit](https://microbit.org)
+ * [Calliope mini](https://calliope.cc/en)
  * [Bluz DK](http://bluz.io)
  * Nordic Semiconductor  [nRF51822 Development Kit](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822-Development-Kit) + [nRF51422 Development Kit](https://www.nordicsemi.com/eng/Products/ANT/nRF51422-Development-Kit)
  * Nordic SemiconductornRF51x22 Development Kits (PCA1000x)

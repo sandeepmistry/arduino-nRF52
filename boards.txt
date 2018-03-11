@@ -386,51 +386,51 @@ BBCmicrobit.menu.softdevice.s130.upload.maximum_size=151552
 BBCmicrobit.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 BBCmicrobit.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
-Calliope.name=Calliope mini
+CalliopeMini.name=Calliope mini
 
-Calliope.vid.0=0x0d28
-Calliope.pid.0=0x0204
+CalliopeMini.vid.0=0x0d28
+CalliopeMini.pid.0=0x0204
 
-Calliope.upload.tool=sandeepmistry:openocd
-Calliope.upload.protocol=cmsis-dap
-Calliope.upload.target=nrf51
-Calliope.upload.maximum_size=262144
-Calliope.upload.setup_command=transport select swd;
-Calliope.upload.use_1200bps_touch=false
-Calliope.upload.wait_for_upload_port=false
-Calliope.upload.native_usb=false
+CalliopeMini.upload.tool=sandeepmistry:openocd
+CalliopeMini.upload.protocol=cmsis-dap
+CalliopeMini.upload.target=nrf51
+CalliopeMini.upload.maximum_size=262144
+CalliopeMini.upload.setup_command=transport select swd;
+CalliopeMini.upload.use_1200bps_touch=false
+CalliopeMini.upload.wait_for_upload_port=false
+CalliopeMini.upload.native_usb=false
 
-Calliope.bootloader.tool=sandeepmistry:openocd
+CalliopeMini.bootloader.tool=sandeepmistry:openocd
 
-Calliope.build.mcu=cortex-m0
-Calliope.build.f_cpu=16000000
-Calliope.build.board=CALLIOPE
-Calliope.build.core=nRF5
-Calliope.build.variant=Calliope
-Calliope.build.variant_system_lib=
-Calliope.build.extra_flags=-DNRF51
-Calliope.build.float_flags=
-Calliope.build.ldscript=nrf51_xxaa.ld
+CalliopeMini.build.mcu=cortex-m0
+CalliopeMini.build.f_cpu=16000000
+CalliopeMini.build.board=CALLIOPE_MINI
+CalliopeMini.build.core=nRF5
+CalliopeMini.build.variant=CalliopeMini
+CalliopeMini.build.variant_system_lib=
+CalliopeMini.build.extra_flags=-DNRF51
+CalliopeMini.build.float_flags=
+CalliopeMini.build.ldscript=nrf51_xxaa.ld
 
-Calliope.build.lfclk_flags=-DUSE_LFRC
+CalliopeMini.build.lfclk_flags=-DUSE_LFRC
 
-Calliope.menu.softdevice.none=None
-Calliope.menu.softdevice.none.softdevice=none
-Calliope.menu.softdevice.none.softdeviceversion=
+CalliopeMini.menu.softdevice.none=None
+CalliopeMini.menu.softdevice.none.softdevice=none
+CalliopeMini.menu.softdevice.none.softdeviceversion=
 
-Calliope.menu.softdevice.s110=S110
-Calliope.menu.softdevice.s110.softdevice=s110
-Calliope.menu.softdevice.s110.softdeviceversion=8.0.0
-Calliope.menu.softdevice.s110.upload.maximum_size=151552
-Calliope.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
-Calliope.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+CalliopeMini.menu.softdevice.s110=S110
+CalliopeMini.menu.softdevice.s110.softdevice=s110
+CalliopeMini.menu.softdevice.s110.softdeviceversion=8.0.0
+CalliopeMini.menu.softdevice.s110.upload.maximum_size=151552
+CalliopeMini.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+CalliopeMini.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
 
-Calliope.menu.softdevice.s130=S130
-Calliope.menu.softdevice.s130.softdevice=s130
-Calliope.menu.softdevice.s130.softdeviceversion=2.0.1
-Calliope.menu.softdevice.s130.upload.maximum_size=151552
-Calliope.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
-Calliope.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+CalliopeMini.menu.softdevice.s130=S130
+CalliopeMini.menu.softdevice.s130.softdevice=s130
+CalliopeMini.menu.softdevice.s130.softdeviceversion=2.0.1
+CalliopeMini.menu.softdevice.s130.upload.maximum_size=151552
+CalliopeMini.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+CalliopeMini.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
 BluzDK.name=Bluz DK
 
