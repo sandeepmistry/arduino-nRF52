@@ -14,8 +14,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _VARIANT_CALLIOPE_
-#define _VARIANT_CALLIOPE_
+#ifndef _VARIANT_CALLIOPE_MINI_
+#define _VARIANT_CALLIOPE_MINI_
 
 /** Master clock frequency */
 #define VARIANT_MCK       (16000000ul)

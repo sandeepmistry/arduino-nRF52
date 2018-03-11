@@ -23,7 +23,7 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:BLENano:version=1_0 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:RedBearLab_nRF51822:version=1_0 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:BBCmicrobit 01.Basics Blink
-  - buildExampleSketch sandeepmistry:nRF5:Calliope_Mini 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:CalliopeMini 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Generic_nRF51822:chip=xxac 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Generic_nRF52832 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:OSHChip 01.Basics Blink
