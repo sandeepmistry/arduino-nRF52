@@ -50,7 +50,7 @@ Generic_nRF52832.menu.softdevice.s132=S132
 Generic_nRF52832.menu.softdevice.s132.softdevice=s132
 Generic_nRF52832.menu.softdevice.s132.softdeviceversion=2.0.1
 Generic_nRF52832.menu.softdevice.s132.upload.maximum_size=409600
-Generic_nRF52832.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+Generic_nRF52832.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 Generic_nRF52832.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 Generic_nRF52832.menu.lfclk.lfxo=Crystal Oscillator
@@ -88,7 +88,7 @@ bluey.menu.softdevice.s132=S132
 bluey.menu.softdevice.s132.softdevice=s132
 bluey.menu.softdevice.s132.softdeviceversion=2.0.1
 bluey.menu.softdevice.s132.upload.maximum_size=409600
-bluey.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+bluey.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 bluey.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 bluey.menu.lfclk.lfxo=Crystal Oscillator
@@ -173,7 +173,7 @@ Blend2.menu.softdevice.s132=S132
 Blend2.menu.softdevice.s132.softdevice=s132
 Blend2.menu.softdevice.s132.softdeviceversion=2.0.1
 Blend2.menu.softdevice.s132.upload.maximum_size=409600
-Blend2.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+Blend2.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 Blend2.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 
@@ -213,7 +213,7 @@ BLENano2.menu.softdevice.s132=S132
 BLENano2.menu.softdevice.s132.softdevice=s132
 BLENano2.menu.softdevice.s132.softdeviceversion=2.0.1
 BLENano2.menu.softdevice.s132.upload.maximum_size=409600
-BLENano2.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+BLENano2.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 BLENano2.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 
@@ -253,7 +253,7 @@ nRF52DK.menu.softdevice.s132=S132
 nRF52DK.menu.softdevice.s132.softdevice=s132
 nRF52DK.menu.softdevice.s132.softdeviceversion=2.0.1
 nRF52DK.menu.softdevice.s132.upload.maximum_size=409600
-nRF52DK.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+nRF52DK.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 nRF52DK.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
 
 
@@ -285,8 +285,17 @@ STCT_nRF52_minidev.menu.softdevice.s132=S132
 STCT_nRF52_minidev.menu.softdevice.s132.softdevice=s132
 STCT_nRF52_minidev.menu.softdevice.s132.softdeviceversion=2.0.1
 STCT_nRF52_minidev.menu.softdevice.s132.upload.maximum_size=409600
-STCT_nRF52_minidev.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+STCT_nRF52_minidev.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF52_S132
 STCT_nRF52_minidev.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+STCT_nRF52_minidev.menu.board_variant.none=None
+STCT_nRF52_minidev.menu.board_variant.rgz.build.lfclk_flags=-DUSE_LFXO -DSTCT_NRF52_minidev
+
+STCT_nRF52_minidev.menu.board_variant.rgz=RGZ
+STCT_nRF52_minidev.menu.board_variant.rgz.build.lfclk_flags=-DUSE_LFXO -DSTCT_NRF52_minidev_RGZ
+
+STCT_nRF52_minidev.menu.board_variant.rsm=RSM
+STCT_nRF52_minidev.menu.board_variant.rsm.build.lfclk_flags=-DUSE_LFXO -DSTCT_NRF52_minidev_RSM
 
 
 # nRF51 variants
