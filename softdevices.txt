@@ -7,4 +7,4 @@ s130.url=http://www.nordicsemi.com/eng/content/download/95150/1606929/file/s130_
 s130.filename=s130_nrf51_2.0.1_softdevice.hex
 
 s132.url=http://www.nordicsemi.com/eng/nordic/download_resource/58987/13/75982101/116068
-s132.filename=s132_nrf52_5.1.0_softdevice.hex
+s132.filename=s132_nrf52_5.1.0_softdevice.he
