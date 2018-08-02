@@ -31,6 +31,7 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=pca10000 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=pca10001 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:PCA1000X:board_variant=nrf6310 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:Raytac_MDBT40 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:nRF51Dongle:version=1_1_0 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Blend2 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:BLENano2 01.Basics Blink
