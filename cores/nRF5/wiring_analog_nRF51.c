@@ -132,6 +132,16 @@ uint32_t analogRead( uint32_t ulPin )
   uint32_t resolution;
   int16_t value;
 
+#ifdef ARDUINO_ADC_NON_STANDARD_PINS
+  ulPin = _analogChannelPin(ulPin);
+#elif NUM_ANALOG_INPUTS > 0
+  if (ulPin < A0) {
+    ulPin += A0;
+  }
+#else
+  return 0;
+#endif
+
   if (ulPin >= PINS_COUNT) {
     return 0;
   }
