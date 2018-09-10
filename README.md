@@ -108,6 +108,7 @@ Become a sponsor and get your logo on our README on Github with a link to your s
  * [ng-beacon](https://github.com/urish/ng-beacon)
  * [TinyBLE](https://www.seeedstudio.com/Seeed-Tiny-BLE-BLE-%2B-6DOF-Mbed-Platform-p-2268.html)
  * [Sino:bit](http://sinobit.org)
+ * [SeeedArchLink](http://wiki.seeedstudio.com/Arch_Link/)
 
 ## Installing
 

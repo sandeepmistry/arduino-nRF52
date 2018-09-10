@@ -39,3 +39,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:hackaBLE 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Sinobit 01.Basics BareMinimum
   - buildExampleSketch sandeepmistry:nRF5:DWM1001-DEV 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:SeeedArchLink 01.Basics Blink

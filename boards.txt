@@ -948,3 +948,43 @@ DWM1001-DEV.menu.softdevice.s132.softdeviceversion=2.0.1
 DWM1001-DEV.menu.softdevice.s132.upload.maximum_size=409600
 DWM1001-DEV.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
 DWM1001-DEV.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+SeeedArchLink.name=Seeed Arch Link
+
+SeeedArchLink.upload.tool=sandeepmistry:openocd
+SeeedArchLink.upload.target=nrf51
+SeeedArchLink.upload.protocol=cmsis-dap
+SeeedArchLink.upload.maximum_size=262144
+
+SeeedArchLink.bootloader.tool=sandeepmistry:openocd
+
+SeeedArchLink.build.mcu=cortex-m0
+SeeedArchLink.build.f_cpu=16000000
+SeeedArchLink.build.board=ARCHLINK
+SeeedArchLink.build.core=nRF5
+SeeedArchLink.build.variant=SeeedArchLink
+SeeedArchLink.build.variant_system_lib=
+SeeedArchLink.build.extra_flags=-DNRF51
+SeeedArchLink.build.float_flags=
+SeeedArchLink.build.ldscript=nrf51_xxaa.ld
+
+SeeedArchLink.build.lfclk_flags=-DUSE_LFXO
+
+SeeedArchLink.menu.softdevice.none=None
+SeeedArchLink.menu.softdevice.none.softdevice=none
+SeeedArchLink.menu.softdevice.none.softdeviceversion=
+
+SeeedArchLink.menu.softdevice.s110=S110
+SeeedArchLink.menu.softdevice.s110.softdevice=s110
+SeeedArchLink.menu.softdevice.s110.softdeviceversion=8.0.0
+SeeedArchLink.menu.softdevice.s110.upload.maximum_size=151552
+SeeedArchLink.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+SeeedArchLink.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_xxaa.ld
+
+SeeedArchLink.menu.softdevice.s130=S130
+SeeedArchLink.menu.softdevice.s130.softdevice=s130
+SeeedArchLink.menu.softdevice.s130.softdeviceversion=2.0.1
+SeeedArchLink.menu.softdevice.s130.upload.maximum_size=151552
+SeeedArchLink.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+SeeedArchLink.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
+
