@@ -32,28 +32,28 @@ extern "C"
 #endif // __cplusplus
 
 // Number of pins defined in PinDescription array
-#define PINS_COUNT           (27u)
-#define NUM_DIGITAL_PINS     (27u)
+#define PINS_COUNT           (32u)
+#define NUM_DIGITAL_PINS     (32u)
 #define NUM_ANALOG_INPUTS    (8u)
 #define NUM_ANALOG_OUTPUTS   (0u)
 
 // LEDs
-#define PIN_LEDR               (24)
-#define PIN_LEDG               (25)
-#define PIN_LEDB               (26)
+#define PIN_LEDR               (19)
+#define PIN_LEDG               (20)
+#define PIN_LEDB               (17)
 #define LED_BUILTIN            PIN_LEDB
 
 /*
  * Analog pins
  */
-#define PIN_A0               (13)
-#define PIN_A1               (12)
-#define PIN_A2               (11)
-#define PIN_A3               (10)
-#define PIN_A4               (20)
-#define PIN_A5               (21)
-#define PIN_A6               (22)
-#define PIN_A7               (23)
+#define PIN_A0               (2)
+#define PIN_A1               (3)
+#define PIN_A2               (4)
+#define PIN_A3               (5)
+#define PIN_A4               (28)
+#define PIN_A5               (29)
+#define PIN_A6               (30)
+#define PIN_A7               (31)
 
 static const uint8_t A0  = PIN_A0 ; // AIN0 / AREF / P0.02
 static const uint8_t A1  = PIN_A1 ; // AIN1
@@ -73,18 +73,18 @@ static const uint8_t AREF = PIN_AREF;
  * Serial interfaces
  */
 // Serial
-#define PIN_SERIAL_RX       (0)
-#define PIN_SERIAL_TX       (1)
+#define PIN_SERIAL_RX       (7)
+#define PIN_SERIAL_TX       (8)
 
 /*
  * SPI Interfaces
  */
 #define SPI_INTERFACES_COUNT 1
 
-#define PIN_SPI_MISO         (4)
-#define PIN_SPI_MOSI         (3)
-#define PIN_SPI_SCK          (5)
-#define PIN_SPI_SS           (3)
+#define PIN_SPI_MISO         (11)
+#define PIN_SPI_MOSI         (12)
+#define PIN_SPI_SCK          (13)
+#define PIN_SPI_SS           (14)
 
 static const uint8_t SS   = PIN_SPI_SS ;
 static const uint8_t MOSI = PIN_SPI_MOSI ;
@@ -96,8 +96,8 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
  */
 #define WIRE_INTERFACES_COUNT 1
 
-#define PIN_WIRE_SDA         (7)
-#define PIN_WIRE_SCL         (8)
+#define PIN_WIRE_SDA         (2)
+#define PIN_WIRE_SCL         (3)
 
 /*
  * Reset Button at P0.21
