@@ -1024,3 +1024,50 @@ SeeedArchLink.menu.softdevice.s130.upload.maximum_size=151552
 SeeedArchLink.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 SeeedArchLink.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
+ID115.name=ID115
+
+ID115.upload.tool=sandeepmistry:openocd
+ID115.upload.target=nrf51
+ID115.upload.maximum_size=262144
+
+ID115.bootloader.tool=sandeepmistry:openocd
+
+ID115.build.mcu=cortex-m0
+ID115.build.f_cpu=16000000
+ID115.build.board=ID115
+ID115.build.core=nRF5
+ID115.build.variant=ID115
+ID115.build.variant_system_lib=
+ID115.build.extra_flags=-DNRF51
+ID115.build.float_flags=
+ID115.build.ldscript=nrf51_{build.chip}.ld
+
+ID115.menu.chip.xxaa=16 kB RAM, 256 kB flash (xxaa)
+ID115.menu.chip.xxaa.build.chip=xxaa
+ID115.menu.chip.xxac=32 kB RAM, 256 kB flash (xxac)
+ID115.menu.chip.xxac.build.chip=xxac
+
+ID115.menu.softdevice.none=None
+ID115.menu.softdevice.none.softdevice=none
+ID115.menu.softdevice.none.softdeviceversion=
+
+ID115.menu.softdevice.s110=S110
+ID115.menu.softdevice.s110.softdevice=s110
+ID115.menu.softdevice.s110.softdeviceversion=8.0.0
+ID115.menu.softdevice.s110.upload.maximum_size=151552
+ID115.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+ID115.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_{build.chip}.ld
+
+ID115.menu.softdevice.s130=S130
+ID115.menu.softdevice.s130.softdevice=s130
+ID115.menu.softdevice.s130.softdeviceversion=2.0.1
+ID115.menu.softdevice.s130.upload.maximum_size=151552
+ID115.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+ID115.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+
+ID115.menu.lfclk.lfxo=Crystal Oscillator
+ID115.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+ID115.menu.lfclk.lfrc=RC Oscillator
+ID115.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+ID115.menu.lfclk.lfsynt=Synthesized
+ID115.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
