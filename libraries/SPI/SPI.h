@@ -155,3 +155,5 @@ extern SPIClass SPI1;
 #define SPI_CLOCK_DIV64  64 * DIVISOR
 #define SPI_CLOCK_DIV128 128 * DIVISOR
 #endif
+
+#endif
