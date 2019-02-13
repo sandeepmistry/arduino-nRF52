@@ -1024,3 +1024,34 @@ SeeedArchLink.menu.softdevice.s130.upload.maximum_size=151552
 SeeedArchLink.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 SeeedArchLink.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
+iTracker.name=iTracker
+
+iTracker.upload.tool=sandeepmistry:openocd
+iTracker.upload.protocol=jlink
+iTracker.upload.target=nrf52
+iTracker.upload.maximum_size=524288
+iTracker.upload.setup_command=transport select swd;
+iTracker.upload.use_1200bps_touch=false
+iTracker.upload.wait_for_upload_port=false
+iTracker.upload.native_usb=false
+
+iTracker.bootloader.tool=sandeepmistry:openocd
+
+iTracker.build.mcu=cortex-m4
+iTracker.build.f_cpu=16000000
+iTracker.build.board=iTracker
+iTracker.build.core=nRF5
+iTracker.build.variant=iTracker
+iTracker.build.variant_system_lib=
+iTracker.build.extra_flags=-DNRF52
+iTracker.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+iTracker.build.ldscript=nrf52_xxaa.ldiTracker.build.lfclk_flags=-DUSE_LFXO
+
+iTracker.menu.softdevice.none=None
+iTracker.menu.softdevice.none.softdevice=none
+iTracker.menu.softdevice.s132=S132
+iTracker.menu.softdevice.s132.softdevice=s132
+iTracker.menu.softdevice.s132.softdeviceversion=2.0.1
+iTracker.menu.softdevice.s132.upload.maximum_size=409600
+iTracker.menu.softdevice.s132.build.extra_flags=-DNRF52-DS132 -DNRF51_S132
+iTracker.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
