@@ -91,6 +91,7 @@ void loop( void ) ;
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
 #define bit(b) (1UL << (b))
+#define _BV(b) (1UL << (b))
 
 #define digitalPinToPort(P)        ( &(NRF_GPIO[P]) )
 #define digitalPinToBitMask(P)     ( 1 << g_ADigitalPinMap[P] )
