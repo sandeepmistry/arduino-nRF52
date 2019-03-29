@@ -78,6 +78,7 @@
 
 /* GPIO */
 /* GPIO port was renamed to P0. */
+//TODO: Разобраться
 #define NRF_GPIO        NRF_P0
 #define NRF_GPIO_BASE   NRF_P0_BASE
 

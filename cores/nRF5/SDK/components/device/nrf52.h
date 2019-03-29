@@ -61,7 +61,7 @@ extern "C" {
 
 
 /* -------------------------  Interrupt Number Definition  ------------------------ */
-
+//TODO: переделать под nrf52840
 typedef enum {
 /* -------------------  Cortex-M4 Processor Exceptions Numbers  ------------------- */
   Reset_IRQn                    = -15,              /*!<   1  Reset Vector, invoked on Power up and warm reset                 */
@@ -2038,6 +2038,7 @@ typedef struct {                                    /*!< GPIO Structure         
 #define NRF_I2S_BASE                    0x40025000UL
 #define NRF_FPU_BASE                    0x40026000UL
 #define NRF_P0_BASE                     0x50000000UL
+#define NRF_P1_BASE                     0x50000300UL
 
 
 /* ================================================================================ */
@@ -2110,6 +2111,7 @@ typedef struct {                                    /*!< GPIO Structure         
 #define NRF_I2S                         ((NRF_I2S_Type            *) NRF_I2S_BASE)
 #define NRF_FPU                         ((NRF_FPU_Type            *) NRF_FPU_BASE)
 #define NRF_P0                          ((NRF_GPIO_Type           *) NRF_P0_BASE)
+#define NRF_P1                          ((NRF_GPIO_Type           *) NRF_P1_BASE)
 
 
 /** @} */ /* End of group Device_Peripheral_Registers */
