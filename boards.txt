@@ -342,8 +342,7 @@ Generic_nRF52840.build.board=GENERIC
 Generic_nRF52840.build.core=nRF5
 Generic_nRF52840.build.variant=Generic_nRF52840
 Generic_nRF52840.build.variant_system_lib=
- #TODO: убрать отладку
-Generic_nRF52840.build.extra_flags=-DNRF52 -gdwarf-2
+Generic_nRF52840.build.extra_flags=-DNRF52
 Generic_nRF52840.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
 Generic_nRF52840.build.ldscript=nrf52840.ld
 

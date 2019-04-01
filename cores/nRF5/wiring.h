@@ -24,6 +24,25 @@ extern "C" {
 
 extern void init(void);
 
+__STATIC_INLINE NRF_GPIO_Type * nrf_gpio_pin_port_decode(uint32_t * p_pin)
+{
+#if (GPIO_COUNT == 2)
+        //if (*p_pin < P0_PIN_NUM)
+    if (*p_pin < 32)
+    {
+        return NRF_P0;
+    }
+    else
+    {
+        *p_pin = *p_pin & (32 - 1);
+        return NRF_P1;
+    }
+#else
+    // The oldest definition case
+    return NRF_GPIO;
+#endif
+}
+
 #ifdef __cplusplus
 }
 #endif

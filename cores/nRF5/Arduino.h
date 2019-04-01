@@ -92,7 +92,6 @@ void loop( void ) ;
 
 #define bit(b) (1UL << (b))
 
-//TODO: Проверить
 #ifdef NRF_P1
   #define digitalPinToPort(P)        ( (g_ADigitalPinMap[P] < 32) ? NRF_P0 : NRF_P1 )
 #else
@@ -100,29 +99,9 @@ void loop( void ) ;
 #endif
 
 //#define digitalPinToPort(P)        ( &(NRF_GPIO[P]) )
-//TODO: Проверить
+
 #define digitalPinToBitMask(P)     ( 1UL << ( g_ADigitalPinMap[P] < 32 ? g_ADigitalPinMap[P] : (g_ADigitalPinMap[P]-32) ) )
 //#define digitalPinToBitMask(P)     ( 1 << g_ADigitalPinMap[P] )
-
-__STATIC_INLINE NRF_GPIO_Type * nrf_gpio_pin_port_decode(uint32_t * p_pin)
-{
-    //NRFX_ASSERT(*p_pin < NUMBER_OF_PINS);
-#if (GPIO_COUNT == 2)
-        //if (*p_pin < P0_PIN_NUM)
-    if (*p_pin < 32)
-    {
-        return NRF_P0;
-    }
-    else
-    {
-        *p_pin = *p_pin & (32 - 1);
-        return NRF_P1;
-    }
-#else
-    // The oldest definition case
-    return NRF_GPIO;
-#endif
-}
 
 //#define analogInPinToBit(P)        ( )
 #define portOutputRegister(port)   ( &(port->OUTSET) )
