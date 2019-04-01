@@ -61,7 +61,7 @@ extern "C" {
 
 
 /* -------------------------  Interrupt Number Definition  ------------------------ */
-//TODO: переделать под nrf52840
+//TODO: Finish under nrf52840
 typedef enum {
 /* -------------------  Cortex-M4 Processor Exceptions Numbers  ------------------- */
   Reset_IRQn                    = -15,              /*!<   1  Reset Vector, invoked on Power up and warm reset                 */
