@@ -31,6 +31,8 @@ extern "C"
 {
 #endif // __cplusplus
 
+#define GPIO_COUNT 2
+
 // Number of pins defined in PinDescription array
 #define PINS_COUNT           (48u)
 #define NUM_DIGITAL_PINS     (48u)
@@ -76,7 +78,7 @@ static const uint8_t A7  = PIN_A7 ;
 /*
  * SPI Interfaces
  */
-//TODO: Упределиться позднее
+//TODO: Определиться позднее
 #define SPI_INTERFACES_COUNT 1
 
 #define PIN_SPI_MISO         (22) // P0.22
@@ -91,7 +93,7 @@ static const uint8_t SCK  = PIN_SPI_SCK ;
 /*
  * Wire Interfaces
  */
-//TODO: Упределиться позднее
+//TODO: Определиться позднее
 #define WIRE_INTERFACES_COUNT 1
 
 #define PIN_WIRE_SDA         (20u) // P0.20
