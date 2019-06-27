@@ -32,6 +32,7 @@
 
 static voidFuncPtr callbacksInt[NUMBER_OF_GPIO_TE];
 static int8_t channelMap[NUMBER_OF_GPIO_TE];
+static voidFuncPtr callbackLowAccuracyInt;
 static int enabled = 0;
 
 /* Configure I/O interrupt sources */
@@ -39,6 +40,7 @@ static void __initialize()
 {
   memset(callbacksInt, 0, sizeof(callbacksInt));
   memset(channelMap, -1, sizeof(channelMap));
+  callbackLowAccuracyInt = NULL;
 
   NVIC_DisableIRQ(GPIOTE_IRQn);
   NVIC_ClearPendingIRQ(GPIOTE_IRQn);
@@ -125,23 +127,84 @@ void detachInterrupt(uint32_t pin)
   }
 }
 
+/*
+ * \brief Specifies a named Interrupt Service Routine (ISR) to call when an interrupt occurs.
+ *        Replaces any previous function that was attached to the interrupt.
+ *        Only one callback can be assigned to the low accuracy interrupt AKA PORT event.
+ */
+void attachInterruptLowAccuracy(uint32_t pin, voidFuncPtr callback, uint32_t mode)
+{
+  if (!enabled) {
+    __initialize();
+    enabled = 1;
+  }
+
+  if (pin >= PINS_COUNT) {
+    return;
+  }
+
+  pin = g_ADigitalPinMap[pin];
+
+  uint32_t polarity;
+
+  switch (mode) {
+    case FALLING:
+      NRF_GPIO->PIN_CNF[pin] |= ((uint32_t)GPIO_PIN_CNF_SENSE_Low << GPIO_PIN_CNF_SENSE_Pos);
+      break;
+
+    case RISING:
+      NRF_GPIO->PIN_CNF[pin] |= ((uint32_t)GPIO_PIN_CNF_SENSE_High << GPIO_PIN_CNF_SENSE_Pos);
+      break;
+
+    default:
+      return;
+  }
+ 
+  callbackLowAccuracyInt = callback;
+  NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_PORT_Msk;
+}
+
+/*
+ * \brief Turns off the given low accuracy interrupt.
+ */
+void detachInterruptLowAccuracy(uint32_t pin)
+{
+  if (pin >= PINS_COUNT) {
+    return;
+  }
+
+  pin = g_ADigitalPinMap[pin];
+
+  callbackLowAccuracyInt = NULL;
+
+  NRF_GPIO->PIN_CNF[pin] &= ~((uint32_t)GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+  NRF_GPIOTE->INTENCLR = GPIOTE_INTENCLR_PORT_Msk;
+}
+
 void GPIOTE_IRQHandler()
 {
-  uint32_t event = offsetof(NRF_GPIOTE_Type, EVENTS_IN[0]);
+  if(NRF_GPIOTE->EVENTS_PORT == 1 && (NRF_GPIOTE->INTENSET & GPIOTE_INTENSET_PORT_Msk)) {
+    if(callbackLowAccuracyInt) {
+      callbackLowAccuracyInt();
+    }
+    NRF_GPIOTE->EVENTS_PORT = 0;
+  } else {
+    uint32_t event = offsetof(NRF_GPIOTE_Type, EVENTS_IN[0]);
 
-  for (int ch = 0; ch < NUMBER_OF_GPIO_TE; ch++) {
-    if ((*(uint32_t *)((uint32_t)NRF_GPIOTE + event) == 0x1UL) && (NRF_GPIOTE->INTENSET & (1 << ch))) {
-      if (channelMap[ch] != -1 && callbacksInt[ch]) {
-        callbacksInt[ch]();
+    for (int ch = 0; ch < NUMBER_OF_GPIO_TE; ch++) {
+      if ((*(uint32_t *)((uint32_t)NRF_GPIOTE + event) == 0x1UL) && (NRF_GPIOTE->INTENSET & (1 << ch))) {
+        if (channelMap[ch] != -1 && callbacksInt[ch]) {
+          callbacksInt[ch]();
+        }
+
+      *(uint32_t *)((uint32_t)NRF_GPIOTE + event) = 0;
+#if __CORTEX_M == 0x04
+      volatile uint32_t dummy = *((volatile uint32_t *)((uint32_t)NRF_GPIOTE + event));
+      (void)dummy;
+#endif
       }
 
-    *(uint32_t *)((uint32_t)NRF_GPIOTE + event) = 0;
-#if __CORTEX_M == 0x04
-    volatile uint32_t dummy = *((volatile uint32_t *)((uint32_t)NRF_GPIOTE + event));
-    (void)dummy;
-#endif
+      event = (uint32_t)((uint32_t)event + 4);
     }
-
-    event = (uint32_t)((uint32_t)event + 4);
   }
 }
