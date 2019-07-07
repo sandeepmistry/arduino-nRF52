@@ -28,8 +28,18 @@
 extern "C" {
 #endif
 
-#define PWM_COUNT 3
+#define PWM_COUNT 6
 #define PIN_FREE 0xffffffff
+
+struct PWMSrc {
+  NRF_TIMER_Type* timer;
+  bool used;
+};
+
+struct PWMSrc srcs[2]={
+  {NRF_TIMER1,false},
+  {NRF_TIMER2,false}
+};
 
 struct PWMContext {
   uint32_t pin;
@@ -37,15 +47,17 @@ struct PWMContext {
   uint32_t channel;
   uint32_t mask;
   uint32_t event;
+  int src;
 };
 
 static struct PWMContext pwmContext[PWM_COUNT] = {
-  { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1 },
-  { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2 },
-  { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3 }
+  { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1, 0 },
+  { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2, 0 },
+  { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3, 0 },
+  { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1, 1 },
+  { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2, 1 },
+  { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3, 1 }
 };
-
-static int timerEnabled = 0;
 
 static uint32_t adcReference = ADC_CONFIG_REFSEL_SupplyOneThirdPrescaling;
 static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
@@ -217,6 +229,18 @@ uint32_t analogRead( uint32_t ulPin )
   return mapResolution(value, resolution, readResolution);
 }
 
+int getFreePwm() {
+  for (int i = 0; i < PWM_COUNT; i++)
+    if (pwmContext[i].pin == PIN_FREE) return i;
+  return -1;
+}
+
+int getPwmFromPin(uint32_t ulPin) {
+  for (int i = 0; i < PWM_COUNT; i++)
+    if (pwmContext[i].pin == ulPin||pwmContext[i].pin==PIN_FREE) return i;
+  return -1;
+}
+
 // Right now, PWM output only works on the pins with
 // hardware support.  These are defined in the appropriate
 // pins_*.c file.  For the rest of the pins, we default
@@ -229,24 +253,34 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
   ulPin = g_ADigitalPinMap[ulPin];
 
-  if (!timerEnabled) {
-    NVIC_SetPriority(TIMER1_IRQn, 3);
-    NVIC_ClearPendingIRQ(TIMER1_IRQn);
-    NVIC_EnableIRQ(TIMER1_IRQn);
+  int pwm=getPwmFromPin(ulPin);
+  struct PWMSrc* src=&srcs[pwmContext[pwm].src];
+  NRF_TIMER_Type* pwmSrc=src->timer;
 
-    NRF_TIMER1->MODE = (NRF_TIMER1->MODE & ~TIMER_MODE_MODE_Msk) | ((TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos) & TIMER_MODE_MODE_Msk);
+  if (!src->used) {
 
-    NRF_TIMER1->BITMODE = (NRF_TIMER1->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((TIMER_BITMODE_BITMODE_08Bit << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
+    if (pwmSrc==NRF_TIMER1) {
+      NVIC_SetPriority(TIMER1_IRQn, 3);
+      NVIC_ClearPendingIRQ(TIMER1_IRQn);
+      NVIC_EnableIRQ(TIMER1_IRQn);
+    } else if (pwmSrc==NRF_TIMER2) {
+      NVIC_SetPriority(TIMER2_IRQn, 4);
+      NVIC_ClearPendingIRQ(TIMER2_IRQn);
+      NVIC_EnableIRQ(TIMER2_IRQn);
+    } else return;
+    src->used = true;
 
-    NRF_TIMER1->PRESCALER = (NRF_TIMER1->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((7 << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
+    pwmSrc->MODE = (pwmSrc->MODE & ~TIMER_MODE_MODE_Msk) | ((TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos) & TIMER_MODE_MODE_Msk);
 
-    NRF_TIMER1->CC[0] = 0;
+    pwmSrc->BITMODE = (pwmSrc->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((TIMER_BITMODE_BITMODE_08Bit << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
 
-    NRF_TIMER1->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
+    pwmSrc->PRESCALER = (pwmSrc->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((7 << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
 
-    NRF_TIMER1->TASKS_START = 0x1UL;
+    pwmSrc->CC[0] = 0;
 
-    timerEnabled = true;
+    pwmSrc->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
+
+    pwmSrc->TASKS_START = 0x1UL;
   }
 
   for (int i = 0; i < PWM_COUNT; i++) {
@@ -263,9 +297,9 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
       pwmContext[i].value = ulValue;
 
-      NRF_TIMER1->CC[pwmContext[i].channel] = ulValue;
+      pwmSrc->CC[pwmContext[i].channel] = ulValue;
 
-      NRF_TIMER1->INTENSET = pwmContext[i].mask;
+      pwmSrc->INTENSET = pwmContext[i].mask;
 
       break;
     }
@@ -276,7 +310,7 @@ void TIMER1_IRQHandler(void)
 {
   if (NRF_TIMER1->EVENTS_COMPARE[0]) {
     for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
+      if (pwmContext[i].src==0&&pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 0*/) {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
     }
@@ -285,12 +319,35 @@ void TIMER1_IRQHandler(void)
   }
 
   for (int i = 0; i < PWM_COUNT; i++) {
-    if (NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
+    if (pwmContext[i].src==0&&NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
+      if (pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 255*/) {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
 
       NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
+    }
+  }
+}
+
+void TIMER2_IRQHandler(void)
+{
+  if (NRF_TIMER2->EVENTS_COMPARE[0]) {
+    for (int i = 0; i < PWM_COUNT; i++) {
+      if (pwmContext[i].src==1&&pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 0*/) {
+        NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+      }
+    }
+
+    NRF_TIMER2->EVENTS_COMPARE[0] = 0x0UL;
+  }
+
+  for (int i = 0; i < PWM_COUNT; i++) {
+    if (pwmContext[i].src==1&&NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event]) {
+      if (pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 255*/) {
+        NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+      }
+
+      NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
     }
   }
 }
