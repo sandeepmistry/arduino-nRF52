@@ -310,7 +310,7 @@ void TIMER1_IRQHandler(void)
 {
   if (NRF_TIMER1->EVENTS_COMPARE[0]) {
     for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].src==0&&pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 0*/) {
+      if (pwmContext[i].src==0&&pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
     }
@@ -320,7 +320,7 @@ void TIMER1_IRQHandler(void)
 
   for (int i = 0; i < PWM_COUNT; i++) {
     if (pwmContext[i].src==0&&NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 255*/) {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
 
@@ -333,7 +333,7 @@ void TIMER2_IRQHandler(void)
 {
   if (NRF_TIMER2->EVENTS_COMPARE[0]) {
     for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].src==1&&pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 0*/) {
+      if (pwmContext[i].src==1&&pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
     }
@@ -343,7 +343,7 @@ void TIMER2_IRQHandler(void)
 
   for (int i = 0; i < PWM_COUNT; i++) {
     if (pwmContext[i].src==1&&NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE /*&& pwmContext[i].value != 255*/) {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
 
