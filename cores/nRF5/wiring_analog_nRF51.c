@@ -29,6 +29,7 @@ extern "C" {
 #endif
 
 #define PWM_COUNT 6
+#define PWM_CH_COUNT 3
 #define PIN_FREE 0xffffffff
 
 struct PWMSrc {
@@ -50,7 +51,9 @@ struct PWMContext {
   int src;
 };
 
-static struct PWMContext pwmContext[PWM_COUNT] = {
+extern struct PWMContext pwmContext[PWM_COUNT];
+// static
+struct PWMContext pwmContext[PWM_COUNT] = {
   { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1, 0 },
   { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2, 0 },
   { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3, 0 },
@@ -65,14 +68,21 @@ static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
 static uint32_t readResolution = 10;
 static uint32_t writeResolution = 8;
 
-void analogReadResolution( int res )
+static int8_t timerPrescaller=7;
+//not standard, set timer prescaller
+inline void pwmPrescaller( int div ) {timerPrescaller=div;}
+
+inline void analogReadResolution( int res )
 {
   readResolution = res;
 }
 
-void analogWriteResolution( int res )
+inline void analogWriteResolution( int res )
 {
   writeResolution = res;
+  //this might need to reconfigure the timer...
+  //for now call it once on setup before using pwm
+  //TODO: check if this is the expected behaviour
 }
 
 static inline uint32_t mapResolution( uint32_t value, uint32_t from, uint32_t to )
@@ -229,10 +239,17 @@ uint32_t analogRead( uint32_t ulPin )
   return mapResolution(value, resolution, readResolution);
 }
 
-int getFreePwm() {
-  for (int i = 0; i < PWM_COUNT; i++)
-    if (pwmContext[i].pin == PIN_FREE) return i;
-  return -1;
+// int getFreePwm() {
+//   for (int i = 0; i < PWM_COUNT; i++)
+//     if (pwmContext[i].pin == PIN_FREE) return i;
+//   return -1;
+// }
+
+static int timerResolution(int nbits) {
+  if(nbits<=8) return TIMER_BITMODE_BITMODE_08Bit;
+  if(nbits<=16) return TIMER_BITMODE_BITMODE_16Bit;
+  if(nbits<=24) return TIMER_BITMODE_BITMODE_24Bit;
+  return TIMER_BITMODE_BITMODE_32Bit;
 }
 
 int getPwmFromPin(uint32_t ulPin) {
@@ -272,11 +289,11 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
     pwmSrc->MODE = (pwmSrc->MODE & ~TIMER_MODE_MODE_Msk) | ((TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos) & TIMER_MODE_MODE_Msk);
 
-    pwmSrc->BITMODE = (pwmSrc->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((TIMER_BITMODE_BITMODE_08Bit << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
+    pwmSrc->BITMODE = (pwmSrc->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((timerResolution(writeResolution) << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
 
-    pwmSrc->PRESCALER = (pwmSrc->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((7 << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
+    pwmSrc->PRESCALER = (pwmSrc->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((timerPrescaller << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
 
-    pwmSrc->CC[0] = 0;
+    pwmSrc->CC[0] = (1<<writeResolution)-1;//0;
 
     pwmSrc->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
 
@@ -285,15 +302,18 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 
   for (int i = 0; i < PWM_COUNT; i++) {
     if (pwmContext[i].pin == PIN_FREE || pwmContext[i].pin == ulPin) {
-      pwmContext[i].pin = ulPin;
 
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
-                               | ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos)
-                               | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)
-                               | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
-                               | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos);
+      if (pwmContext[i].pin != ulPin) {
+        pwmContext[i].pin = ulPin;
 
-      ulValue = mapResolution(ulValue, writeResolution, 8);
+        NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
+                                 | ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos)
+                                 | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)
+                                 | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
+                                 | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos);
+      }
+
+      // ulValue = mapResolution(ulValue, writeResolution, writeResolution);
 
       pwmContext[i].value = ulValue;
 
@@ -309,18 +329,19 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
 void TIMER1_IRQHandler(void)
 {
   if (NRF_TIMER1->EVENTS_COMPARE[0]) {
-    for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].src==0&&pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
+    for (int i = 0; i < PWM_CH_COUNT; i++) {
+      if (/*pwmContext[i].src==0&*&*/pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
+      NRF_TIMER1->TASKS_CLEAR = 1;//restart count
     }
 
-    NRF_TIMER1->EVENTS_COMPARE[0] = 0x0UL;
+    NRF_TIMER1->EVENTS_COMPARE[0] = 0x0UL;//restart cpimying (this gives us more control over frequency and resolution)
   }
 
-  for (int i = 0; i < PWM_COUNT; i++) {
-    if (pwmContext[i].src==0&&NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
+  for (int i = 0; i < PWM_CH_COUNT; i++) {
+    if (/*pwmContext[i].src==0&&*/NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != (1<<writeResolution)-1) {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
 
@@ -332,21 +353,21 @@ void TIMER1_IRQHandler(void)
 void TIMER2_IRQHandler(void)
 {
   if (NRF_TIMER2->EVENTS_COMPARE[0]) {
-    for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].src==1&&pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
+    for (int i = PWM_CH_COUNT; i < PWM_COUNT; i++) {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
+      NRF_TIMER2->TASKS_CLEAR = 1;//restart count
     }
 
     NRF_TIMER2->EVENTS_COMPARE[0] = 0x0UL;
   }
 
-  for (int i = 0; i < PWM_COUNT; i++) {
-    if (pwmContext[i].src==1&&NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
+  for (int i = PWM_CH_COUNT; i < PWM_COUNT; i++) {
+    if (NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event]) {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != (1<<writeResolution)-1) {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
-
       NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
     }
   }
