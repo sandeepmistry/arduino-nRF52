@@ -68,7 +68,7 @@ static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
 static uint32_t readResolution = 10;
 static uint32_t writeResolution = 8;
 
-static int8_t timerPrescaller=7;
+static uint32_t timerPrescaller=7;
 //not standard, set timer prescaller
 inline void pwmPrescaller( int div ) {timerPrescaller=div;}
 
@@ -330,8 +330,11 @@ void TIMER1_IRQHandler(void)
 {
   if (NRF_TIMER1->EVENTS_COMPARE[0]) {
     for (int i = 0; i < PWM_CH_COUNT; i++) {
-      if (/*pwmContext[i].src==0&*&*/pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
-        NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+      if (pwmContext[i].pin != PIN_FREE) {
+        if(pwmContext[i].value != 0)
+          NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+        else
+          NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
       NRF_TIMER1->TASKS_CLEAR = 1;//restart count
     }
@@ -340,11 +343,13 @@ void TIMER1_IRQHandler(void)
   }
 
   for (int i = 0; i < PWM_CH_COUNT; i++) {
-    if (/*pwmContext[i].src==0&&*/NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != (1<<writeResolution)-1) {
-        NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+    if (NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
+      if (pwmContext[i].pin != PIN_FREE) {
+        if (pwmContext[i].value != (1<<writeResolution)-1)
+          NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+        else
+          NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
-
       NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
     }
   }
@@ -354,19 +359,24 @@ void TIMER2_IRQHandler(void)
 {
   if (NRF_TIMER2->EVENTS_COMPARE[0]) {
     for (int i = PWM_CH_COUNT; i < PWM_COUNT; i++) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
-        NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+      if (pwmContext[i].pin != PIN_FREE) {
+        if(pwmContext[i].value != 0)
+          NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+        else
+          NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
       NRF_TIMER2->TASKS_CLEAR = 1;//restart count
     }
-
     NRF_TIMER2->EVENTS_COMPARE[0] = 0x0UL;
   }
 
   for (int i = PWM_CH_COUNT; i < PWM_COUNT; i++) {
     if (NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != (1<<writeResolution)-1) {
-        NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+      if (pwmContext[i].pin != PIN_FREE) {
+        if (pwmContext[i].value != (1<<writeResolution)-1)
+          NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+        else
+          NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
       NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
     }
