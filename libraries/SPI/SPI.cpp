@@ -252,9 +252,8 @@ void SPIClass::attachInterrupt() {
 void SPIClass::detachInterrupt() {
   // Should be disableInterrupt()
 }
-
 #if SPI_INTERFACES_COUNT > 0
-SPIClass SPI (NRF_SPI0,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
+SPIClass SPI (NRF_SPI2,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
 #endif
 #if SPI_INTERFACES_COUNT > 1
 SPIClass SPI1(NRF_SPI1, PIN_SPI1_MISO, PIN_SPI1_SCK, PIN_SPI1_MOSI);
