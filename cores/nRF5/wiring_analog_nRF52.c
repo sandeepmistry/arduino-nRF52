@@ -31,23 +31,34 @@ extern "C" {
 static uint32_t saadcReference = SAADC_CH_CONFIG_REFSEL_Internal;
 static uint32_t saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
 
-#define PWM_COUNT 3
-
-static NRF_PWM_Type* pwms[PWM_COUNT] = {
+NRF_PWM_Type* pwms[PWM_MODULE_COUNT] = {
   NRF_PWM0,
   NRF_PWM1,
   NRF_PWM2
 };
 
-static uint32_t pwmChannelPins[PWM_COUNT] = {
-  0xFFFFFFFF,
-  0xFFFFFFFF,
-  0xFFFFFFFF
+struct PWMContext pwmContext[PWM_COUNT] = {
+  { PIN_FREE, 0, 0 },
+  { PIN_FREE, 1, 0 },
+  { PIN_FREE, 2, 0 },
+  { PIN_FREE, 3, 0 },
+  { PIN_FREE, 0, 1 },
+  { PIN_FREE, 1, 1 },
+  { PIN_FREE, 2, 1 },
+  { PIN_FREE, 3, 1 },
+  { PIN_FREE, 0, 2 },
+  { PIN_FREE, 1, 2 },
+  { PIN_FREE, 2, 2 },
+  { PIN_FREE, 3, 2 }
 };
-static uint16_t pwmChannelSequence[PWM_COUNT];
+
+uint16_t pwmValue[PWM_MODULE_COUNT][PWM_CHANNEL_COUNT] = {0};
+
+struct PWMStatus pwmStatus[PWM_MODULE_COUNT] = {0};
 
 static int readResolution = 10;
 static int writeResolution = 8;
+static uint32_t halfAnalogWriteMax = 128; // default for 8b
 
 void analogReadResolution( int res )
 {
@@ -56,7 +67,16 @@ void analogReadResolution( int res )
 
 void analogWriteResolution( int res )
 {
-  writeResolution = res;
+  if ((res > 1) && (res < 17)) // up to 16b PWM resolution
+  {
+    writeResolution = res;
+    halfAnalogWriteMax = (2^res) >> 1;
+  }
+  else //default to 8b for any invalid res values
+  {
+    writeResolution = 8;
+    halfAnalogWriteMax = 128;
+  }
 }
 
 static inline uint32_t mapResolution( uint32_t value, uint32_t from, uint32_t to )
@@ -216,34 +236,79 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
   if (ulPin >= PINS_COUNT) {
     return;
   }
+  
+  uint32_t ulPin_ = g_ADigitalPinMap[ulPin];
 
-  ulPin = g_ADigitalPinMap[ulPin];
+  // Turn off PWM if duty cycle == 0
+  if (ulValue == 0)
+  {
+    for (uint8_t i = 0; i < PWM_COUNT; i++)
+    {
+      if (pwmContext[i].pin == ulPin_)
+      {
+        pwmContext[i].pin = PIN_FREE;
 
-  for (int i = 0; i < PWM_COUNT; i++) {
-    if (pwmChannelPins[i] == 0xFFFFFFFF || pwmChannelPins[i] == ulPin) {
-      pwmChannelPins[i] = ulPin;
-      pwmChannelSequence[i] = ulValue | bit(15);
+        // Disable the PWM
+        NRF_PWM_Type* pwm = pwms[pwmContext[i].module];
+        // disconnect from the PWM channel
+        pwm->PSEL.OUT[pwmContext[i].channel] = PWM_PSEL_OUT_CONNECT_Disconnected << PWM_PSEL_OUT_CONNECT_Pos;
 
-      NRF_PWM_Type* pwm = pwms[i];
+        pwmStatus[pwmContext[i].module].numActive--;
 
-      pwm->PSEL.OUT[0] = ulPin;
-      pwm->PSEL.OUT[1] = ulPin;
-      pwm->PSEL.OUT[2] = ulPin;
-      pwm->PSEL.OUT[3] = ulPin;
-      pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
-      pwm->PRESCALER = PWM_PRESCALER_PRESCALER_DIV_1;
-      pwm->MODE = PWM_MODE_UPDOWN_Up;
-      pwm->COUNTERTOP = (1 << writeResolution) - 1;
-      pwm->LOOP = 0;
-      pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Common << PWM_DECODER_LOAD_Pos) | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
-      pwm->SEQ[0].PTR = (uint32_t)&pwmChannelSequence[i];
-      pwm->SEQ[0].CNT = 1;
+        // Turn off the PWM module if no pwm channels are allocated
+        if (pwmStatus[pwmContext[i].module].numActive == 0)
+        {
+          pwm->ENABLE = (PWM_ENABLE_ENABLE_Disabled << PWM_ENABLE_ENABLE_Pos);
+        }
+
+        digitalWrite(ulPin, 0);
+      }
+    }
+
+    return;
+  }
+
+  for (uint8_t i = 0; i < PWM_COUNT; i++)
+  {
+    if (pwmContext[i].pin == PIN_FREE || pwmContext[i].pin == ulPin_)
+    {
+      pwmContext[i].pin = ulPin_;
+      pwmValue[pwmContext[i].module][pwmContext[i].channel] = ulValue | bit(15);
+
+      // allocate the pwm channel
+      NRF_PWM_Type* pwm = pwms[pwmContext[i].module];
+      // if this is the first channel allocated to the module, turn on pwm
+      if (pwmStatus[pwmContext[i].module].numActive == 0)
+      {
+        pwm->ENABLE = (PWM_ENABLE_ENABLE_Enabled << PWM_ENABLE_ENABLE_Pos);
+        pwm->PRESCALER = PWM_PRESCALER_PRESCALER_DIV_1;
+        pwm->MODE = PWM_MODE_UPDOWN_Up;
+        pwm->COUNTERTOP = (1 << writeResolution) - 1;
+        pwm->LOOP = 0;
+        pwm->DECODER = ((uint32_t)PWM_DECODER_LOAD_Individual << PWM_DECODER_LOAD_Pos) | ((uint32_t)PWM_DECODER_MODE_RefreshCount << PWM_DECODER_MODE_Pos);
+      }
+      
+      pwm->PSEL.OUT[pwmContext[i].channel] = pwmContext[i].pin;
+      
+      pwm->SEQ[0].PTR = (uint32_t)&pwmValue[pwmContext[i].module];
+      pwm->SEQ[0].CNT = 4;
       pwm->SEQ[0].REFRESH  = 1;
       pwm->SEQ[0].ENDDELAY = 0;
-      pwm->TASKS_SEQSTART[0] = 0x1UL;
-
-      break;
+      pwm->TASKS_SEQSTART[0] = 1;
+      
+      pwmStatus[pwmContext[i].module].numActive++;
+      return;
     }
+  }
+
+  // fallback to digitalWrite if no available PWM channel
+  if (ulValue < halfAnalogWriteMax)
+  {
+    digitalWrite(ulPin, LOW);
+  }
+  else
+  {
+    digitalWrite(ulPin, HIGH);
   }
 }
 

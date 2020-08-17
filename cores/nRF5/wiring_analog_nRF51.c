@@ -28,30 +28,29 @@
 extern "C" {
 #endif
 
-#define PWM_COUNT 3
-#define PIN_FREE 0xffffffff
-
-struct PWMContext {
-  uint32_t pin;
-  uint32_t value;
-  uint32_t channel;
-  uint32_t mask;
-  uint32_t event;
-};
-
-static struct PWMContext pwmContext[PWM_COUNT] = {
-  { PIN_FREE, 0, 1, TIMER_INTENSET_COMPARE1_Msk, 1 },
-  { PIN_FREE, 0, 2, TIMER_INTENSET_COMPARE2_Msk, 2 },
-  { PIN_FREE, 0, 3, TIMER_INTENSET_COMPARE3_Msk, 3 }
-};
-
-static int timerEnabled = 0;
-
 static uint32_t adcReference = ADC_CONFIG_REFSEL_SupplyOneThirdPrescaling;
 static uint32_t adcPrescaling = ADC_CONFIG_INPSEL_AnalogInputOneThirdPrescaling;
 
+NRF_TIMER_Type* pwms[PWM_MODULE_COUNT] = {
+  NRF_TIMER1,
+  NRF_TIMER2
+};
+
+struct PWMContext pwmContext[PWM_COUNT] = {
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE1_Msk, 1, 1, 0 },
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE2_Msk, 2, 2, 0 },
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE3_Msk, 3, 3, 0 },
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE1_Msk, 1, 1, 1 },
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE2_Msk, 2, 2, 1 },
+  { PIN_FREE, 0, TIMER_INTENSET_COMPARE3_Msk, 3, 3, 1 }
+};
+
+struct PWMStatus pwmStatus[PWM_MODULE_COUNT] = {{0, TIMER1_IRQn},{0, TIMER2_IRQn}};
+
 static uint32_t readResolution = 10;
 static uint32_t writeResolution = 8;
+static uint32_t halfAnalogWriteMax = 128; // default for 8b
+static uint32_t NRF_TIMER_BITMODE = TIMER_BITMODE_BITMODE_08Bit;
 
 void analogReadResolution( int res )
 {
@@ -61,6 +60,27 @@ void analogReadResolution( int res )
 void analogWriteResolution( int res )
 {
   writeResolution = res;
+
+  // TIMER1 has either 16b or 8b PWM resolution
+  if ((res > 1) && (res < 17))
+  {
+    if (res < 9)
+    {
+      halfAnalogWriteMax = 128;
+      NRF_TIMER_BITMODE = TIMER_BITMODE_BITMODE_08Bit;
+    }
+    else
+    {
+      halfAnalogWriteMax = 32768; // (2^16) >> 1
+      NRF_TIMER_BITMODE = TIMER_BITMODE_BITMODE_16Bit;
+    }
+  }
+  else //default to 8b for any invalid res values
+  {
+    writeResolution = 8;
+    halfAnalogWriteMax = 128;
+    NRF_TIMER_BITMODE = TIMER_BITMODE_BITMODE_08Bit;
+  }
 }
 
 static inline uint32_t mapResolution( uint32_t value, uint32_t from, uint32_t to )
@@ -227,70 +247,145 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
     return;
   }
 
-  ulPin = g_ADigitalPinMap[ulPin];
+  uint32_t ulPin_ = g_ADigitalPinMap[ulPin];
 
-  if (!timerEnabled) {
-    NVIC_SetPriority(TIMER1_IRQn, 3);
-    NVIC_ClearPendingIRQ(TIMER1_IRQn);
-    NVIC_EnableIRQ(TIMER1_IRQn);
+  // Turn off PWM if duty cycle == 0
+  if (ulValue == 0)
+  {
+    for (uint8_t i = 0; i < PWM_COUNT; i++)
+    {
+      if (pwmContext[i].pin == ulPin_)
+      {
+        pwmContext[i].pin = PIN_FREE;
+        pwmStatus[pwmContext[i].module].numActive--;
 
-    NRF_TIMER1->MODE = (NRF_TIMER1->MODE & ~TIMER_MODE_MODE_Msk) | ((TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos) & TIMER_MODE_MODE_Msk);
+        // allocate the pwm channel
+        NRF_TIMER_Type* pwm = pwms[pwmContext[i].module];
 
-    NRF_TIMER1->BITMODE = (NRF_TIMER1->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((TIMER_BITMODE_BITMODE_08Bit << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
+        // Turn off the PWM module if no pwm channels are allocated
+        if (pwmStatus[pwmContext[i].module].numActive == 0)
+        {
+          NVIC_ClearPendingIRQ(pwmStatus[pwmContext[i].module].irqNumber);
+          NVIC_DisableIRQ(pwmStatus[pwmContext[i].module].irqNumber);
 
-    NRF_TIMER1->PRESCALER = (NRF_TIMER1->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((7 << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
+          pwm->TASKS_STOP = 1;
+          pwm->TASKS_CLEAR = 1;
+        }
 
-    NRF_TIMER1->CC[0] = 0;
+        digitalWrite(ulPin, 0);
+      }
+    }
 
-    NRF_TIMER1->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
-
-    NRF_TIMER1->TASKS_START = 0x1UL;
-
-    timerEnabled = true;
+    return;
   }
 
-  for (int i = 0; i < PWM_COUNT; i++) {
-    if (pwmContext[i].pin == PIN_FREE || pwmContext[i].pin == ulPin) {
-      pwmContext[i].pin = ulPin;
+  for (uint8_t i = 0; i < PWM_COUNT; i++)
+  {
+    if (pwmContext[i].pin == PIN_FREE || pwmContext[i].pin == ulPin_)
+    {
+      pwmContext[i].pin = ulPin_;
 
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
+      NRF_GPIO->PIN_CNF[ulPin_] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_SENSE_Disabled   << GPIO_PIN_CNF_SENSE_Pos);
 
-      ulValue = mapResolution(ulValue, writeResolution, 8);
+      // rescale from an arbitrary resolution to either 8b or 16b (transparent to the user)
+      // This assumes that the user wont specify an 8b res then pass a 16b res value..
+      pwmContext[i].value = mapResolution( ulValue, writeResolution, (writeResolution < 9)?8:16);
 
-      pwmContext[i].value = ulValue;
+      // allocate the pwm channel
+      NRF_TIMER_Type* pwm = pwms[pwmContext[i].module];
 
-      NRF_TIMER1->CC[pwmContext[i].channel] = ulValue;
+      // if this is the first channel allocated to the module, turn on pwm
+      if (pwmStatus[pwmContext[i].module].numActive == 0)
+      {
+        NVIC_SetPriority(pwmStatus[pwmContext[i].module].irqNumber, 3);
+        NVIC_ClearPendingIRQ(pwmStatus[pwmContext[i].module].irqNumber);
+        NVIC_EnableIRQ(pwmStatus[pwmContext[i].module].irqNumber);
 
-      NRF_TIMER1->INTENSET = pwmContext[i].mask;
+        pwm->MODE = (pwm->MODE & ~TIMER_MODE_MODE_Msk) | ((TIMER_MODE_MODE_Timer << TIMER_MODE_MODE_Pos) & TIMER_MODE_MODE_Msk);
+        pwm->BITMODE = (pwm->BITMODE & ~TIMER_BITMODE_BITMODE_Msk) | ((NRF_TIMER_BITMODE << TIMER_BITMODE_BITMODE_Pos) & TIMER_BITMODE_BITMODE_Msk);
+        pwm->PRESCALER = (pwm->PRESCALER & ~TIMER_PRESCALER_PRESCALER_Msk) | ((7 << TIMER_PRESCALER_PRESCALER_Pos) & TIMER_PRESCALER_PRESCALER_Msk);
+        pwm->INTENSET = TIMER_INTENSET_COMPARE0_Msk;
+        pwm->CC[0] = 0;
+        pwm->TASKS_START = 0x1UL;
+      }
 
-      break;
+      pwm->CC[pwmContext[i].channel] = ulValue;
+      pwm->INTENSET |= pwmContext[i].mask;
+
+      pwmStatus[pwmContext[i].module].numActive++;
+      return;
     }
+  }
+
+  // fallback to digitalWrite if no available PWM channel
+  if (ulValue < halfAnalogWriteMax)
+  {
+    digitalWrite(ulPin, LOW);
+  }
+  else
+  {
+    digitalWrite(ulPin, HIGH);
   }
 }
 
 void TIMER1_IRQHandler(void)
 {
-  if (NRF_TIMER1->EVENTS_COMPARE[0]) {
-    for (int i = 0; i < PWM_COUNT; i++) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0) {
+  if (NRF_TIMER1->EVENTS_COMPARE[0]) // channel 0 sets all PWM signals HIGH
+  {
+    for (uint8_t i = 0; i < PWM_CHANNEL_COUNT; i++)
+    {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0)
+      {
         NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
       }
     }
 
-    NRF_TIMER1->EVENTS_COMPARE[0] = 0x0UL;
+    NRF_TIMER1->EVENTS_COMPARE[0] = 0;
   }
 
-  for (int i = 0; i < PWM_COUNT; i++) {
-    if (NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event]) {
-      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 255) {
+  for (uint8_t i = 0; i < PWM_CHANNEL_COUNT; i++)  // compare to CC sets the individual PWM signal LOW
+  {
+    if (NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event])
+    {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 2*halfAnalogWriteMax - 1)
+      {
         NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
       }
 
-      NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event] = 0x0UL;
+      NRF_TIMER1->EVENTS_COMPARE[pwmContext[i].event] = 0;
+    }
+  }
+}
+
+void TIMER2_IRQHandler(void)
+{
+  if (NRF_TIMER2->EVENTS_COMPARE[0]) // channel 0 sets all PWM signals HIGH
+  {
+    for (uint8_t i = PWM_CHANNEL_COUNT; i < 2*PWM_CHANNEL_COUNT; i++)
+    {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 0)
+      {
+        NRF_GPIO->OUTSET = (1UL << pwmContext[i].pin);
+      }
+    }
+
+    NRF_TIMER2->EVENTS_COMPARE[0] = 0;
+  }
+
+  for (uint8_t i = PWM_CHANNEL_COUNT; i < 2*PWM_CHANNEL_COUNT; i++)  // compare to CC sets the individual PWM signal LOW
+  {
+    if (NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event])
+    {
+      if (pwmContext[i].pin != PIN_FREE && pwmContext[i].value != 2*halfAnalogWriteMax - 1)
+      {
+        NRF_GPIO->OUTCLR = (1UL << pwmContext[i].pin);
+      }
+
+      NRF_TIMER2->EVENTS_COMPARE[pwmContext[i].event] = 0;
     }
   }
 }
