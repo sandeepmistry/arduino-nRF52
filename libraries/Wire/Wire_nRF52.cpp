@@ -413,4 +413,17 @@ extern "C"
 }
 #endif
 
+#if WIRE_INTERFACES_COUNT > 1
+
+TwoWire Wire1(NRF_TWIM0, NRF_TWIS0, SPIM0_SPIS0_TWIM0_TWIS0_SPI0_TWI0_IRQn, PIN_WIRE1_SDA, PIN_WIRE1_SCL);
+
+extern "C"
+{
+  void SPIM0_SPIS0_TWIM0_TWIS0_SPI0_TWI0_IRQHandler(void)
+  {
+    Wire1.onService();
+  }
+}
+#endif
+
 #endif

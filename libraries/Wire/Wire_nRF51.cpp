@@ -309,4 +309,8 @@ void TwoWire::flush(void)
 TwoWire Wire(NRF_TWI1, PIN_WIRE_SDA, PIN_WIRE_SCL);
 #endif
 
+#if WIRE_INTERFACES_COUNT > 1
+TwoWire Wire1(NRF_TWI0, PIN_WIRE1_SDA, PIN_WIRE1_SCL);
+#endif
+
 #endif
