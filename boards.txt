@@ -54,6 +54,39 @@ Generic_nRF52833.menu.lfclk.lfsynt=Synthesized
 Generic_nRF52833.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
 
+BBCmicrobitV2.name=BBC micro:bit V2
+
+BBCmicrobitV2.vid.0=0x0d28
+BBCmicrobitV2.pid.0=0x0204
+
+BBCmicrobitV2.upload.tool=sandeepmistry:openocd
+BBCmicrobitV2.upload.protocol=cmsis-dap
+BBCmicrobitV2.upload.target=nrf52
+BBCmicrobitV2.upload.maximum_size=524288
+BBCmicrobitV2.upload.setup_command=transport select swd;
+BBCmicrobitV2.upload.use_1200bps_touch=false
+BBCmicrobitV2.upload.wait_for_upload_port=false
+BBCmicrobitV2.upload.native_usb=false
+
+BBCmicrobitV2.bootloader.tool=sandeepmistry:openocd
+
+BBCmicrobitV2.build.mcu=cortex-m4
+BBCmicrobitV2.build.f_cpu=64000000
+BBCmicrobitV2.build.board=BBC_MICROBIT_V2
+BBCmicrobitV2.build.core=nRF5
+BBCmicrobitV2.build.variant=BBCmicrobitV2
+BBCmicrobitV2.build.variant_system_lib=
+BBCmicrobitV2.build.extra_flags=-DNRF52833_XXAA
+BBCmicrobitV2.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+BBCmicrobitV2.build.ldscript=nrf52833_xxaa.ld
+
+BBCmicrobitV2.build.lfclk_flags=-DUSE_LFSYNT
+
+BBCmicrobitV2.menu.softdevice.none=None
+BBCmicrobitV2.menu.softdevice.none.softdevice=none
+BBCmicrobitV2.menu.softdevice.none.softdeviceversion=
+
+
 # nRF52832 variants
 ###################
 
