@@ -18,12 +18,23 @@
 */
 
 #include "nrf.h"
-
 #include "Arduino.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define GPIO_PORT0 ((NRF_GPIO_Type*) 0x50000000UL)
+#define GPIO_PORT1 ((NRF_GPIO_Type*) 0x50000300UL)
+
+static inline NRF_GPIO_Type * decodePin(uint32_t *pin) {
+    if (*pin < 32) {
+        return GPIO_PORT0;
+    } else {
+        *pin = *pin & 0x1F; // pin number is 5 lowest bits
+        return GPIO_PORT1;
+    }
+}
 
 void pinMode( uint32_t ulPin, uint32_t ulMode )
 {
@@ -32,13 +43,14 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
   }
 
   ulPin = g_ADigitalPinMap[ulPin];
+  NRF_GPIO_Type * port = decodePin(&ulPin);
 
   // Set pin mode according to chapter '22.6.3 I/O Pin Configuration'
   switch ( ulMode )
   {
     case INPUT:
       // Set pin to input mode
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
+      port->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_INPUT_Connect    << GPIO_PIN_CNF_INPUT_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
@@ -47,7 +59,7 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
 
     case INPUT_PULLUP:
       // Set pin to input mode with pull-up resistor enabled
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
+      port->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_INPUT_Connect    << GPIO_PIN_CNF_INPUT_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_PULL_Pullup      << GPIO_PIN_CNF_PULL_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
@@ -56,7 +68,7 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
 
     case INPUT_PULLDOWN:
       // Set pin to input mode with pull-down resistor enabled
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
+      port->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Input        << GPIO_PIN_CNF_DIR_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_INPUT_Connect    << GPIO_PIN_CNF_INPUT_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_PULL_Pulldown    << GPIO_PIN_CNF_PULL_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
@@ -65,7 +77,7 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
 
     case OUTPUT:
       // Set pin to output mode
-      NRF_GPIO->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
+      port->PIN_CNF[ulPin] = ((uint32_t)GPIO_PIN_CNF_DIR_Output       << GPIO_PIN_CNF_DIR_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_INPUT_Disconnect << GPIO_PIN_CNF_INPUT_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_PULL_Disabled    << GPIO_PIN_CNF_PULL_Pos)
                                | ((uint32_t)GPIO_PIN_CNF_DRIVE_S0S1       << GPIO_PIN_CNF_DRIVE_Pos)
@@ -85,15 +97,16 @@ void digitalWrite( uint32_t ulPin, uint32_t ulVal )
   }
 
   ulPin = g_ADigitalPinMap[ulPin];
+  NRF_GPIO_Type * port = decodePin(&ulPin);
 
   switch ( ulVal )
   {
     case LOW:
-      NRF_GPIO->OUTCLR = (1UL << ulPin);
+      port->OUTCLR = (1UL << ulPin);
     break ;
 
     default:
-      NRF_GPIO->OUTSET = (1UL << ulPin);
+      port->OUTSET = (1UL << ulPin);
     break ;
   }
 
@@ -107,8 +120,9 @@ int digitalRead( uint32_t ulPin )
   }
 
   ulPin = g_ADigitalPinMap[ulPin];
+  NRF_GPIO_Type * port = decodePin(&ulPin);
 
-  return ((NRF_GPIO->IN >> ulPin) & 1UL) ? HIGH : LOW ;
+  return ((port->IN >> ulPin) & 1UL) ? HIGH : LOW ;
 }
 
 #ifdef __cplusplus

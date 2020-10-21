@@ -108,4 +108,8 @@ class TwoWire : public Stream
 extern TwoWire Wire;
 #endif
 
+#if WIRE_INTERFACES_COUNT > 1
+extern TwoWire Wire1;
+#endif
+
 #endif
