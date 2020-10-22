@@ -14,8 +14,8 @@ extern "C"
 
 // Number of pins defined in PinDescription array
 
-#define PINS_COUNT			(33)
-#define NUM_DIGITAL_PINS	(33)
+#define PINS_COUNT			(35)
+#define NUM_DIGITAL_PINS	(35)
 #define NUM_ANALOG_INPUTS	(7)
 #define NUM_ANALOG_OUTPUTS	(0)
 
@@ -32,7 +32,7 @@ extern "C"
 #define PIN_A3				(3)
 #define PIN_A4				(4)
 #define PIN_A5				(10)
-#define PIN_A6				(27)
+#define PIN_A6				(29)
 
 #define ADC_RESOLUTION 10
 static const uint8_t A0 = PIN_A0;

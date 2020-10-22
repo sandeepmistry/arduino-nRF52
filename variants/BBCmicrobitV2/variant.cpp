@@ -4,9 +4,9 @@
 
 const uint32_t g_ADigitalPinMap[] = {
   // 0 - 4
-  2,  // A0 - left pad
-  3,  // A1 - middle pad
-  4,  // A2 - right pad
+  2,  // A0, LEFT PAD
+  3,  // A1, MIDDLE PAD
+  4,  // A2, RIGHT PAD
   31, // A3, COL3
   28, // A4, COL1
 
@@ -42,10 +42,10 @@ const uint32_t g_ADigitalPinMap[] = {
   19, // ROW5
 
   // 26 - 29
-  20, // RUN_MIC
-  5,  // MIC_IN
-  0,  // SPEAKER (Note: Must use -DUSE_LFSYNT to make this pin available)
   36, // LOGO (touch sensor)
+  0,  // SPEAKER (Note: Must use synthesized LF clock to make this pin available)
+  20, // RUN_MIC
+  5,  // A6, MIC_IN
 
   // 30 - 31
   16, // I2C_INT_SDA
