@@ -266,6 +266,7 @@
           "size": "577994",
           "boards": [
             {"name": "BBC micro:bit"},
+            {"name": "BBCmicrobitV2"},
             {"name": "Bluz DK"},
             {"name": "Calliope mini"},
             {"name": "Electronut labs bluey"},
