@@ -60,8 +60,8 @@ static const uint8_t A6 = PIN_A6;
 
 #define WIRE_INTERFACES_COUNT 2
 
-#define PIN_WIRE_SDA		(19)
-#define PIN_WIRE_SCL		(20)
+#define PIN_WIRE_SDA		(20)
+#define PIN_WIRE_SCL		(19)
 
 #define PIN_WIRE1_SDA       (30)
 #define PIN_WIRE1_SCL       (31)
