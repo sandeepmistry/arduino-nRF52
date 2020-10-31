@@ -19,6 +19,11 @@ extern "C"
 #define NUM_ANALOG_INPUTS	(7)
 #define NUM_ANALOG_OUTPUTS	(0)
 
+// LEDs
+
+#define PIN_LED             (13)
+#define LED_BUILTIN         PIN_LED
+
 // Buttons
 
 #define PIN_BUTTON_A		(5)
