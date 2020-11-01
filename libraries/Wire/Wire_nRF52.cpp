@@ -70,8 +70,8 @@ void TwoWire::begin(void) {
 
   _p_twim->FREQUENCY = TWIM_FREQUENCY_FREQUENCY_K100;
   _p_twim->ENABLE = (TWIM_ENABLE_ENABLE_Enabled << TWIM_ENABLE_ENABLE_Pos);
-  _p_twim->PSEL.SCL = pinSCL;
-  _p_twim->PSEL.SDA = pinSDA;
+  _p_twim->PSEL.SCL = g_ADigitalPinMap[_uc_pinSCL];
+  _p_twim->PSEL.SDA = g_ADigitalPinMap[_uc_pinSDA];
 
   NVIC_ClearPendingIRQ(_IRQn);
   NVIC_SetPriority(_IRQn, 2);
@@ -102,8 +102,8 @@ void TwoWire::begin(uint8_t address) {
 
   _p_twis->ADDRESS[0] = address;
   _p_twis->CONFIG = TWIS_CONFIG_ADDRESS0_Msk;
-  _p_twis->PSEL.SCL = pinSCL;
-  _p_twis->PSEL.SDA = pinSDA;
+  _p_twis->PSEL.SCL = g_ADigitalPinMap[_uc_pinSCL];
+  _p_twis->PSEL.SDA = g_ADigitalPinMap[_uc_pinSDA];
 
   _p_twis->ORC = 0xff;
 
