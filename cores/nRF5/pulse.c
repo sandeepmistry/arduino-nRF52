@@ -27,13 +27,13 @@ extern unsigned long countPulseASM(const volatile uint32_t *port, uint32_t bit, 
  * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
  * to 3 minutes in length, but must be called at least a few dozen microseconds
  * before the start of the pulse. */
-uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout)
+uint32_t pulseIn(uint32_t ulPin, uint32_t state, uint32_t timeout)
 {
   // cache the port and bit of the pin in order to speed up the
   // pulse width measuring loop and achieve finer resolution.  calling
   // digitalRead() instead yields much coarser resolution.
   // PinDescription p = g_APinDescription[pin];
-  uint32_t bit = 1 << pin; //p.ulPin;
+  uint32_t bit = 1 << digitalPinToPin(ulPin);
   uint32_t stateMask = state ? bit : 0;
 
   // convert the timeout from microseconds to a number of times through
