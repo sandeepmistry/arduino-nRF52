@@ -37,17 +37,15 @@ uint32_t pulseIn(uint32_t ulPin, uint32_t state, uint32_t timeout)
   uint32_t stateMask = state ? bit : 0;
 
   // convert the timeout from microseconds to a number of times through
-  // the initial loop; it takes (roughly) 13 clock cycles per iteration.
-  uint32_t maxloops = microsecondsToClockCycles(timeout) / 13;
+  // the initial loop; it takes (roughly) 10 clock cycles per iteration.
+  uint32_t maxloops = microsecondsToClockCycles(timeout) / 10;
 
-  uint32_t width = countPulseASM(&(NRF_GPIO->IN), bit, stateMask, maxloops);
+  // count low-level loops during the pulse (or until maxLoops)
+  // a zero loopCount means that a complete pulse was not detected within the timeout
+  uint32_t loopCount = countPulseASM(&(NRF_GPIO->IN), bit, stateMask, maxloops);
 
-  // convert the reading to microseconds. The loop has been determined
-  // to be 13 clock cycles long and have about 16 clocks between the edge
-  // and the start of the loop. There will be some error introduced by
-  // the interrupt handlers.
-  if (width)
-    return clockCyclesToMicroseconds(width * 13 + 16);
-  else
-    return 0;
+  // convert the reading to (approximate) microseconds. The loop time as measured with an
+  // oscilloscope is 10 cycles on a BBC micro:bit 1.3 (nRF51822). There is error because the
+  // time is quantized to an integral number of loops and because interrupt may steal cycles.
+  return clockCyclesToMicroseconds(10 * loopCount);
 }
