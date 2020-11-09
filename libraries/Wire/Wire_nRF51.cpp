@@ -71,8 +71,8 @@ void TwoWire::begin(void) {
 
   _p_twi->FREQUENCY = (TWI_FREQUENCY_FREQUENCY_K100 << TWI_FREQUENCY_FREQUENCY_Pos);
   _p_twi->ENABLE = (TWI_ENABLE_ENABLE_Enabled << TWI_ENABLE_ENABLE_Pos);
-  _p_twi->PSELSCL = _uc_pinSCL;
-  _p_twi->PSELSDA = _uc_pinSDA;
+  _p_twi->PSELSCL = pinSCL;
+  _p_twi->PSELSDA = pinSDA;
 }
 
 void TwoWire::setClock(uint32_t baudrate) {
