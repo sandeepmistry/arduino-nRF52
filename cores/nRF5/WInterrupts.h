@@ -40,7 +40,7 @@ typedef void (*voidFuncPtr)(void);
  * \brief Specifies a named Interrupt Service Routine (ISR) to call when an interrupt occurs.
  *        Replaces any previous function that was attached to the interrupt.
  */
-void attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode);
+int attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode);
 
 /*
  * \brief Turns off the given interrupt.
