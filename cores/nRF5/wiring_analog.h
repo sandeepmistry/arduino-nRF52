@@ -25,10 +25,12 @@
 extern "C" {
 #endif
 
+#include "nrf.h"
+
 /*
  * \brief nRF51 and nRF52 have different reference options.
  */
-#ifdef NRF52
+#if defined(NRF52_SERIES)
 typedef enum _eAnalogReference
 {
   AR_DEFAULT,

@@ -1,3 +1,4 @@
+#if defined(ARDUINO) && defined(NRF52820_XXAA)
 /*
  
 Copyright (c) 2009-2020 ARM Limited. All rights reserved.
@@ -393,3 +394,4 @@ Default_Handler:
     IRQ  USBD_IRQHandler
 
   .end
+#endif

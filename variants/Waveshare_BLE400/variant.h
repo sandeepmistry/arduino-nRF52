@@ -17,8 +17,10 @@
 #ifndef _VARIANT_GENERIC_
 #define _VARIANT_GENERIC_
 
+#include "nrf.h"
+
 /** Master clock frequency */
-#ifdef NRF52
+#if defined(NRF52_SERIES)
 #define VARIANT_MCK       (64000000ul)
 #else
 #define VARIANT_MCK       (16000000ul)

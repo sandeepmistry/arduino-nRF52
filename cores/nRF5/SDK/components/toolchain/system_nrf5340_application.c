@@ -1,3 +1,4 @@
+#if defined(ARDUINO) && defined(NRF5340_XXAA) && defined(NRF_APPLICATION)
 /*
 
 Copyright (c) 2009-2020 ARM Limited. All rights reserved.
@@ -248,3 +249,4 @@ void SystemInit(void)
 }
 
 /*lint --flb "Leave library region" */
+#endif

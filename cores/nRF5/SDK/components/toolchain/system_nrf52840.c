@@ -30,4 +30,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 */
 
+#ifndef ARDUINO
 #include "system_nrf52.c"
+#endif

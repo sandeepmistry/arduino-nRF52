@@ -27,6 +27,7 @@ NOTICE: This file has been modified by Nordic Semiconductor ASA.
 #include <stdbool.h>
 #include "nrf.h"
 #include "nrf_erratas.h"
+#if defined(ARDUINO) && defined(NRF51_SERIES)
 #include "system_nrf51.h"
 
 /*lint ++flb "Enter library region" */
@@ -87,3 +88,4 @@ void SystemInit(void)
 }
 
 /*lint --flb "Leave library region" */
+#endif

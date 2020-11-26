@@ -225,9 +225,9 @@ size_t Uart::write(const uint8_t data)
   return 1;
 }
 
-#if defined(NRF52)
+#if defined(NRF52_SERIES)
   #define NRF_UART0_IRQn UARTE0_UART0_IRQn
-#elif defined(NRF51)
+#elif defined(NRF51_SERIES)
   #define NRF_UART0_IRQn UART0_IRQn
 #endif
 
@@ -237,7 +237,7 @@ size_t Uart::write(const uint8_t data)
   Uart Serial( NRF_UART0, NRF_UART0_IRQn, PIN_SERIAL_RX, PIN_SERIAL_TX );
 #endif
 
-#if defined(NRF52)
+#if defined(NRF52_SERIES)
 extern "C"
 {
   void UARTE0_UART0_IRQHandler()
@@ -245,7 +245,7 @@ extern "C"
     Serial.IrqHandler();
   }
 }
-#elif defined(NRF51)
+#elif defined(NRF51_SERIES)
 extern "C"
 {
   void UART0_IRQHandler()

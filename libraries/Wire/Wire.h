@@ -34,7 +34,7 @@
 class TwoWire : public Stream
 {
   public:
-#ifdef NRF52
+#if defined(NRF52_SERIES)
     TwoWire(NRF_TWIM_Type * p_twim, NRF_TWIS_Type * p_twis, IRQn_Type IRQn, uint8_t pinSDA, uint8_t pinSCL);
 #else
     TwoWire(NRF_TWI_Type * p_twi, uint8_t pinSDA, uint8_t pinSCL);
@@ -43,7 +43,7 @@ class TwoWire : public Stream
     void setPins(uint8_t pinSDA, uint8_t pinSCL);
 #endif // ARDUINO_GENERIC
     void begin();
-#ifdef NRF52
+#if defined(NRF52_SERIES)
     void begin(uint8_t);
 #endif
     void end();
@@ -63,7 +63,7 @@ class TwoWire : public Stream
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-#ifdef NRF52
+#if defined(NRF52_SERIES)
     void onReceive(void(*)(int));
     void onRequest(void(*)(void));
     void onService(void);
@@ -72,7 +72,7 @@ class TwoWire : public Stream
     using Print::write;
 
   private:
-#ifdef NRF52
+#if defined(NRF52_SERIES)
     NRF_TWIM_Type * _p_twim;
     NRF_TWIS_Type * _p_twis;
 #else

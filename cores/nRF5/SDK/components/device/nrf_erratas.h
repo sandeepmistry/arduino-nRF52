@@ -43,7 +43,9 @@ NRF_MDK_VERSION_ASSERT_AT_LEAST(8,34,0);
 #include "nrf51_erratas.h"
 #include "nrf52_erratas.h"
 #include "nrf53_erratas.h"
+#ifndef ARDUINO
 #include "nrf91_erratas.h"
+#endif
 
 /*lint --flb "Leave library region" */
 
