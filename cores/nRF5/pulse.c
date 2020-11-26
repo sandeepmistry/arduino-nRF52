@@ -33,7 +33,8 @@ uint32_t pulseIn(uint32_t ulPin, uint32_t state, uint32_t timeout)
   // pulse width measuring loop and achieve finer resolution.  calling
   // digitalRead() instead yields much coarser resolution.
   // PinDescription p = g_APinDescription[pin];
-  uint32_t bit = 1 << digitalPinToPin(ulPin);
+  NRF_GPIO_Type* port = digitalPinToPort(ulPin);
+  uint32_t bit = digitalPinToBitMask(ulPin);
   uint32_t stateMask = state ? bit : 0;
 
   // convert the timeout from microseconds to a number of times through
@@ -42,7 +43,7 @@ uint32_t pulseIn(uint32_t ulPin, uint32_t state, uint32_t timeout)
 
   // count low-level loops during the pulse (or until maxLoops)
   // a zero loopCount means that a complete pulse was not detected within the timeout
-  uint32_t loopCount = countPulseASM(&(NRF_GPIO->IN), bit, stateMask, maxloops);
+  uint32_t loopCount = countPulseASM(&(port->IN), bit, stateMask, maxloops);
 
   // convert the reading to (approximate) microseconds. The loop time as measured with an
   // oscilloscope is 10 cycles on a BBC micro:bit 1.3 (nRF51822). There is error because the
