@@ -1,39 +1,44 @@
-#ifdef NRF51
-/* Copyright (c) 2013 ARM LIMITED
+/*
+ 
+Copyright (c) 2009-2020 ARM Limited. All rights reserved.
 
-   All rights reserved.
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions are met:
-   - Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in the
-     documentation and/or other materials provided with the distribution.
-   - Neither the name of ARM nor the names of its contributors may be used
-     to endorse or promote products derived from this software without
-     specific prior written permission.
+    SPDX-License-Identifier: Apache-2.0
 
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-   ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
-   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-   POSSIBILITY OF SUCH DAMAGE.
-   ---------------------------------------------------------------------------*/
+Licensed under the Apache License, Version 2.0 (the License); you may
+not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an AS IS BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+NOTICE: This file has been modified by Nordic Semiconductor ASA.
+
+*/
 
     .syntax unified
     .arch armv6-m
 
+#ifdef __STARTUP_CONFIG
+#include "startup_config.h"
+#ifndef __STARTUP_CONFIG_STACK_ALIGNEMENT
+#define __STARTUP_CONFIG_STACK_ALIGNEMENT 3
+#endif
+#endif
+
     .section .stack
+#if defined(__STARTUP_CONFIG)
+    .align __STARTUP_CONFIG_STACK_ALIGNEMENT
+    .equ    Stack_Size, __STARTUP_CONFIG_STACK_SIZE
+#elif defined(__STACK_SIZE)
     .align 3
-#ifdef __STACK_SIZE
     .equ    Stack_Size, __STACK_SIZE
 #else
+    .align 3
     .equ    Stack_Size, 2048
 #endif
     .globl __StackTop
@@ -46,10 +51,12 @@ __StackTop:
 
     .section .heap
     .align 3
-#ifdef __HEAP_SIZE
+#if defined(__STARTUP_CONFIG)
+    .equ Heap_Size, __STARTUP_CONFIG_HEAP_SIZE
+#elif defined(__HEAP_SIZE)
     .equ Heap_Size, __HEAP_SIZE
 #else
-    .equ    Heap_Size, 2048
+    .equ Heap_Size, 2048
 #endif
     .globl __HeapBase
     .globl __HeapLimit
@@ -61,7 +68,7 @@ __HeapBase:
 __HeapLimit:
     .size __HeapLimit, . - __HeapLimit
 
-    .section .isr_vector
+    .section .isr_vector, "ax"
     .align 2
     .globl __isr_vector
 __isr_vector:
@@ -133,7 +140,7 @@ __isr_vector:
 Reset_Handler:
 
     MOVS    R1, #NRF_POWER_RAMONx_RAMxON_ONMODE_Msk
-
+    
     LDR     R0, =NRF_POWER_RAMON_ADDRESS
     LDR     R2, [R0]
     ORRS    R2, R1
@@ -149,24 +156,26 @@ Reset_Handler:
  *      __etext: LMA of start of the section to copy from. Usually end of text
  *      __data_start__: VMA of start of the section to copy to.
  *      __bss_start__: VMA of end of the section to copy to. Normally __data_end__ is used, but by using __bss_start__
- *                    the user can add their own initialized data section before BSS section with the INTERT AFTER command.
+ *                    the user can add their own initialized data section before BSS section with the INSERT AFTER command.
  *
  * All addresses must be aligned to 4 bytes boundary.
  */
+#ifndef __STARTUP_SKIP_ETEXT
     ldr r1, =__etext
     ldr r2, =__data_start__
     ldr r3, =__bss_start__
 
-    subs r3, r2
+    subs r3, r3, r2
     ble .L_loop1_done
 
 .L_loop1:
-    subs r3, #4
+    subs r3, r3, #4
     ldr r0, [r1,r3]
     str r0, [r2,r3]
     bgt .L_loop1
 
 .L_loop1_done:
+#endif
 
 /* This part of work usually is done in C library startup code. Otherwise,
  * define __STARTUP_CLEAR_BSS to enable it in this startup. This section
@@ -184,11 +193,11 @@ Reset_Handler:
 
     movs r0, 0
 
-    subs r2, r1
+    subs r2, r2, r1
     ble .L_loop3_done
 
 .L_loop3:
-    subs r2, #4
+    subs r2, r2, #4
     str r0, [r1, r2]
     bgt .L_loop3
 
@@ -289,4 +298,3 @@ Default_Handler:
     IRQ  SWI5_IRQHandler
 
   .end
-#endif
