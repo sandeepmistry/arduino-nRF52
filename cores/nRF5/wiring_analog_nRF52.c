@@ -29,18 +29,22 @@ extern "C" {
 static uint32_t saadcReference = SAADC_CH_CONFIG_REFSEL_Internal;
 static uint32_t saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
 
-#define PWM_COUNT 3
-
 static NRF_PWM_Type* pwms[PWM_COUNT] = {
   NRF_PWM0,
   NRF_PWM1,
-  NRF_PWM2
+  NRF_PWM2,
+#if PWM_COUNT > 3
+  NRF_PWM3
+#endif
 };
 
 static uint32_t pwmChannelPins[PWM_COUNT] = {
   0xFFFFFFFF,
   0xFFFFFFFF,
-  0xFFFFFFFF
+  0xFFFFFFFF,
+#if PWM_COUNT > 3
+  0xFFFFFFFF,
+#endif
 };
 static uint16_t pwmChannelSequence[PWM_COUNT];
 
