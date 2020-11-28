@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#include <nrf.h>
+
 #include "SPI.h"
 #include <Arduino.h>
 #include <wiring_private.h>
@@ -254,8 +256,13 @@ void SPIClass::detachInterrupt() {
 }
 
 #if SPI_INTERFACES_COUNT > 0
+#if defined(NRF52_SERIES)
+SPIClass SPI (NRF_SPI2,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
+#else
 SPIClass SPI (NRF_SPI0,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
 #endif
+#endif
+
 #if SPI_INTERFACES_COUNT > 1
 SPIClass SPI1(NRF_SPI1, PIN_SPI1_MISO, PIN_SPI1_SCK, PIN_SPI1_MOSI);
 #endif
