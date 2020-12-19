@@ -1090,3 +1090,40 @@ SeeedArchLink.menu.softdevice.s130.upload.maximum_size=151552
 SeeedArchLink.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
 SeeedArchLink.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_xxaa.ld
 
+
+
+Pinetime.name=PineTime
+
+Pinetime.upload.tool=sandeepmistry:openocd
+Pinetime.upload.target=nrf52
+Pinetime.upload.maximum_size=524288
+
+Pinetime.bootloader.tool=sandeepmistry:openocd
+
+Pinetime.build.mcu=cortex-m4
+Pinetime.build.f_cpu=16000000
+Pinetime.build.board=PINETIME
+Pinetime.build.core=nRF5
+Pinetime.build.variant=Pinetime
+Pinetime.build.variant_system_lib=
+Pinetime.build.extra_flags=-DNRF52
+Pinetime.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+Pinetime.build.ldscript=nrf52_xxaa.ld
+
+Pinetime.menu.softdevice.none=None
+Pinetime.menu.softdevice.none.softdevice=none
+Pinetime.menu.softdevice.none.softdeviceversion=
+
+Pinetime.menu.softdevice.s132=S132
+Pinetime.menu.softdevice.s132.softdevice=s132
+Pinetime.menu.softdevice.s132.softdeviceversion=2.0.1
+Pinetime.menu.softdevice.s132.upload.maximum_size=409600
+Pinetime.menu.softdevice.s132.build.extra_flags=-DNRF52 -DS132 -DNRF51_S132
+Pinetime.menu.softdevice.s132.build.ldscript=armgcc_s132_nrf52832_xxaa.ld
+
+Pinetime.menu.lfclk.lfxo=Crystal Oscillator
+Pinetime.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Pinetime.menu.lfclk.lfrc=RC Oscillator
+Pinetime.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Pinetime.menu.lfclk.lfsynt=Synthesized
+Pinetime.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
