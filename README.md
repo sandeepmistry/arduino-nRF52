@@ -106,6 +106,7 @@ Become a sponsor and get your logo on our README on Github with a link to your s
  * [Nordic Semiconductor NRF51 Smart Beacon Kit](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822-Bluetooth-Smart-Beacon-Kit)
  * [Nordic Semiconductor NRF51 Dongle](http://www.nordicsemi.com/eng/Products/nRF51-Dongle)
  * [OSHChip](http://www.oshchip.org/)
+ * [Raytac MDBT40](http://www.raytac.com/product/ins.php?index_id=63)
  * [RedBearLab BLE Nano](http://redbearlab.com/blenano/)
  * [RedBearLab nRF51822](http://redbearlab.com/redbearlab-nrf51822/)
  * [Waveshare BLE400](http://www.waveshare.com/wiki/BLE400)

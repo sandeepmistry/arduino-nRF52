@@ -631,6 +631,54 @@ PCA1000X.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 PCA1000X.menu.lfclk.lfsynt=Synthesized
 PCA1000X.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
 
+Raytac_MDBT40.name=Raytac MDBT40
+
+Raytac_MDBT40.upload.tool=sandeepmistry:openocd
+Raytac_MDBT40.upload.target=nrf51
+Raytac_MDBT40.upload.maximum_size=262144
+
+Raytac_MDBT40.bootloader.tool=sandeepmistry:openocd
+
+Raytac_MDBT40.build.mcu=cortex-m0
+Raytac_MDBT40.build.f_cpu=16000000
+Raytac_MDBT40.build.board=GENERIC
+Raytac_MDBT40.build.core=nRF5
+Raytac_MDBT40.build.variant=Raytac_MDBT40
+Raytac_MDBT40.build.variant_system_lib=
+Raytac_MDBT40.build.extra_flags=-DNRF51
+Raytac_MDBT40.build.float_flags=
+Raytac_MDBT40.build.ldscript=nrf51_{build.chip}.ld
+
+Raytac_MDBT40.menu.chip.xxaa=16 kB RAM, 256 kB flash (xxaa)
+Raytac_MDBT40.menu.chip.xxaa.build.chip=xxaa
+Raytac_MDBT40.menu.chip.xxac=32 kB RAM, 256 kB flash (xxac)
+Raytac_MDBT40.menu.chip.xxac.build.chip=xxac
+
+Raytac_MDBT40.menu.softdevice.none=None
+Raytac_MDBT40.menu.softdevice.none.softdevice=none
+Raytac_MDBT40.menu.softdevice.none.softdeviceversion=
+
+Raytac_MDBT40.menu.softdevice.s110=S110
+Raytac_MDBT40.menu.softdevice.s110.softdevice=s110
+Raytac_MDBT40.menu.softdevice.s110.softdeviceversion=8.0.0
+Raytac_MDBT40.menu.softdevice.s110.upload.maximum_size=151552
+Raytac_MDBT40.menu.softdevice.s110.build.extra_flags=-DNRF51 -DS110 -DNRF51_S110
+Raytac_MDBT40.menu.softdevice.s110.build.ldscript=armgcc_s110_nrf51822_{build.chip}.ld
+
+Raytac_MDBT40.menu.softdevice.s130=S130
+Raytac_MDBT40.menu.softdevice.s130.softdevice=s130
+Raytac_MDBT40.menu.softdevice.s130.softdeviceversion=2.0.1
+Raytac_MDBT40.menu.softdevice.s130.upload.maximum_size=151552
+Raytac_MDBT40.menu.softdevice.s130.build.extra_flags=-DNRF51 -DS130 -DNRF51_S130
+Raytac_MDBT40.menu.softdevice.s130.build.ldscript=armgcc_s130_nrf51822_{build.chip}.ld
+
+Raytac_MDBT40.menu.lfclk.lfxo=Crystal Oscillator
+Raytac_MDBT40.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Raytac_MDBT40.menu.lfclk.lfrc=RC Oscillator
+Raytac_MDBT40.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Raytac_MDBT40.menu.lfclk.lfsynt=Synthesized
+Raytac_MDBT40.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
 
 nRF51Dongle.name= Nordic nRF51 Dongle (PCA10031)
 
