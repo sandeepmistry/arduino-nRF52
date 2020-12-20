@@ -47,6 +47,8 @@ typedef enum _eAnalogReference
   AR_EXT0,
   AR_EXT1
 } eAnalogReference ;
+//not standard, set timer prescaller
+void pwmPrescaller( int div );
 #endif
 
 
