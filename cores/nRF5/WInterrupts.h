@@ -47,6 +47,18 @@ void attachInterrupt(uint32_t pin, voidFuncPtr callback, uint32_t mode);
  */
 void detachInterrupt(uint32_t pin);
 
+/*
+ * \brief Specifies a named Interrupt Service Routine (ISR) to call when an interrupt occurs.
+ *        Replaces any previous function that was attached to the interrupt.
+ *        Only one callback can be assigned to the low accuracy interrupt AKA PORT event.
+ */
+void attachInterruptLowAccuracy(uint32_t pin, voidFuncPtr callback, uint32_t mode);
+
+/*
+ * \brief Turns off the given low accuracy interrupt.
+ */
+void detachInterruptLowAccuracy(uint32_t pin);
+
 #ifdef __cplusplus
 }
 #endif
