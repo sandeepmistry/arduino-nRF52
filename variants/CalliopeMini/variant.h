@@ -80,7 +80,7 @@ static const uint8_t A7  = PIN_A7;
 
 #define PIN_SPI_MISO         (16)
 #define PIN_SPI_MOSI         (17)
-#define PIN_SPI_SCK          (22)
+#define PIN_SPI_SCK          (3)
 
 static const uint8_t MOSI = PIN_SPI_MOSI;
 static const uint8_t MISO = PIN_SPI_MISO;
