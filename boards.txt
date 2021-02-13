@@ -20,6 +20,7 @@ menu.softdevice=Softdevice
 menu.version=Version
 menu.lfclk=Low Frequency Clock
 menu.board_variant=Board Variant
+menu.reset=Reset
 
 # nRF52833 variants
 ###################
@@ -33,7 +34,7 @@ Generic_nRF52833.upload.maximum_size=524288
 Generic_nRF52833.bootloader.tool=sandeepmistry:openocd
 
 Generic_nRF52833.build.mcu=cortex-m4
-Generic_nRF52833.build.f_cpu=64000000
+Generic_nRF52833.build.f_cpu=16000000
 Generic_nRF52833.build.board=GENERIC
 Generic_nRF52833.build.core=nRF5
 Generic_nRF52833.build.variant=Generic
@@ -52,6 +53,46 @@ Generic_nRF52833.menu.lfclk.lfrc=RC Oscillator
 Generic_nRF52833.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 Generic_nRF52833.menu.lfclk.lfsynt=Synthesized
 Generic_nRF52833.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+Generic_nRF52833.menu.reset.notenable=Don't enable
+Generic_nRF52833.menu.reset.notenable.build.reset_flags=
+Generic_nRF52833.menu.reset.enabled=Enable
+Generic_nRF52833.menu.reset.enabled.build.reset_flags=-DCONFIG_GPIO_AS_PINRESET
+
+
+Generic_nRF52840.name=Generic nRF52840
+
+Generic_nRF52840.upload.tool=sandeepmistry:openocd
+Generic_nRF52840.upload.target=nrf52
+Generic_nRF52840.upload.maximum_size=1048576
+
+Generic_nRF52840.bootloader.tool=sandeepmistry:openocd
+
+Generic_nRF52840.build.mcu=cortex-m4
+Generic_nRF52840.build.f_cpu=16000000
+Generic_nRF52840.build.board=GENERIC
+Generic_nRF52840.build.core=nRF5
+Generic_nRF52840.build.variant=Generic
+Generic_nRF52840.build.variant_system_lib=
+Generic_nRF52840.build.extra_flags=-DNRF52840_XXAA
+Generic_nRF52840.build.float_flags=-mfloat-abi=hard -mfpu=fpv4-sp-d16
+Generic_nRF52840.build.ldscript=nrf52840_xxaa.ld
+
+Generic_nRF52840.menu.softdevice.none=None
+Generic_nRF52840.menu.softdevice.none.softdevice=none
+Generic_nRF52840.menu.softdevice.none.softdeviceversion=
+
+Generic_nRF52840.menu.lfclk.lfxo=Crystal Oscillator
+Generic_nRF52840.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Generic_nRF52840.menu.lfclk.lfrc=RC Oscillator
+Generic_nRF52840.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Generic_nRF52840.menu.lfclk.lfsynt=Synthesized
+Generic_nRF52840.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+Generic_nRF52840.menu.reset.notenable=Don't enable
+Generic_nRF52840.menu.reset.notenable.build.reset_flags=
+Generic_nRF52840.menu.reset.enabled=Enable
+Generic_nRF52840.menu.reset.enabled.build.reset_flags=-DCONFIG_GPIO_AS_PINRESET
 
 
 BBCmicrobitV2.name=BBC micro:bit V2
@@ -90,7 +131,7 @@ BBCmicrobitV2.menu.softdevice.none.softdeviceversion=
 # nRF52832 variants
 ###################
 
-Generic_nRF52832.name=Generic nRF52
+Generic_nRF52832.name=Generic nRF52832
 
 Generic_nRF52832.upload.tool=sandeepmistry:openocd
 Generic_nRF52832.upload.target=nrf52
@@ -125,6 +166,11 @@ Generic_nRF52832.menu.lfclk.lfrc=RC Oscillator
 Generic_nRF52832.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
 Generic_nRF52832.menu.lfclk.lfsynt=Synthesized
 Generic_nRF52832.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
+Generic_nRF52832.menu.reset.notenable=Don't enable
+Generic_nRF52832.menu.reset.notenable.build.reset_flags=
+Generic_nRF52832.menu.reset.enabled=Enable
+Generic_nRF52832.menu.reset.enabled.build.reset_flags=-DCONFIG_GPIO_AS_PINRESET
 
 
 
