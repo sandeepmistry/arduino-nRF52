@@ -64,12 +64,22 @@ void Uart::begin(unsigned long baudrate)
 
 void Uart::begin(unsigned long baudrate, uint16_t /*config*/)
 {
+#ifdef NRF52805_XXAA
+  nrfUart->PSEL.TXD = uc_pinTX;
+  nrfUart->PSEL.RXD = uc_pinRX;
+#else
   nrfUart->PSELTXD = uc_pinTX;
   nrfUart->PSELRXD = uc_pinRX;
+#endif
 
   if (uc_hwFlow == 1) {
+#ifdef NRF52805_XXAA
+    nrfUart->PSEL.CTS = uc_pinCTS;
+    nrfUart->PSEL.RTS = uc_pinRTS;
+#else
     nrfUart->PSELCTS = uc_pinCTS;
     nrfUart->PSELRTS = uc_pinRTS;
+#endif
     nrfUart->CONFIG = (UART_CONFIG_PARITY_Excluded << UART_CONFIG_PARITY_Pos) | UART_CONFIG_HWFC_Enabled;
   } else {
     nrfUart->CONFIG = (UART_CONFIG_PARITY_Excluded << UART_CONFIG_PARITY_Pos) | UART_CONFIG_HWFC_Disabled;
@@ -175,12 +185,20 @@ void Uart::end()
   nrfUart->TASKS_STOPTX = 0x1UL;
 
   nrfUart->ENABLE = UART_ENABLE_ENABLE_Disabled;
+ 
+#ifdef NRF52805_XXAA
+  nrfUart->PSEL.TXD = 0xFFFFFFFF;
+  nrfUart->PSEL.RXD = 0xFFFFFFFF;
 
+  nrfUart->PSEL.RTS = 0xFFFFFFFF;
+  nrfUart->PSEL.CTS = 0xFFFFFFFF;
+#else
   nrfUart->PSELTXD = 0xFFFFFFFF;
   nrfUart->PSELRXD = 0xFFFFFFFF;
 
   nrfUart->PSELRTS = 0xFFFFFFFF;
   nrfUart->PSELCTS = 0xFFFFFFFF;
+#endif
 
   rxBuffer.clear();
 }

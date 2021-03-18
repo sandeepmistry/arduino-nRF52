@@ -21,6 +21,38 @@ menu.version=Version
 menu.lfclk=Low Frequency Clock
 menu.board_variant=Board Variant
 
+# nRF52805 variants
+###################
+
+Generic_nRF52805.name=Generic nRF52805
+
+Generic_nRF52805.upload.tool=sandeepmistry:openocd
+Generic_nRF52805.upload.target=nrf52
+Generic_nRF52805.upload.maximum_size=196608
+
+Generic_nRF52805.bootloader.tool=sandeepmistry:openocd
+
+Generic_nRF52805.build.mcu=cortex-m4
+Generic_nRF52805.build.f_cpu=64000000
+Generic_nRF52805.build.board=GENERIC
+Generic_nRF52805.build.core=nRF5
+Generic_nRF52805.build.variant=Generic
+Generic_nRF52805.build.variant_system_lib=
+Generic_nRF52805.build.extra_flags=-DNRF52805_XXAA
+Generic_nRF52805.build.float_flags=
+Generic_nRF52805.build.ldscript=nrf52805_xxaa.ld
+
+Generic_nRF52805.menu.softdevice.none=None
+Generic_nRF52805.menu.softdevice.none.softdevice=none
+Generic_nRF52805.menu.softdevice.none.softdeviceversion=
+
+Generic_nRF52805.menu.lfclk.lfxo=Crystal Oscillator
+Generic_nRF52805.menu.lfclk.lfxo.build.lfclk_flags=-DUSE_LFXO
+Generic_nRF52805.menu.lfclk.lfrc=RC Oscillator
+Generic_nRF52805.menu.lfclk.lfrc.build.lfclk_flags=-DUSE_LFRC
+Generic_nRF52805.menu.lfclk.lfsynt=Synthesized
+Generic_nRF52805.menu.lfclk.lfsynt.build.lfclk_flags=-DUSE_LFSYNT
+
 # nRF52833 variants
 ###################
 

@@ -29,6 +29,7 @@ extern "C" {
 static uint32_t saadcReference = SAADC_CH_CONFIG_REFSEL_Internal;
 static uint32_t saadcGain      = SAADC_CH_CONFIG_GAIN_Gain1_5;
 
+#ifdef PWM_PRESENT
 static NRF_PWM_Type* pwms[PWM_COUNT] = {
   NRF_PWM0,
   NRF_PWM1,
@@ -47,6 +48,7 @@ static uint32_t pwmChannelPins[PWM_COUNT] = {
 #endif
 };
 static uint16_t pwmChannelSequence[PWM_COUNT];
+#endif
 
 static int readResolution = 10;
 static int writeResolution = 8;
@@ -215,6 +217,7 @@ uint32_t analogRead( uint32_t ulPin )
 // to digital output.
 void analogWrite( uint32_t ulPin, uint32_t ulValue )
 {
+#ifdef PWM_PRESENT
   if (ulPin >= PINS_COUNT) {
     return;
   }
@@ -247,6 +250,7 @@ void analogWrite( uint32_t ulPin, uint32_t ulValue )
       break;
     }
   }
+#endif
 }
 
 #ifdef __cplusplus

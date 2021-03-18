@@ -43,3 +43,4 @@ script:
   - buildExampleSketch sandeepmistry:nRF5:SeeedArchLink 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:Generic_nRF52833 01.Basics Blink
   - buildExampleSketch sandeepmistry:nRF5:BBCmicrobitV2 01.Basics Blink
+  - buildExampleSketch sandeepmistry:nRF5:Generic_nRF52805 01.Basics Blink

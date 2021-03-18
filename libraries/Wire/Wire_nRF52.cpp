@@ -401,17 +401,34 @@ void TwoWire::onService(void)
   }
 }
 
-TwoWire Wire(NRF_TWIM1, NRF_TWIS1, SPIM1_SPIS1_TWIM1_TWIS1_SPI1_TWI1_IRQn, PIN_WIRE_SDA, PIN_WIRE_SCL);
+#if defined(NRF52805_XXAA)
 
-#if WIRE_INTERFACES_COUNT > 0
-extern "C"
-{
-  void SPIM1_SPIS1_TWIM1_TWIS1_SPI1_TWI1_IRQHandler(void)
+  TwoWire Wire(NRF_TWIM0, NRF_TWIS0, TWIM0_TWIS0_TWI0_IRQn, PIN_WIRE_SDA, PIN_WIRE_SCL);
+
+  #if WIRE_INTERFACES_COUNT > 0
+  extern "C"
   {
-    Wire.onService();
+    void TWIM0_TWIS0_TWI0_IRQn_IRQHandler(void)
+    {
+      Wire.onService();
+    }
   }
-}
-#endif
+  #endif
+
+#else
+
+  TwoWire Wire(NRF_TWIM1, NRF_TWIS1, SPIM1_SPIS1_TWIM1_TWIS1_SPI1_TWI1_IRQn, PIN_WIRE_SDA, PIN_WIRE_SCL);
+
+  #if WIRE_INTERFACES_COUNT > 0
+  extern "C"
+  {
+    void SPIM1_SPIS1_TWIM1_TWIS1_SPI1_TWI1_IRQHandler(void)
+    {
+      Wire.onService();
+    }
+  }
+  #endif
+#endif //defined(NRF52805_XXAA)
 
 #if WIRE_INTERFACES_COUNT > 1
 

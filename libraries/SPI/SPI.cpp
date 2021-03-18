@@ -256,7 +256,7 @@ void SPIClass::detachInterrupt() {
 }
 
 #if SPI_INTERFACES_COUNT > 0
-#if defined(NRF52_SERIES)
+#if defined(NRF_SPI2)
 SPIClass SPI (NRF_SPI2,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
 #else
 SPIClass SPI (NRF_SPI0,  PIN_SPI_MISO,  PIN_SPI_SCK,  PIN_SPI_MOSI);
